@@ -1,0 +1,91 @@
+*,
+*::after,
+*::before {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.border {
+  border: 3px solid black;
+}
+
+.bold {
+  font-weight: bolder;
+
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.app_header {
+  border-bottom: 2px solid black;
+  padding: 10px;
+}
+
+.main-container {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.main-container .left-side-bar {
+  background-color: aliceblue;
+  min-width: 300px;
+  height: 100%;
+  border-right: 3px solid black;
+}
+
+.main-container .left-side-bar .account {
+  height: 100px;
+  width: 100%;
+  display: grid;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid black;
+}
+
+.main-container .left-side-bar .account img {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  margin: 10px;
+
+}
+
+.main-container .left-side-bar .account .user-information {
+  line-height: 150%;
+}
+
+.main-container .left-side-bar .account .user-information .user-name {
+  font-size: 1.3rem;
+}
+
+
+.main-container .main-sect {
+  margin: 10px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+
+}
+
+.main-container .main-sect>* {
+  border-radius: 10px;
+}
+
+.main-container .main-sect .tools {
+  /* background-color: black; */
+  height: 100px;
+}
+
+.main-container .main-sect .table {
+  background-color: gray;
+}
