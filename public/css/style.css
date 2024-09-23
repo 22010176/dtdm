@@ -13,7 +13,17 @@
 
 .bold {
   font-weight: bolder;
+}
 
+.dropdown .dropdown-container a {
+  text-decoration: none;
+  color: black;
+}
+
+.active {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  background-color: rgb(255, 212, 132);
 }
 
 body {
@@ -36,19 +46,20 @@ body {
 }
 
 .main-container .left-side-bar {
+  display: grid;
+  grid-template-rows: auto 1fr;
   background-color: aliceblue;
-  min-width: 300px;
+  width: max-content;
   height: 100%;
+  /* display: flex;
+  flex-direction: column; */
   border-right: 3px solid black;
 }
 
 .main-container .left-side-bar .account {
-  height: 100px;
-  width: 100%;
-  display: grid;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   border-bottom: 2px solid black;
 }
 
@@ -57,7 +68,6 @@ body {
   height: 75px;
   border-radius: 100%;
   margin: 10px;
-
 }
 
 .main-container .left-side-bar .account .user-information {
@@ -65,16 +75,55 @@ body {
 }
 
 .main-container .left-side-bar .account .user-information .user-name {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
+.main-container .left-side-bar .account .user-information .role {
+  font-size: .8rem;
+  color: gray;
+}
+
+.main-container .left-side-bar .categories {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.main-container .left-side-bar .categories-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center;
+  padding: 10px 0px 5px 15px;
+}
+
+.main-container .left-side-bar .categories-item.log-out {
+  margin-bottom: 20px;
+}
+
+.main-container .left-side-bar .categories-item>* {
+  margin-right: 15px;
+}
+
+.main-container .left-side-bar .categories-item .icon svg {
+  width: 35px;
+  height: 25px;
+}
+
+.main-container .left-side-bar .categories-item .arrow svg {
+  height: 15px;
+  rotate: -90deg;
+}
+
+.main-container .left-side-bar .categories .dropdown-container {
+  margin-left: 100px;
+  line-height: 170%;
+}
 
 .main-container .main-sect {
   margin: 10px;
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 10px;
-
 }
 
 .main-container .main-sect>* {
@@ -82,7 +131,6 @@ body {
 }
 
 .main-container .main-sect .tools {
-  /* background-color: black; */
   height: 100px;
 }
 
