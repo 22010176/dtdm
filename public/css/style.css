@@ -20,6 +20,10 @@
   color: black;
 }
 
+.dropdown .arrow svg {
+  height: 20px;
+}
+
 .active {
   border-top: 2px solid black;
   border-bottom: 2px solid black;
@@ -49,10 +53,7 @@ body {
   display: grid;
   grid-template-rows: auto 1fr;
   background-color: aliceblue;
-  width: max-content;
   height: 100%;
-  /* display: flex;
-  flex-direction: column; */
   border-right: 3px solid black;
 }
 
@@ -109,11 +110,6 @@ body {
   height: 25px;
 }
 
-.main-container .left-side-bar .categories-item .arrow svg {
-  height: 15px;
-  rotate: -90deg;
-}
-
 .main-container .left-side-bar .categories .dropdown-container {
   margin-left: 100px;
   line-height: 170%;
@@ -131,7 +127,25 @@ body {
 }
 
 .main-container .main-sect .tools {
-  height: 100px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  padding-inline: 10px;
+  gap: 25px;
+}
+
+.main-container .main-sect .tools .tool {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-weight: bold;
+  font-size: .8rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.main-container .main-sect .tools .tool svg {
+  height: 45px;
 }
 
 .main-container .main-sect .table {
