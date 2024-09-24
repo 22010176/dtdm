@@ -1,0 +1,70 @@
+.tools {
+    background-color: white;
+    border: 2px solid black;
+    /* margin: 10px; */
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 20px;
+    border-radius: 10px;
+}
+
+.tools .tool-items {
+    display: flex;
+    gap: 50px;
+}
+
+.tools .tool-items .tool {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: bold;
+    font-size: .8rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.tools .tool svg {
+    height: 45px;
+}
+
+.tools .search-form {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.tools .search-form .drop-down {
+    height: 40px;
+    font-weight: bold;
+    width: 200px;
+    padding-right: 20px;
+    font-size: 1.1rem;
+}
+
+.tools .search-form .search-input {
+    height: 40px;
+    font-size: 1.1rem;
+    padding: 10px;
+    width: 200px;
+    border: gray 2px solid;
+}
+
+.tools .search-form .submit-btn {
+    display: flex;
+    gap: 20px;
+    padding: 5px 10px;
+    width: max-content;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    background-color: white;
+    border: 2px solid black;
+    outline: none;
+    height: 40px;
+    align-items: center;
+}
+
+.tools .search-form .submit-btn svg {
+    width: 25px;
+}
