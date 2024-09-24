@@ -1,48 +1,3 @@
-*,
-*::after,
-*::before {
-  padding: 0px;
-  margin: 0px;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.border {
-  border: 3px solid black;
-}
-
-.bold {
-  font-weight: bolder;
-}
-
-.dropdown .dropdown-container a {
-  text-decoration: none;
-  color: black;
-}
-
-.dropdown .arrow svg {
-  height: 20px;
-}
-
-.active {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  background-color: rgb(255, 212, 132);
-}
-
-body {
-  max-width: 100vw;
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
-
-/* header_____________________________________________________________________________ */
-.app_header {
-  border-bottom: 2px solid black;
-  padding: 10px;
-}
-
 /* main-content_____________________________________________________________________________ */
 .main-container {
   max-width: 100%;
@@ -120,9 +75,10 @@ body {
 /*    table_________________________________________________________________________________________ */
 .main-container .main-sect {
   margin: 10px;
+  max-height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 10px;
+  grid-template-rows: 1fr 9fr;
+  gap: 20px;
 }
 
 .main-container .main-sect>* {
@@ -193,11 +149,20 @@ body {
 }
 
 /*        table___________________________________________________*/
-.main-container .main-sect .table {
-  display: grid;
-  max-height: 500px;
+.main-container .main-sect .table .wrapper {
   width: 100%;
+  max-height: 100%;
+  max-height: 200px;
+  position: relative;
+  /* overflow-y: auto; */
+  /* bottom: 10; */
+}
+
+.main-container .main-sect .table table {
+  width: 100%;
+  /* max-height: 200px; */
   overflow-y: auto;
+  /* padding: 50px 0px; */
 }
 
 .main-container .main-sect .table table tr:nth-child(even) {
