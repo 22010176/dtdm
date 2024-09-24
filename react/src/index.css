@@ -1,3 +1,10 @@
+:root {
+  --clr-blue: #597eaa;
+  --semi-light-blue: #9fc5f8;
+  --clr-light-blue: #9fc5f8;
+
+}
+
 *,
 *::after,
 *::before {

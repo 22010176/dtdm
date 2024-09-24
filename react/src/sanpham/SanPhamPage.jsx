@@ -1,7 +1,7 @@
 import Sidebar from '../components/sp_sidebar'
 import SanPhamTable from '../components/sp_table'
 import Toolbar from '../components/sp_toolbar'
-
+import ThemmSanPham from '../components/sp_themSanPham'
 import styles from './App.module.css'
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
         <Toolbar />
         <SanPhamTable />
       </div>
+      <ThemmSanPham visible={false} />
     </div>
   )
 }
