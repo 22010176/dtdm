@@ -1,0 +1,21 @@
+.container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: white;
+    border: 5px solid black;
+}

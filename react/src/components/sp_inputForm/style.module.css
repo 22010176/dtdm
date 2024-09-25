@@ -1,0 +1,41 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 30px;
+  padding: 50px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
+}
+
+.input-sec {
+  display: grid;
+  gap: 5px;
+}
+
+.input-sec .addImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  white-space: nowrap;
+  border: 2px solid black;
+  height: 40px;
+}
+
+.input-sec .demo-img {
+  width: 100%;
+  height: auto;
+}
+
+.input-sec .input-label {
+  font-weight: bold;
+}
+
+.input-sec .form-text-input,
+.input-sec select {
+  padding: 5px;
+}

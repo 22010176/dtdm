@@ -1,0 +1,31 @@
+.container {
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px
+}
+
+.container .input-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-section {
+  display: grid;
+  gap: 5px;
+}
+
+.form-section .field-title {
+  font-weight: bold;
+}
+
+.form-section .filed-input {
+  min-width: 200px;
+  padding: 5px;
+}
+
+.table-data {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  gap: 20px;
+}

@@ -1,5 +1,5 @@
-th,
-td {
+.data-display th,
+.data-display td {
     border-left: 1px solid black !important;
 }
 

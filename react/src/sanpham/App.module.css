@@ -15,3 +15,43 @@
     padding: 10px;
     gap: 10px;
 }
+
+.title {
+    background-color: #76a3db;
+    padding: 20px;
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.submit-section {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    grid-column: span 2;
+}
+
+.submit-section button {
+    padding: 10px;
+    width: 150px;
+    background-color: none;
+    border: solid 2px black;
+    box-shadow: 2px 3px 3px black;
+    font-size: 1.1rem;
+}
+
+.submit-section .submit {
+    background-color: rgb(143, 227, 255);
+}
+
+.submit-section .cancle {
+    background-color: lightcoral;
+}
+
+.submit-section .edit {
+    background-color: #ffd966;
+}
