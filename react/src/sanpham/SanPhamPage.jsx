@@ -7,6 +7,7 @@ import SanPhamForm from '../components/sp_inputForm'
 import ThemCauHinh from '../components/sp_taoCauHinh'
 
 import styles from './App.module.css'
+import IMEM_Data from '../components/sp_imei'
 
 function App() {
   return (
@@ -24,29 +25,36 @@ function App() {
         </div>
         <SanPhamForm />
         <div className={styles["submit-section"]}>
-          <button className={styles['submit']} type='submit'>Tao cau hinh</button>
-          <button className={styles['cancle']}>Huy bo</button>
+          <button className="add" type='submit'>Tao cau hinh</button>
+          <button className="delete">Huy bo</button>
         </div>
       </Overlay >
 
       {/* Sua san pham */}
-      <Overlay width="80%" height="70%" visible={true} opacity={0.9} >
+      <Overlay width="80%" height="70%" visible={false} opacity={0.9} >
         <div className={styles.title}>
           <h1>Sua San Pham</h1>
         </div>
         <SanPhamForm />
         <div className={styles["submit-section"]}>
-          <button className={styles['submit']} type='submit'>Luu thong tin</button>
-          <button className={styles['edit']} type='submit'>Sua cau hinh</button>
-          <button className={styles['cancle']}>Huy bo</button>
+          <button className="add" type='submit'>Luu thong tin</button>
+          <button className="edit" type='submit'>Sua cau hinh</button>
+          <button className="delete">Huy bo</button>
         </div>
       </Overlay >
 
-      <Overlay width="80%" height="70%" visible={true} opacity={0.9} >
+      <Overlay width="70%" height="70%" visible={false} opacity={0.9} >
         <div className={styles.title}>
           <h1>Tao Cau Hinh</h1>
         </div>
         <ThemCauHinh />
+      </Overlay >
+
+      <Overlay width="60%" height="80%" visible={false} opacity={0.9} >
+        <div className={styles.title}>
+          <h1>Danh sach ma IMEI</h1>
+        </div>
+        <IMEM_Data />
       </Overlay >
     </div >
   )

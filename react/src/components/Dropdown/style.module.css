@@ -1,0 +1,21 @@
+.header {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.dropdown {
+  overflow: hidden;
+  transform-origin: top;
+  transition: all 5s;
+}
+
+.hide,
+.container[data-state="false"] {
+  height: 40px;
+  overflow: hidden;
+}
+
+.container[data-state="true"] .dropdown {
+  height: fit-content;
+}

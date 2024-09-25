@@ -49,7 +49,7 @@
     display: grid;
     grid-template-columns: 60px 1fr auto;
     align-items: center;
-    padding: 10px 0px 5px 15px;
+    padding: 10px 10px 5px 15px;
 }
 
 .left-side-bar .categories-item>* {
@@ -67,7 +67,7 @@
 }
 
 .left-side-bar .categories .dropdown-container {
-    margin-left: 100px;
+    margin-inline: 50px;
     line-height: 170%;
 }
 

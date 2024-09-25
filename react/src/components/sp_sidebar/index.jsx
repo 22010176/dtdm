@@ -1,5 +1,8 @@
+import Accordion from 'react-bootstrap/Accordion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faRightFromBracket, faUnlockKeyhole, faCheckCircle, faCircleUser, faHouse, faTabletScreenButton, faWarehouse, faHandshakeSimple, faShieldHalved, faClipboardUser } from '@fortawesome/free-solid-svg-icons'
+
+import Dropdown from '../Dropdown'
 import styles from './style.module.css'
 
 function Sidebar() {
@@ -14,36 +17,80 @@ function Sidebar() {
       </div>
 
       <div className={styles["categories"]}>
-
-        <div className={styles["categories-item"]}>
+        {/* <div className={styles["categories-item"]}>
           <div className={styles["icon"]}>
             <FontAwesomeIcon icon={faHouse} />
           </div>
           <p className={styles["category-title"]}>
             <a href="">Trang chu</a>
           </p>
-        </div>
+        </div> */}
 
-
-        <div className={styles["dropdown"]}>
-          <div className={[styles["categories-item"], styles["active"]].join(" ")}>
-            <div className={styles["icon"]}>
-              <FontAwesomeIcon icon={faTabletScreenButton} />
-            </div>
-            <p className={styles["category-title"]}> Quan ly san pham </p>
-            <div className={[styles["arrow"], styles["trigger"]].join(" ")}>
-              <FontAwesomeIcon icon={faAngleDown} />
+        <div className="accordion accordion-flush" id='links'>
+          {/* Trang chu */}
+          <div className="accordion-item">
+            <div className="accordion-header">
+              <div className={styles["categories-item"]}>
+                <div className={styles["icon"]}>
+                  <FontAwesomeIcon icon={faHouse} />
+                </div>
+                <p className={styles["category-title"]}>
+                  <a href="">Trang chu</a>
+                </p>
+              </div>
             </div>
           </div>
 
-          <ul className={styles["dropdown-container"]}>
-            <li className={styles["item"]}><a href="">San pham</a></li>
-            <li className={styles["item"]}><a href="">Thuoc tinh</a></li>
-          </ul>
-        </div>
+          {/* Quan ly san pham */}
+          <div className="accordion-item">
+            <div className={["accordion-button", "collapsed", styles["categories-item"]].join(" ")} data-bs-toggle="collapse" data-bs-target="#sanPham">
+              <div className={styles["icon"]}>
+                <FontAwesomeIcon icon={faTabletScreenButton} />
+              </div>
+              <p className={styles["category-title"]}> Quan ly san pham </p>
+            </div>
+            <div id="sanPham" className="accordion-collapse collapse" data-bs-parent="#links">
+              <ul className={styles["dropdown-container"]}>
+                <li className={styles["item"]}><a href="">San pham</a></li>
+                <li className={styles["item"]}><a href="">Thuoc tinh</a></li>
+              </ul>
+            </div>
+          </div>
 
+          {/* Quan ly xuat nhap */}
+          <div className="accordion-item">
+            <div className={["accordion-button", "collapsed", styles["categories-item"]].join(" ")} data-bs-toggle="collapse" data-bs-target="#xuatNhap">
+              <div className={styles["icon"]}>
+                <FontAwesomeIcon icon={faWarehouse} />
+              </div>
+              <p className={styles["category-title"]}> Quan ly xuat nhap</p>
+            </div>
+            <div id="xuatNhap" className="accordion-collapse collapse" data-bs-parent="#links">
+              <ul className={styles["dropdown-container"]}>
+                <li className={styles["item"]}><a href="">Nhap kho</a></li>
+                <li className={styles["item"]}><a href="">Xuat kho</a></li>
+              </ul>
+            </div>
+          </div>
 
-        <div className={styles["dropdown"]}>
+          {/* Quan ly xuat nhap
+          <div className="accordion-item">
+            <div className={["accordion-button", styles["categories-item"]].join(" ")} data-bs-toggle="collapse" data-bs-target="#xuatNhap" aria-expanded="false" aria-controls="xuatNhap">
+              <div className={styles["icon"]}>
+                <FontAwesomeIcon icon={faWarehouse} />
+              </div>
+              <p className={styles["category-title"]}> Quan ly xuat nhap</p>
+            </div>
+            <div id="xuatNhap" className="accordion-collapse collapse show" data-bs-parent="#links">
+              <ul className={styles["dropdown-container"]}>
+                <li className={styles["item"]}><a href="">Nhap kho</a></li>
+                <li className={styles["item"]}><a href="">Xuat kho</a></li>
+              </ul>
+            </div>
+          </div> */}
+
+          {/* Xuat nhap */}
+          {/* <div className={styles["dropdown"]}>
           <div className={styles["categories-item"]}>
             <div className={styles["icon"]}>
               <FontAwesomeIcon icon={faWarehouse} />
@@ -58,10 +105,45 @@ function Sidebar() {
             <li className={styles["item"]}><a href="">Nhap kho</a></li>
             <li className={styles["item"]}><a href="">Xuat kho</a></li>
           </ul>
+        </div> */}
         </div>
 
+        {/* San pham */}
+        {/* <Dropdown item={<ul className={styles["dropdown-container"]}>
+          <li className={styles["item"]}><a href="">San pham</a></li>
+          <li className={styles["item"]}><a href="">Thuoc tinh</a></li>
+        </ul>}>
+          <div className={[styles["categories-item"], styles["active"]].join(" ")}>
+            <div className={styles["icon"]}>
+              <FontAwesomeIcon icon={faTabletScreenButton} />
+            </div>
+            <p className={styles["category-title"]}> Quan ly san pham </p>
+            <div className={[styles["arrow"], styles["trigger"]].join(" ")}>
+              <FontAwesomeIcon icon={faAngleDown} />
+            </div>
+          </div>
+        </Dropdown> */}
 
-        <div className={styles["dropdown"]}>
+        {/* Xuat nhap */}
+        {/* <div className={styles["dropdown"]}>
+          <div className={styles["categories-item"]}>
+            <div className={styles["icon"]}>
+              <FontAwesomeIcon icon={faWarehouse} />
+            </div>
+            <p className={styles["category-title"]}> Quan ly xuat nhap </p>
+            <div className={[styles["arrow"], styles["trigger"]].join(" ")}>
+              <FontAwesomeIcon icon={faAngleDown} />
+            </div>
+          </div>
+
+          <ul className={styles["dropdown-container"]}>
+            <li className={styles["item"]}><a href="">Nhap kho</a></li>
+            <li className={styles["item"]}><a href="">Xuat kho</a></li>
+          </ul>
+        </div> */}
+
+        {/* Doi tac */}
+        {/* <div className={styles["dropdown"]}>
           <div className={styles["categories-item"]}>
             <div className={styles["icon"]}>
               <FontAwesomeIcon icon={faHandshakeSimple} />
@@ -76,10 +158,10 @@ function Sidebar() {
             <li className={styles["item"]}><a href="">Nha cung cap</a></li>
             <li className={styles["item"]}><a href="">Khach hang</a></li>
           </ul>
-        </div>
+        </div> */}
 
-
-        <div className="dropdown">
+        {/* dich vu */}
+        {/* <div className="dropdown">
           <div className={styles["categories-item"]}>
             <div className={styles["icon"]}>
               <FontAwesomeIcon icon={faShieldHalved} />
@@ -95,45 +177,50 @@ function Sidebar() {
             <li className={styles["item"]}><a href="">Tra hang</a></li>
             <li className={styles["item"]}><a href="">Bao hanh</a></li>
           </ul>
-        </div>
+        </div> */}
 
-        <div className={styles["categories-item"]}>
+        {/* Nhan vien */}
+        {/* <div className={styles["categories-item"]}>
           <div className={styles["icon"]}>
             <FontAwesomeIcon icon={faClipboardUser} />
           </div>
           <p className={styles["category-title"]}>
             <a href="">Nhan vien</a>
           </p>
-        </div>
+        </div> */}
 
-        <div className={styles["categories-item"]}>
+        {/* Tai khoan */}
+        {/* <div className={styles["categories-item"]}>
           <div className={styles["icon"]}>
             <FontAwesomeIcon icon={faCircleUser} />
           </div>
           <p className={styles["category-title"]}>
             <a href=""> Tai khoan</a>
           </p>
-        </div>
+        </div> */}
 
-        <div className={styles["categories-item"]}>
+        {/* Thong ke */}
+        {/* <div className={styles["categories-item"]}>
           <div className={styles["icon"]}>
             <FontAwesomeIcon icon={faCheckCircle} />
           </div>
           <p className={styles["category-title"]}>
             <a href="">Thong ke</a>
           </p>
-        </div>
+        </div> */}
 
-        <div className={styles["categories-item"]}>
+        {/* Phan quyen */}
+        {/* <div className={styles["categories-item"]}>
           <div className={styles["icon"]}>
             <FontAwesomeIcon icon={faUnlockKeyhole} />
           </div>
           <p className={styles["category-title"]}>
             <a href="">Phan quyen</a>
           </p>
-        </div>
+        </div> */}
       </div>
 
+      {/* Dang xuat */}
       <div className={[styles["categories-item"], styles["log-out"]].join(" ")}>
         <div className={styles["icon"]}>
           <FontAwesomeIcon icon={faRightFromBracket} />

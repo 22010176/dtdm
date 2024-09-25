@@ -43,15 +43,3 @@
     box-shadow: 2px 3px 3px black;
     font-size: 1.1rem;
 }
-
-.submit-section .submit {
-    background-color: rgb(143, 227, 255);
-}
-
-.submit-section .cancle {
-    background-color: lightcoral;
-}
-
-.submit-section .edit {
-    background-color: #ffd966;
-}

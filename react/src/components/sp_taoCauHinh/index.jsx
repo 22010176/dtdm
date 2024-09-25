@@ -51,36 +51,45 @@ export default function ThemCauHinh() {
       </form>
 
       <div className={styles["table-data"]}>
-        <table className={styles['data-table']}>
-          <tr>
-            <th>Stt</th>
-            <th>RAM</th>
-            <th>ROM</th>
-            <th>Mau sac</th>
-            <th>Gia nhap</th>
-            <th>Gia xuat</th>
-          </tr>
-          <tr>
-            <td className={styles['stt-col']}>1</td>
-            <td className={styles['rom-col']}>32GB</td>
-            <td className={styles['ram-col']}>32GB</td>
-            <td className={styles['color-col']}>Vang</td>
-            <td className={styles['import-col']}>8000000</td>
-            <td className={styles['export-col']}>80000000</td>
-          </tr>
-        </table>
+        <div className={styles['wrapper']}>
+          <table className={styles['data-table']}>
+            <tbody>
+              <tr>
+                <th>Stt</th>
+                <th>RAM</th>
+                <th>ROM</th>
+                <th>Mau sac</th>
+                <th>Gia nhap</th>
+                <th>Gia xuat</th>
+              </tr>
+
+              {new Array(20).fill().map((i, j) => (
+                <tr key={j}>
+                  <td className={styles['stt-col']}>1</td>
+                  <td className={styles['rom-col']}>32GB</td>
+                  <td className={styles['ram-col']}>32GB</td>
+                  <td className={styles['color-col']}>Vang</td>
+                  <td className={styles['import-col']}>8000000</td>
+                  <td className={styles['export-col']}>{Math.floor(Math.random() * 10000)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <div className={styles["tools-btn"]}>
-          <button >Them cau hinh</button>
-          <button >Sua cau hinh</button>
-          <button >Xoa cau hinh</button>
-          <button >Lam moi cau hinh</button>
+          <button className="add">Them cau hinh</button>
+          <button className="edit">Sua cau hinh</button>
+          <button className="delete">Xoa cau hinh</button>
+          <button className="refresh">Lam moi cau hinh</button>
         </div>
       </div>
+
       <div className={styles["submit-btn"]}>
-        <button>Them san pham moi</button>
-        <button>Quay lai trang truoc</button>
+        <button className='add'>Them san pham moi</button>
+        <button className='edit'>Quay lai trang truoc</button>
       </div>
     </div>
   )
 }
+
