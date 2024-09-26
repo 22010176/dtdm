@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileExcel, faArrowRotateRight, faFileExport, faTableList, faPencil, faCirclePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import styles from './style.module.css'
 import { useEffect } from 'react'
+import RefreshBtn from '../RefreshBtn'
+import FindBtn from '../FindBtn'
 
 export default function Toolbar({ toolFunc = _ => { } }) {
 
@@ -56,10 +58,8 @@ export default function Toolbar({ toolFunc = _ => { } }) {
           <option value="all">Tat ca 3</option>
         </select>
         <input className={styles["search-input"]} type="text" name="ten-sp" placeholder="Tim kiem" />
-        <button type="submit" title="submit-btn" className={styles["submit-btn"]}>
-          <FontAwesomeIcon icon={faArrowRotateRight} style={{ color: "#ff00ff", }} />
-          <span>Lam moi</span>
-        </button>
+        <FindBtn width="100px" height="40px" />
+        <RefreshBtn width="100px" height="40px" />
       </form>
     </div>
   )

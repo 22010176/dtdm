@@ -1,23 +1,20 @@
-import Sidebar from '../components/sp_sidebar'
-import SanPhamTable from '../components/sp_table'
-import Toolbar from '../components/sp_toolbar'
+import Sidebar from '../../components/sp_sidebar'
+import SanPhamTable from '../../components/sp_table'
+import Toolbar from '../../components/sp_toolbar'
 
-import Overlay from '../components/overlay/Overlay'
-import SanPhamForm from '../components/sp_inputForm'
-import ThemCauHinh from '../components/sp_taoCauHinh'
+import Overlay from '../../components/overlay/Overlay'
+import SanPhamForm from '../../components/sp_inputForm'
+import ThemCauHinh from '../../components/sp_taoCauHinh'
 
-import styles from './App.module.css'
-import IMEM_Data from '../components/sp_imei'
+import styles from './style.module.css'
+import IMEM_Data from '../../components/sp_imei'
 import { useState } from 'react'
 
 function App() {
-  const [overlay, setOverlay] = useState({
-    add: false, edit: false, taoCH: false, imei: false
-  });
+  const [overlay, setOverlay] = useState({});
 
   function overlayFunction(state, e, key) {
     e.target?.preventDefault?.()
-    console.log({ state, key })
     setOverlay(data => ({ ...data, [key]: state == "open" }))
   }
 
@@ -36,7 +33,7 @@ function App() {
         </div>
         <SanPhamForm />
         <div className={styles["submit-section"]}>
-          <button className="add" type='submit'>Tao cau hinh</button>
+          <button className="add" type='submit' onClick={overlayFunction.bind(this, "open", {}, "taoCH")}>Tao cau hinh</button>
           <button className="delete" onClick={overlayFunction.bind(this, "close", {}, "add")}>Huy bo</button>
         </div>
       </Overlay >
@@ -59,7 +56,7 @@ function App() {
         <div className={styles.title}>
           <h1>Chỉnh sửa Cau Hinh</h1>
         </div>
-        <ThemCauHinh />
+        <ThemCauHinh closeOverlay={overlayFunction.bind(this, "close", {}, "taoCH")} />
       </Overlay >
 
       {/* imei */}

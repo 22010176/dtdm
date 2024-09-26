@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import styles from './style.module.css'
 
-export default function ThemCauHinh() {
+export default function ThemCauHinh({ closeOverlay }) {
   return (
     <div className={styles.container}>
       <form className={styles["input-form"]}>
@@ -87,7 +88,9 @@ export default function ThemCauHinh() {
 
       <div className={styles["submit-btn"]}>
         {/* <button className='add'>Them san pham moi</button> */}
-        <button className='edit'>Quay lai trang truoc</button>
+        <button className='edit' onClick={function (e) {
+          if (typeof closeOverlay == 'function') closeOverlay();
+        }}>Quay lai trang truoc</button>
       </div>
     </div>
   )

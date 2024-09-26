@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './style.module.css'
+import FindBtn from '../FindBtn'
 
 export default function IMEM_Data() {
   return (
@@ -38,7 +39,7 @@ export default function IMEM_Data() {
         </div>
 
         <div className={styles["input-sec"]}>
-          <button type="submit" className={styles['submit-btn']}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+          <FindBtn width="100px" height="35px" />
         </div>
       </form>
 

@@ -1,0 +1,10 @@
+.find-btn {
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  gap: 10px;
+  white-space: nowrap;
+  border: 2px solid black;
+}

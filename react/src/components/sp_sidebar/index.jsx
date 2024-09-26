@@ -24,7 +24,7 @@ function Sidebar() {
               <FontAwesomeIcon icon={faHouse} />
             </div>
             <p className={styles["category-title"]}>
-              <a href="">Trang chu</a>
+              <a href="/">Trang chu</a>
             </p>
           </div>
         </div>
@@ -43,11 +43,11 @@ function Sidebar() {
           <ul id="sanPham" className={["accordion-collapse", "collapse", styles["dropdown-container"]].join(" ")} data-bs-parent="#links">
             <li className={styles["item"]}>
               <FontAwesomeIcon icon={faCircle} />
-              <a href="">San pham</a>
+              <a href="/sanpham">San pham</a>
             </li>
             <li className={styles["item"]}>
               <FontAwesomeIcon icon={faCircle} />
-              <a href="">Thuoc tinh</a>
+              <a href="/thuoctinh">Thuoc tinh</a>
             </li>
           </ul>
         </div>

@@ -1,0 +1,11 @@
+.refresh-btn {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  white-space: nowrap;
+  justify-content: center;
+  background-color: aliceblue;
+  border: 2px solid black;
+  outline: none;
+  align-items: center;
+}
