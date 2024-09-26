@@ -1,3 +1,4 @@
+import Sidebar from '../../components/sidebar'
 import SanPhamTable from '../../components/sp_table'
 import Toolbar from '../../components/sp_toolbar'
 
@@ -8,7 +9,6 @@ import ThemCauHinh from '../../components/sp_taoCauHinh'
 import styles from './style.module.css'
 import IMEM_Data from '../../components/sp_imei'
 import { useState } from 'react'
-import TemplateHome from '../../components/templateHome'
 
 function App() {
   const [overlay, setOverlay] = useState({});
@@ -19,7 +19,8 @@ function App() {
   }
 
   return (
-    <TemplateHome>
+    <div className={styles.App}>
+      <Sidebar />
       <div className={styles["main-content"]}>
         <Toolbar toolFunc={overlayFunction.bind(this, "open")} />
         <SanPhamTable />
@@ -65,7 +66,7 @@ function App() {
         </div>
         <IMEM_Data />
       </Overlay >
-    </TemplateHome>
+    </div >
   )
 }
 

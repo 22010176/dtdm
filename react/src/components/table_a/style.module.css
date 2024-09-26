@@ -1,0 +1,27 @@
+.table {
+  border: 3px solid black;
+  overflow: auto;
+}
+
+
+.table .data-display {
+  width: 100%;
+
+}
+
+.table .data-display th {
+  border-bottom: 2px solid black;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.table .data-display td,
+.table .data-display th {
+  padding: 5px 10px;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: aliceblue;
+}

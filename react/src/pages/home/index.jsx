@@ -1,11 +1,11 @@
 import Sidebar from '../../components/sidebar'
 import Toolbar from '../../components/sp_toolbar'
-import TemplateHome from '../../components/templateHome'
 import styles from './style.module.css'
 
 export default function HomePage() {
   return (
-    <TemplateHome>
+    <div className={styles.App}>
+      <Sidebar />
       <div className={styles["main-content"]}>
         <div className={styles["title"]}>
           <h1 >
@@ -15,6 +15,6 @@ export default function HomePage() {
         </div>
         <img src="img/bbb.jpg" alt="" />
       </div>
-    </TemplateHome>
+    </div>
   )
 }

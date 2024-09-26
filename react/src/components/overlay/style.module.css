@@ -17,6 +17,8 @@
     translate: -50% -50%;
     background-color: white;
     border: 5px solid black;
+    overflow: 'auto';
+    /* padding-bottom: 20px; */
 }
 
 .hide {
@@ -25,6 +27,8 @@
 }
 
 .container {
-    /* display: block; */
-    transition: all 5s;
+    transition: 1s;
+    /* overflow: hidden; */
+    height: 0px;
+    width: 0px;
 }

@@ -1,27 +1,139 @@
+.App {
+  position: relative;
+  background-color: #a0c5f9;
+  height: 100vh;
+  max-width: 100vw;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
 .main-content {
   display: grid;
   max-height: 100vh;
-  /* height: 100vh; */
+  max-width: 100%;
   grid-template-columns: 1fr 1fr;
   gap: 50px;
   overflow: auto;
   padding: 100px;
 }
 
+
 .category {
   border: 10px solid rgba(0, 0, 0, 0.2);
   display: flex;
-  justify-content: flex-start;
+  grid-template-columns: auto 1fr;
   align-items: center;
+  text-align: left;
   gap: 50px;
-  /* opacity: .85; */
   padding: 0px 0px 0px 100px;
-  font-size: 4rem;
   transition: .3s;
   cursor: pointer;
+}
+
+.category svg {
+  width: 100px;
+  height: 100px;
+}
+
+.category h1 {
+  margin-top: 10%;
+  /* line-height: 50%; */
+  font-size: 4rem;
+}
+
+.main-content img {
+  position: absolute;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.main-content .title {
+  z-index: 2;
+  width: 840px;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  padding: 30px 10px;
+  background-color: rgba(111, 161, 204, 0.8);
+}
+
+.main-content h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(17, 17, 101);
+  margin-bottom: 50px;
+}
+
+.main-content h2 {
+  font-size: 1rem;
+  width: 625px;
+  font-style: italic;
 }
 
 .category:hover {
   border: 10px solid rgba(255, 255, 255, 0.3);
   opacity: 1;
+}
+
+.title {
+  background-color: #76a3db;
+  padding: 20px;
+  align-items: center;
+  font-size: 2rem;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form {
+  padding: 30px 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px
+}
+
+.form .form-sec {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.form .form-sec svg {
+  height: 70px;
+}
+
+.form .form-sec div {
+  display: grid;
+  width: 50%;
+}
+
+.form .form-sec div label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.form .form-sec div input {
+  font-weight: bold;
+  width: 100%;
+  padding-inline: 10px;
+  font-weight: normal;
+}
+
+.form .submit {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.form .submit button {
+  height: 35px;
+  width: 120px;
+
 }

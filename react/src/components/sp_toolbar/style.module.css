@@ -28,7 +28,7 @@
     text-transform: uppercase;
     border-radius: 5px;
     cursor: pointer;
-    padding: 5px;
+    padding: 2px;
     width: 70px;
     transition: all .2s;
 }

@@ -52,7 +52,7 @@ export default function IMEM_Data() {
               <th>Ma phieu xuat</th>
               <th>Tinh trang</th>
             </tr>
-            {new Array(100).fill().map((i, j) => (
+            {new Array(10).fill().map((i, j) => (
               <tr key={j}>
                 <td className={styles["imei"]}>test</td>
                 <td className={styles["phieuNhap"]}>20</td>
