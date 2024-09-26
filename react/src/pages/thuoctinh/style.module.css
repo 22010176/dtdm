@@ -28,6 +28,8 @@
   padding: 0px 0px 0px 100px;
   transition: .3s;
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .category svg {

@@ -7,14 +7,21 @@ import styles from './style.module.css'
 import Overlay from '../../components/overlay/Overlay'
 import TableA from '../../components/table_a'
 import Sidebar from '../../components/sidebar'
+import { useState } from 'react'
 
 
-function SubmitSec() {
+function SubmitSec({ deleteF, addF, editF }) {
   return (
     <div className={styles["submit"]}>
-      <button className="add" type='submit'>Them</button>
-      <button className="refresh" type='submit' >Sua</button>
-      <button className="delete" >Xoa</button>
+      <button className="add" type='submit' onClick={function (e) {
+        if (typeof addF == 'function') addF();
+      }}>Them</button>
+      <button className="refresh" type='submit' onClick={function (e) {
+        if (typeof editF == 'function') editF();
+      }}>Sua</button>
+      <button className="delete" type='button' onClick={function (e) {
+        if (typeof deleteF == 'function') deleteF();
+      }}>Xoa</button>
     </div>
   )
 }
@@ -31,39 +38,45 @@ function FormSec({ title, name, icon }) {
   )
 }
 export default function ThuocTinhPage() {
+  const [overlay, setOverlay] = useState({});
+
+  function handleOverlay(state, name) {
+    setOverlay(prev => ({ ...prev, [name]: state == "open" }))
+  }
   return (
     <>
       <div className={styles.App}>
         <Sidebar />
         <div className={styles["main-content"]}>
-          <div className={styles["category"]} style={{ background: "#b6d7a8" }}>
+          <div className={styles["category"]} style={{ background: "#b6d7a8" }} onClick={handleOverlay.bind(this, "open", "thuongHieu")}>
             <FontAwesomeIcon icon={faEmpire} />
             <h1>Thuong hieu</h1>
           </div>
-          <div className={styles["category"]} style={{ background: "#ea9999" }}>
+          <div className={styles["category"]} style={{ background: "#ea9999" }} onClick={handleOverlay.bind(this, "open", "xuatXu")}>
             <FontAwesomeIcon icon={faMountainCity} />
             <h1>Xuất Xứ</h1>
           </div>
-          <div className={styles["category"]} style={{ background: "#f9cb9c" }}>
+          <div className={styles["category"]} style={{ background: "#f9cb9c" }} onClick={handleOverlay.bind(this, "open", "hdh")}>
             <FontAwesomeIcon icon={faAndroid} />
             <h1>Hệ Điều Hành</h1>
           </div>
-          <div className={styles["category"]} style={{ background: "#b4a7d6" }}>
+          <div className={styles["category"]} style={{ background: "#b4a7d6" }} onClick={handleOverlay.bind(this, "open", "ram")}>
             <FontAwesomeIcon icon={faComputer} />
             <h1>RAM</h1>
           </div>
-          <div className={styles["category"]} style={{ background: "#d5a6bd" }}>
+          <div className={styles["category"]} style={{ background: "#d5a6bd" }} onClick={handleOverlay.bind(this, "open", "rom")}>
             <FontAwesomeIcon icon={faMemory} />
             <h1>ROM</h1>
           </div>
-          <div className={styles["category"]} style={{ background: "#ffe599" }}>
+          <div className={styles["category"]} style={{ background: "#ffe599" }} onClick={handleOverlay.bind(this, "open", "mau")}>
             <FontAwesomeIcon icon={faBrush} />
             <h1>Màu Sắc</h1>
           </div>
         </div>
       </div>
 
-      <Overlay height="60%" width="40%" visible={false} opacity={.8} nameOverlay='xuatXu'>
+      {/* Xuat xu */}
+      <Overlay height="60%" width="40%" visible={overlay.xuatXu} opacity={.8} nameOverlay='xuatXu' closeEvent={handleOverlay.bind(this, "", "xuatXu")}>
         <div className={styles.title}>
           <h1>Xuất xứ sản phẩm</h1>
         </div>
@@ -74,7 +87,8 @@ export default function ThuocTinhPage() {
         </form>
       </Overlay>
 
-      <Overlay height="60%" width="40%" visible={false} opacity={.8} nameOverlay='thuongHieu'>
+      {/* Thuong hieu */}
+      <Overlay height="60%" width="40%" visible={overlay.thuongHieu} opacity={.8} nameOverlay='thuongHieu' closeEvent={handleOverlay.bind(this, "", "thuongHieu")}>
         <div className={styles.title}>
           <h1>THƯƠNG HIỆU SẢN PHẨM</h1>
         </div>
@@ -85,7 +99,8 @@ export default function ThuocTinhPage() {
         </form>
       </Overlay>
 
-      <Overlay height="60%" width="40%" visible={false} opacity={.8} nameOverlay='hdh'>
+      {/* He dieu hanh */}
+      <Overlay height="60%" width="40%" visible={overlay.hdh} opacity={.8} nameOverlay='hdh' closeEvent={handleOverlay.bind(this, "", "hdh")}>
         <div className={styles.title}>
           <h1>Hệ Điều Hành</h1>
         </div>
@@ -96,7 +111,8 @@ export default function ThuocTinhPage() {
         </form>
       </Overlay>
 
-      <Overlay height="60%" width="40%" visible={false} opacity={.8} nameOverlay='RAM'>
+      {/* RAM */}
+      <Overlay height="60%" width="40%" visible={overlay.ram} opacity={.8} nameOverlay='ram' closeEvent={handleOverlay.bind(this, "", "ram")}>
         <div className={styles.title}>
           <h1>RAM</h1>
         </div>
@@ -107,7 +123,8 @@ export default function ThuocTinhPage() {
         </form>
       </Overlay>
 
-      <Overlay height="60%" width="40%" visible={false} opacity={.8} nameOverlay='rom'>
+      {/* ROM */}
+      <Overlay height="60%" width="40%" visible={overlay.rom} opacity={.8} nameOverlay='rom' closeEvent={handleOverlay.bind(this, "", "rom")}>
         <div className={styles.title}>
           <h1>rom</h1>
         </div>
@@ -118,7 +135,8 @@ export default function ThuocTinhPage() {
         </form>
       </Overlay>
 
-      <Overlay height="60%" width="40%" visible={true} opacity={.8} nameOverlay='mau'>
+      {/* Mau sac */}
+      <Overlay height="60%" width="40%" visible={overlay.mau} opacity={.8} nameOverlay='mau' closeEvent={handleOverlay.bind(this, "", "mau")}>
         <div className={styles.title}>
           <h1>Mau sac</h1>
         </div>
