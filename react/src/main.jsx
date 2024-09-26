@@ -8,6 +8,7 @@ import 'reset-css'
 import './index.css'
 import { BrowserRouter, HashRouter, Route, Router, Routes } from 'react-router-dom'
 import ErrorPage from './pages/notFound/index.jsx'
+import ThuocTinhPage from './pages/thuoctinh/index.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/sanpham' element={<SanPhamPage />} />
+        <Route path='/thuoctinh' element={<ThuocTinhPage />} />
         <Route path='/*' element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
