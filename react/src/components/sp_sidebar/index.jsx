@@ -16,17 +16,9 @@ function Sidebar() {
         </div>
       </div>
 
-      <div className={styles["categories"]}>
-        {/* <div className={styles["categories-item"]}>
-          <div className={styles["icon"]}>
-            <FontAwesomeIcon icon={faHouse} />
-          </div>
-          <p className={styles["category-title"]}>
-            <a href="">Trang chu</a>
-          </p>
-        </div> */}
+      {/* <div className={}> */}
 
-        <div className="accordion accordion-flush" id='links'>
+        <div className={["accordion", "accordion-flush", styles["categories"]].join(" ")} id='links'>
           {/* Trang chu */}
           <div className="accordion-item">
             <div className="accordion-header">
@@ -43,11 +35,14 @@ function Sidebar() {
 
           {/* Quan ly san pham */}
           <div className="accordion-item">
-            <div className={["accordion-button", "collapsed", styles["categories-item"]].join(" ")} data-bs-toggle="collapse" data-bs-target="#sanPham">
+            <div className={["accordion-header", "collapsed", styles["categories-item"]].join(" ")} data-bs-toggle="collapse" data-bs-target="#sanPham">
               <div className={styles["icon"]}>
                 <FontAwesomeIcon icon={faTabletScreenButton} />
               </div>
               <p className={styles["category-title"]}> Quan ly san pham </p>
+              <div className={[styles["arrow"]].join(" ")}>
+                <FontAwesomeIcon icon={faAngleDown} />
+              </div>
             </div>
             <div id="sanPham" className="accordion-collapse collapse" data-bs-parent="#links">
               <ul className={styles["dropdown-container"]}>
@@ -59,11 +54,14 @@ function Sidebar() {
 
           {/* Quan ly xuat nhap */}
           <div className="accordion-item">
-            <div className={["accordion-button", "collapsed", styles["categories-item"]].join(" ")} data-bs-toggle="collapse" data-bs-target="#xuatNhap">
+            <div className={["accordion-header", "collapsed", styles["categories-item"]].join(" ")} data-bs-toggle="collapse" data-bs-target="#xuatNhap">
               <div className={styles["icon"]}>
                 <FontAwesomeIcon icon={faWarehouse} />
               </div>
               <p className={styles["category-title"]}> Quan ly xuat nhap</p>
+              <div className={[styles["arrow"]].join(" ")}>
+                <FontAwesomeIcon icon={faAngleDown} />
+              </div>
             </div>
             <div id="xuatNhap" className="accordion-collapse collapse" data-bs-parent="#links">
               <ul className={styles["dropdown-container"]}>
@@ -72,6 +70,8 @@ function Sidebar() {
               </ul>
             </div>
           </div>
+
+
 
           {/* Quan ly xuat nhap
           <div className="accordion-item">
@@ -218,7 +218,7 @@ function Sidebar() {
             <a href="">Phan quyen</a>
           </p>
         </div> */}
-      </div>
+      {/* </div> */}
 
       {/* Dang xuat */}
       <div className={[styles["categories-item"], styles["log-out"]].join(" ")}>

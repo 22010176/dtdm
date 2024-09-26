@@ -49,7 +49,17 @@
     display: grid;
     grid-template-columns: 60px 1fr auto;
     align-items: center;
-    padding: 10px 10px 5px 15px;
+    padding: 10px 5px 5px 15px;
+}
+.categories-item .arrow svg {
+    transition: all .5s;
+    transform: rotate(-90);
+}
+.categories-item[aria-expanded="false"] .arrow>svg {
+    transform: rotate(-90deg);
+}
+.categories-item[aria-expanded="true"] .arrow>svg {
+    transform: rotate(0deg);
 }
 
 .left-side-bar .categories-item>* {
@@ -69,10 +79,6 @@
 .left-side-bar .categories .dropdown-container {
     margin-inline: 50px;
     line-height: 170%;
-}
-
-.left-side-bar .arrow svg {
-    height: 20px;
 }
 
 .left-side-bar .dropdown-container .item {
