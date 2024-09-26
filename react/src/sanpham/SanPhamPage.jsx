@@ -8,49 +8,62 @@ import ThemCauHinh from '../components/sp_taoCauHinh'
 
 import styles from './App.module.css'
 import IMEM_Data from '../components/sp_imei'
+import { useState } from 'react'
 
 function App() {
+  const [overlay, setOverlay] = useState({
+    add: false, edit: false, taoCH: false, imei: false
+  });
+
+  function overlayFunction(state, e, key) {
+    e.target?.preventDefault?.()
+    console.log({ state, key })
+    setOverlay(data => ({ ...data, [key]: state == "open" }))
+  }
+
   return (
     <div className={styles.App}>
       <Sidebar />
       <div className={styles["main-content"]}>
-        <Toolbar />
+        <Toolbar toolFunc={overlayFunction.bind(this, "open")} />
         <SanPhamTable />
       </div>
 
       {/* Them san pham */}
-      <Overlay width="80%" height="70%" visible={false} opacity={0.9}>
+      <Overlay nameOverlay='add' width="80%" height="70%" visible={overlay.add} opacity={0.9} closeEvent={overlayFunction.bind(this, "close")} >
         <div className={styles.title}>
           <h1>Them San Pham</h1>
         </div>
         <SanPhamForm />
         <div className={styles["submit-section"]}>
           <button className="add" type='submit'>Tao cau hinh</button>
-          <button className="delete">Huy bo</button>
+          <button className="delete" onClick={overlayFunction.bind(this, "close", {}, "add")}>Huy bo</button>
         </div>
       </Overlay >
 
       {/* Sua san pham */}
-      <Overlay width="80%" height="70%" visible={false} opacity={0.9} >
+      <Overlay nameOverlay='edit' width="80%" height="70%" visible={overlay.edit} opacity={0.9} closeEvent={overlayFunction.bind(this, "close")} >
         <div className={styles.title}>
           <h1>Sua San Pham</h1>
         </div>
         <SanPhamForm />
         <div className={styles["submit-section"]}>
           <button className="add" type='submit'>Luu thong tin</button>
-          <button className="edit" type='submit'>Sua cau hinh</button>
-          <button className="delete">Huy bo</button>
+          <button className="edit" type='submit' onClick={overlayFunction.bind(this, "open", {}, "taoCH")}>Sua cau hinh</button>
+          <button className="delete" onClick={overlayFunction.bind(this, "close", {}, "edit")}>Huy bo</button>
         </div>
       </Overlay >
 
-      <Overlay width="70%" height="70%" visible={false} opacity={0.9} >
+      {/* Tao cau hinh */}
+      <Overlay nameOverlay='taoCH' width="70%" height="70%" visible={overlay.taoCH} opacity={0.9} closeEvent={overlayFunction.bind(this, "close")} >
         <div className={styles.title}>
-          <h1>Tao Cau Hinh</h1>
+          <h1>Chỉnh sửa Cau Hinh</h1>
         </div>
         <ThemCauHinh />
       </Overlay >
 
-      <Overlay width="60%" height="80%" visible={false} opacity={0.9} >
+      {/* imei */}
+      <Overlay nameOverlay='imei' width="60%" height="80%" visible={overlay.imei} opacity={0.9} closeEvent={overlayFunction.bind(this, "close")} >
         <div className={styles.title}>
           <h1>Danh sach ma IMEI</h1>
         </div>

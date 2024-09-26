@@ -86,7 +86,7 @@ export default function ThemCauHinh() {
       </div>
 
       <div className={styles["submit-btn"]}>
-        <button className='add'>Them san pham moi</button>
+        {/* <button className='add'>Them san pham moi</button> */}
         <button className='edit'>Quay lai trang truoc</button>
       </div>
     </div>

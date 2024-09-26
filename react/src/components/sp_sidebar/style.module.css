@@ -12,75 +12,97 @@
     padding-bottom: 10px;
 }
 
-.left-side-bar .account {
+.account {
     display: flex;
     align-items: center;
     gap: 20px;
     border-bottom: 2px solid black;
 }
 
-.left-side-bar .account img {
+.account img {
     width: 75px;
     height: 75px;
     border-radius: 100%;
     margin: 10px;
 }
 
-.left-side-bar .account .user-information {
+.account .user-information {
     line-height: 150%;
 }
 
-.left-side-bar .account .user-information .user-name {
+.account .user-information .user-name {
     font-size: 1.1rem;
 }
 
-.left-side-bar .account .user-information .role {
+.account .user-information .role {
     font-size: .8rem;
     color: gray;
 }
 
-.left-side-bar .categories {
+.categories {
     display: flex;
     flex-wrap: wrap;
+    border: none;
+    outline: none;
     flex-direction: column;
+    /* background-color: aliceblue; */
 }
 
-.left-side-bar .categories-item {
+.categories-item {
     display: grid;
     grid-template-columns: 60px 1fr auto;
     align-items: center;
     padding: 10px 5px 5px 15px;
+    /* background-color: aliceblue; */
 }
+
 .categories-item .arrow svg {
     transition: all .5s;
-    transform: rotate(-90);
 }
+
 .categories-item[aria-expanded="false"] .arrow>svg {
-    transform: rotate(-90deg);
-}
-.categories-item[aria-expanded="true"] .arrow>svg {
     transform: rotate(0deg);
 }
 
-.left-side-bar .categories-item>* {
+.categories-item[aria-expanded="true"] .arrow>svg {
+    transform: rotate(90deg);
+}
+
+.categories-item>* {
     margin-right: 15px;
 }
 
-.left-side-bar .categories-item .category-title a {
+.categories-item .category-title a,
+.categories-item .category-title {
     text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+
     color: black;
 }
 
-.left-side-bar .categories-item .icon svg {
+.categories-item .icon svg {
     width: 35px;
     height: 25px;
 }
 
-.left-side-bar .categories .dropdown-container {
+.categories .dropdown-container {
     margin-inline: 50px;
     line-height: 170%;
+    /* background-color: aliceblue; */
 }
 
-.left-side-bar .dropdown-container .item {
-    list-style-type: disc;
+.dropdown-container .item {
+    list-style-type: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.dropdown-container .item svg {
+    width: 8px;
+}
+
+.dropdown-container .item a {
+    text-decoration: none;
 }

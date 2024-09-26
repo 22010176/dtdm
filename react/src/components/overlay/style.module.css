@@ -1,9 +1,8 @@
-.container {
+.overlay {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: black;
     top: 0;
     left: 0;
     width: 100vw;
@@ -18,4 +17,14 @@
     translate: -50% -50%;
     background-color: white;
     border: 5px solid black;
+}
+
+.hide {
+    opacity: 0;
+    display: none;
+}
+
+.container {
+    /* display: block; */
+    transition: all 5s;
 }
