@@ -11,15 +11,15 @@
 }
 
 .content {
+    /* overflow: auto; */
     position: absolute;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
     background-color: white;
     border: 5px solid black;
-    overflow: 'auto';
-    /* padding-bottom: 20px; */
 }
+
 
 .hide {
     opacity: 0;
@@ -28,7 +28,6 @@
 
 .container {
     transition: 1s;
-    /* overflow: hidden; */
     height: 0px;
     width: 0px;
 }

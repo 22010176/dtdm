@@ -76,73 +76,73 @@ export default function ThuocTinhPage() {
       </div>
 
       {/* Xuat xu */}
-      <Overlay height="60%" width="40%" visible={overlay.xuatXu} opacity={.8} nameOverlay='xuatXu' closeEvent={handleOverlay.bind(this, "", "xuatXu")}>
+      <Overlay height="70%" width="55%" visible={overlay.xuatXu} opacity={.8} nameOverlay='xuatXu' closeEvent={handleOverlay.bind(this, "", "xuatXu")}>
         <div className={styles.title}>
           <h1>Xuất xứ sản phẩm</h1>
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faMountainCity} name={"xuatXu"} title={"Xuat xu"} />
-          <TableA height="55%" width="100%" headers={["Ma xuat xu", "Noi xuat xu"]} data={new Array(100).fill().map(i => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma xuat xu", "Noi xuat xu"]} data={new Array(100).fill().map(i => [1, 2])} />
           <SubmitSec />
         </form>
       </Overlay>
 
       {/* Thuong hieu */}
-      <Overlay height="60%" width="40%" visible={overlay.thuongHieu} opacity={.8} nameOverlay='thuongHieu' closeEvent={handleOverlay.bind(this, "", "thuongHieu")}>
+      <Overlay height="70%" width="55%" visible={overlay.thuongHieu} opacity={.8} nameOverlay='thuongHieu' closeEvent={handleOverlay.bind(this, "", "thuongHieu")}>
         <div className={styles.title}>
           <h1>THƯƠNG HIỆU SẢN PHẨM</h1>
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faEmpire} name={"thuongHieu"} title={"Thuong hieu"} />
-          <TableA height="55%" width="100%" headers={["Ma thuong hieu", "Ten thuong hieu"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma thuong hieu", "Ten thuong hieu"]} data={new Array(100).fill().map(_ => [1, 2])} />
           <SubmitSec />
         </form>
       </Overlay>
 
       {/* He dieu hanh */}
-      <Overlay height="60%" width="40%" visible={overlay.hdh} opacity={.8} nameOverlay='hdh' closeEvent={handleOverlay.bind(this, "", "hdh")}>
+      <Overlay height="70%" width="55%" visible={overlay.hdh} opacity={.8} nameOverlay='hdh' closeEvent={handleOverlay.bind(this, "", "hdh")}>
         <div className={styles.title}>
           <h1>Hệ Điều Hành</h1>
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faAndroid} name={"hdh"} title={"He dieu hanh"} />
-          <TableA height="55%" width="100%" headers={["Ma he dieu hanh", "Ten he dieu hanh"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma he dieu hanh", "Ten he dieu hanh"]} data={new Array(100).fill().map(_ => [1, 2])} />
           <SubmitSec />
         </form>
       </Overlay>
 
       {/* RAM */}
-      <Overlay height="60%" width="40%" visible={overlay.ram} opacity={.8} nameOverlay='ram' closeEvent={handleOverlay.bind(this, "", "ram")}>
+      <Overlay height="70%" width="55%" visible={overlay.ram} opacity={.8} nameOverlay='ram' closeEvent={handleOverlay.bind(this, "", "ram")}>
         <div className={styles.title}>
           <h1>RAM</h1>
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faComputer} name={"ram"} title={"RAM"} />
-          <TableA height="55%" width="100%" headers={["Ma RAM", "Dung luong RAM"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma RAM", "Dung luong RAM"]} data={new Array(100).fill().map(_ => [1, 2])} />
           <SubmitSec />
         </form>
       </Overlay>
 
       {/* ROM */}
-      <Overlay height="60%" width="40%" visible={overlay.rom} opacity={.8} nameOverlay='rom' closeEvent={handleOverlay.bind(this, "", "rom")}>
+      <Overlay height="70%" width="55%" visible={overlay.rom} opacity={.8} nameOverlay='rom' closeEvent={handleOverlay.bind(this, "", "rom")}>
         <div className={styles.title}>
           <h1>rom</h1>
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faMemory} name={"rom"} title={"ROM"} />
-          <TableA height="55%" width="100%" headers={["Ma ROM", "Dung luong ROM"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma ROM", "Dung luong ROM"]} data={new Array(100).fill().map(_ => [1, 2])} />
           <SubmitSec />
         </form>
       </Overlay>
 
       {/* Mau sac */}
-      <Overlay height="60%" width="40%" visible={overlay.mau} opacity={.8} nameOverlay='mau' closeEvent={handleOverlay.bind(this, "", "mau")}>
+      <Overlay height="70%" width="55%" visible={overlay.mau} opacity={.8} nameOverlay='mau' closeEvent={handleOverlay.bind(this, "", "mau")}>
         <div className={styles.title}>
           <h1>Mau sac</h1>
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faBrush} name={"mau"} title={"Mau sac"} />
-          <TableA height="55%" width="100%" headers={["Ma mau", "Ten mau"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma mau", "Ten mau"]} data={new Array(100).fill().map(_ => [1, 2])} />
           <SubmitSec />
         </form>
       </Overlay>

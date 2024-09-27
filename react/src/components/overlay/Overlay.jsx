@@ -12,6 +12,7 @@ export default function Overlay({ nameOverlay = "overlay", width, height, childr
       </div>
       <div className={styles.content} style={{ width, height }}>
         {children}
+
       </div>
     </div>
   )

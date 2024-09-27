@@ -24,9 +24,10 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   text-align: left;
-  gap: 50px;
-  padding: 0px 0px 0px 100px;
+  gap: 10%;
+  padding: 0px 0px 0px 5%;
   transition: .3s;
+  font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -38,9 +39,9 @@
 }
 
 .category h1 {
-  margin-top: 10%;
-  /* line-height: 50%; */
-  font-size: 4rem;
+  color: darkblue;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .main-content img {
@@ -50,29 +51,6 @@
   height: 100%;
 }
 
-.main-content .title {
-  z-index: 2;
-  width: 840px;
-  text-transform: uppercase;
-  font-family: Arial, Helvetica, sans-serif;
-  color: black;
-  padding: 30px 10px;
-  background-color: rgba(111, 161, 204, 0.8);
-}
-
-.main-content h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-  color: rgb(17, 17, 101);
-  margin-bottom: 50px;
-}
-
-.main-content h2 {
-  font-size: 1rem;
-  width: 625px;
-  font-style: italic;
-}
 
 .category:hover {
   border: 10px solid rgba(255, 255, 255, 0.3);
