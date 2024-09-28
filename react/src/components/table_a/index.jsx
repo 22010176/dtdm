@@ -3,7 +3,7 @@ import styles from './style.module.css'
 
 export default function TableA({ headers = [], data = [], height, width }) {
   return (
-    <div className={styles["table"]} style={{ maxHeight: height, width }}>
+    <div className={styles["table"]} style={{ height, width }}>
       <table className={styles["data-display"]}>
         <thead>
           <tr>

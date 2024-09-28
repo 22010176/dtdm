@@ -7,19 +7,22 @@ import styles from './style.module.css'
 import Overlay from '../../components/overlay/Overlay'
 import TableA from '../../components/table_a'
 import Sidebar from '../../components/sidebar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
-function SubmitSec({ deleteF, addF, editF }) {
+function SubmitSec({ deleteF = e => { }, addF = e => { }, editF = e => { } }) {
   return (
     <div className={styles["submit"]}>
       <button className="add" type='submit' onClick={function (e) {
+        e.preventDefault();
         if (typeof addF == 'function') addF();
       }}>Them</button>
       <button className="refresh" type='submit' onClick={function (e) {
+        e.preventDefault();
         if (typeof editF == 'function') editF();
       }}>Sua</button>
       <button className="delete" type='button' onClick={function (e) {
+        e.preventDefault();
         if (typeof deleteF == 'function') deleteF();
       }}>Xoa</button>
     </div>
@@ -39,6 +42,23 @@ function FormSec({ title, name, icon }) {
 }
 export default function ThuocTinhPage() {
   const [overlay, setOverlay] = useState({});
+  const [source, setSource] = useState({});
+
+  async function updateTable(url, key) {
+    await fetch(url, {
+      method: "GET"
+    }).then(res => res.json())
+      .then(data => {
+        setSource(src => ({ ...src, [key]: JSON.parse(data.body) }))
+        console.log("asdfasfd", JSON.parse(data.body))
+      })
+  }
+
+  useEffect(() => {
+    updateTable("/api/thuoctinh/thuonghieu", "thuongHieu")
+  }, [])
+
+  // console.log(source)
 
   function handleOverlay(state, name) {
     setOverlay(prev => ({ ...prev, [name]: state == "open" }))
@@ -48,7 +68,11 @@ export default function ThuocTinhPage() {
       <div className={styles.App}>
         <Sidebar />
         <div className={styles["main-content"]}>
-          <div className={styles["category"]} style={{ background: "#b6d7a8" }} onClick={handleOverlay.bind(this, "open", "thuongHieu")}>
+          <div className={styles["category"]} style={{ background: "#b6d7a8" }} onClick={async function (e) {
+            e.preventDefault();
+            handleOverlay("open", "thuongHieu")
+            await updateTable("/api/thuoctinh/thuonghieu", "thuongHieu", i => [i.mathuonghieu, i.tenthuonghieu])
+          }}>
             <FontAwesomeIcon icon={faEmpire} />
             <h1>Thuong hieu</h1>
           </div>
@@ -75,18 +99,6 @@ export default function ThuocTinhPage() {
         </div>
       </div>
 
-      {/* Xuat xu */}
-      <Overlay height="70%" width="55%" visible={overlay.xuatXu} opacity={.8} nameOverlay='xuatXu' closeEvent={handleOverlay.bind(this, "", "xuatXu")}>
-        <div className={styles.title}>
-          <h1>Xuất xứ sản phẩm</h1>
-        </div>
-        <form action="" method="get" className={styles.form}>
-          <FormSec icon={faMountainCity} name={"xuatXu"} title={"Xuat xu"} />
-          <TableA height="50%" width="100%" headers={["Ma xuat xu", "Noi xuat xu"]} data={new Array(100).fill().map(i => [1, 2])} />
-          <SubmitSec />
-        </form>
-      </Overlay>
-
       {/* Thuong hieu */}
       <Overlay height="70%" width="55%" visible={overlay.thuongHieu} opacity={.8} nameOverlay='thuongHieu' closeEvent={handleOverlay.bind(this, "", "thuongHieu")}>
         <div className={styles.title}>
@@ -94,7 +106,19 @@ export default function ThuocTinhPage() {
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faEmpire} name={"thuongHieu"} title={"Thuong hieu"} />
-          <TableA height="50%" width="100%" headers={["Ma thuong hieu", "Ten thuong hieu"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma thuong hieu", "Ten thuong hieu"]} data={source.thuongHieu?.map(i => [i.mathuonghieu, i.tenthuonghieu])} />
+          <SubmitSec />
+        </form>
+      </Overlay>
+
+      {/* Xuat xu */}
+      <Overlay height="70%" width="55%" visible={overlay.xuatXu} opacity={.8} nameOverlay='xuatXu' closeEvent={handleOverlay.bind(this, "", "xuatXu")}>
+        <div className={styles.title}>
+          <h1>Xuất xứ sản phẩm</h1>
+        </div>
+        <form action="" method="get" className={styles.form}>
+          <FormSec icon={faMountainCity} name={"xuatXu"} title={"Xuat xu"} />
+          <TableA height="50%" width="100%" headers={["Ma xuat xu", "Noi xuat xu"]} data={source.xuatXu} />
           <SubmitSec />
         </form>
       </Overlay>
@@ -106,7 +130,7 @@ export default function ThuocTinhPage() {
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faAndroid} name={"hdh"} title={"He dieu hanh"} />
-          <TableA height="50%" width="100%" headers={["Ma he dieu hanh", "Ten he dieu hanh"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma he dieu hanh", "Ten he dieu hanh"]} data={source.xuatXu} />
           <SubmitSec />
         </form>
       </Overlay>
@@ -118,7 +142,7 @@ export default function ThuocTinhPage() {
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faComputer} name={"ram"} title={"RAM"} />
-          <TableA height="50%" width="100%" headers={["Ma RAM", "Dung luong RAM"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma RAM", "Dung luong RAM"]} data={source.ram} />
           <SubmitSec />
         </form>
       </Overlay>
@@ -130,7 +154,7 @@ export default function ThuocTinhPage() {
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faMemory} name={"rom"} title={"ROM"} />
-          <TableA height="50%" width="100%" headers={["Ma ROM", "Dung luong ROM"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma ROM", "Dung luong ROM"]} data={source.xuatXu} />
           <SubmitSec />
         </form>
       </Overlay>
@@ -142,7 +166,7 @@ export default function ThuocTinhPage() {
         </div>
         <form action="" method="get" className={styles.form}>
           <FormSec icon={faBrush} name={"mau"} title={"Mau sac"} />
-          <TableA height="50%" width="100%" headers={["Ma mau", "Ten mau"]} data={new Array(100).fill().map(_ => [1, 2])} />
+          <TableA height="50%" width="100%" headers={["Ma mau", "Ten mau"]} data={source.xuatXu} />
           <SubmitSec />
         </form>
       </Overlay>
