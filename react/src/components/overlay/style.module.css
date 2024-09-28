@@ -27,7 +27,10 @@
 }
 
 .container {
+    top: 0px;
+    left: 0px;
     transition: 1s;
-    height: 0px;
-    width: 0px;
+    height: 100vh;
+    position: absolute;
+    width: 100vw;
 }

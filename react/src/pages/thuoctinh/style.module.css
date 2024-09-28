@@ -18,6 +18,7 @@
 }
 
 
+
 .category {
   border: 10px solid rgba(0, 0, 0, 0.2);
   display: flex;
@@ -81,6 +82,7 @@
 .form .form-sec {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 40px;
   width: 100%;
 }
@@ -102,7 +104,8 @@
 .form .form-sec div input {
   font-weight: bold;
   width: 100%;
-  padding-inline: 10px;
+  padding: 10px;
+
   font-weight: normal;
 }
 
