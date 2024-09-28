@@ -94,6 +94,7 @@
 .form .form-sec div {
   display: grid;
   width: 50%;
+  gap: 5px;
 }
 
 .form .form-sec div label {

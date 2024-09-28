@@ -30,25 +30,26 @@ function SubmitSec({ deleteF = e => { }, addF = e => { }, editF = e => { } }) {
   )
 }
 
-function FormSec({ title, name, icon }) {
-  return (
-    <div className={styles["form-sec"]}>
-      <FontAwesomeIcon icon={icon} />
-      <div>
-        <label htmlFor={name}>{title}</label>
-        <input type="text" id={name} name={name} />
-      </div>
-    </div>
-  )
-}
-
 function ThuocTinhSec({ name, title, icon, headers = [], color, getData = async () => [] }) {
   const [visibility, setVisibility] = useState(false);
   const [data, setData] = useState([]);
+  const [formData, setFormData] = useState("");
 
   useState(async function () {
     setData(await getData());
   }, [])
+
+  async function Add(e) {
+
+  }
+
+  async function Edit(e) {
+
+  }
+  async function Delete(e) {
+
+  }
+
   return (
     <>
       <div className={styles.category} style={{ background: color }} onClick={setVisibility.bind(this, true)}>
@@ -60,9 +61,15 @@ function ThuocTinhSec({ name, title, icon, headers = [], color, getData = async 
           <h1>{title}</h1>
         </div>
         <form action="" method="get" className={styles.form}>
-          <FormSec icon={icon} name={name} title />
+          <div className={styles["form-sec"]}>
+            <FontAwesomeIcon icon={icon} />
+            <div>
+              <label htmlFor={name}>{title}</label>
+              <input value={formData} type="text" id={name} name={name} onChange={e => setFormData(e.target.value)} />
+            </div>
+          </div>
           <TableA height="50%" width="100%" headers={headers} data={data} />
-          <SubmitSec />
+          <SubmitSec addF={Add} editF={Edit} deleteF={Delete} />
         </form>
       </Overlay>
     </>
