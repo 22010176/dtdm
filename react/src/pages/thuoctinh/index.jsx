@@ -96,7 +96,7 @@ function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
             </button>
           </div>
           <TableA height="50%" width="100%" headers={headers} data={data} rowClick={rowClick} />
-          <SubmitSec addF={requestPost.bind({}, "add")} editF={requestPost.bind({}, "edit")} deleteF={requestPost.bind({}, "delete")} />
+          <SubmitSec addF={requestPost.bind({}, "insert")} editF={requestPost.bind({}, "update")} deleteF={requestPost.bind({}, "delete")} />
         </form>
       </Overlay>
     </>
