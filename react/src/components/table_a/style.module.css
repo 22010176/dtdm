@@ -22,6 +22,19 @@
   text-align: center;
 }
 
+table tbody tr {
+  cursor: pointer;
+}
+
+.active {
+  background-color: lightblue !important;
+}
+
 table tbody tr:nth-child(even) {
   background-color: aliceblue;
+}
+
+table tbody tr:nth-child(even):hover,
+table tbody tr:hover {
+  background-color: rgb(218, 218, 218);
 }

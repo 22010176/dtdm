@@ -33,14 +33,28 @@ function SubmitSec({ deleteF = e => { }, addF = e => { }, editF = e => { } }) {
 function ThuocTinhSec({ name, title, icon, headers = [], color, getData = async () => [] }) {
   const [visibility, setVisibility] = useState(false);
   const [data, setData] = useState([]);
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({ ten: "", trangThai: 1 });
 
   useState(async function () {
-    setData(await getData());
+    setData(await getData(name))
   }, [])
 
-  async function Add(e) {
 
+  function rowClick(item) {
+    setFormData(old => ({ ...old, ten: item.data[1] }))
+
+  }
+
+  async function Add(e) {
+    const result = await fetch(apiRoute[name], {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "add", entry: "thuong-hieu", data: formData })
+    }).then(a => a.json())
+    if (result.body == 'success') {
+      setFormData({ ten: "", trangThai: 1 });
+      setData(await getData(name));
+    } else alert("Fail")
   }
 
   async function Edit(e) {
@@ -52,7 +66,10 @@ function ThuocTinhSec({ name, title, icon, headers = [], color, getData = async 
 
   return (
     <>
-      <div className={styles.category} style={{ background: color }} onClick={setVisibility.bind(this, true)}>
+      <div className={styles.category} style={{ background: color }} onClick={async function (e) {
+        setVisibility(true)
+        setData(await getData(name));
+      }}>
         <FontAwesomeIcon icon={icon} />
         <h1>{title}</h1>
       </div>
@@ -65,10 +82,10 @@ function ThuocTinhSec({ name, title, icon, headers = [], color, getData = async 
             <FontAwesomeIcon icon={icon} />
             <div>
               <label htmlFor={name}>{title}</label>
-              <input value={formData} type="text" id={name} name={name} onChange={e => setFormData(e.target.value)} />
+              <input value={formData.ten} type="text" id={name} name={name} onChange={e => setFormData(old => ({ ...old, ten: e.target.value }))} />
             </div>
           </div>
-          <TableA height="50%" width="100%" headers={headers} data={data} />
+          <TableA height="50%" width="100%" headers={headers} data={data} rowClick={rowClick} />
           <SubmitSec addF={Add} editF={Edit} deleteF={Delete} />
         </form>
       </Overlay>
@@ -76,16 +93,20 @@ function ThuocTinhSec({ name, title, icon, headers = [], color, getData = async 
   )
 }
 export default function ThuocTinhPage() {
+  async function getData(key) {
+    const a = await fetch(apiRoute[key], {
+      method: "GET"
+    }).then(res => res.json()).then(a => a)
+
+    return JSON.parse(a.body).map(i => ({ id: i.ma, data: [i.ma, i.ten] }))
+  }
+
   return (
     <>
       <div className={styles.App}>
         <Sidebar />
         <div className={styles["main-content"]}>
-          <ThuocTinhSec name="thuongHieu" title="Thuong Hieu" icon={faEmpire} headers={["Ma thuong hieu", "Ten thuong hieu"]} color="#b6d7a8" getData={async function () {
-            fetch("/api/thuong-hieu/", {
-              method: "GET"
-            }).then(res => res.json()).then(confirm.log)
-          }} />
+          <ThuocTinhSec name="thuongHieu" title="Thuong Hieu" icon={faEmpire} headers={["Ma thuong hieu", "Ten thuong hieu"]} color="#b6d7a8" getData={getData.bind(this)} />
           <ThuocTinhSec name="xuatXu" title="Xuất Xứ" icon={faMountainCity} headers={["Ma xuat xu", "Noi xuat xu"]} color="#ea9999" />
           <ThuocTinhSec name="hdh" title="Hệ Điều Hành" icon={faAndroid} headers={["Ma he dieu hanh", "Ten he dieu hanh"]} color="#f9cb9c" />
           <ThuocTinhSec name="ram" title="RAM" icon={faComputer} headers={["Ma RAM", "Dung luong RAM"]} color="#b4a7d6" />

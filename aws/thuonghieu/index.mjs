@@ -5,7 +5,7 @@ import { db } from '../databasea.mjs'
 const data = {
   "body-json": {
     "action": "add",
-    "entry": "thuong-hieu",
+    "entry": "thuonghieu",
     "data": {
       "ten": "Test1",
       "trang-thai": "test2"
@@ -42,10 +42,10 @@ async function _add(connection, entry, data) {
   console.log(data)
   let result, field;
   switch (entry) {
-    case "thuong-hieu":
+    case "thuonghieu":
       [result, field] = await connection.query(
-        "INSERT INTO btl.thuonghieu VALUES (?, ?, ?)",
-        [v4(), data.ten, data.trangThai])
+        "INSERT INTO ? VALUES (?, ?, ?)",
+        [entry, v4(), data.ten, data.trangThai])
       break;
     default:
       break;
