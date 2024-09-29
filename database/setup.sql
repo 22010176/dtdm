@@ -28,6 +28,7 @@ INSERT INTO thuonghieu VALUES
 
 SELECT * FROM thuonghieu;
 
+
 -- Bảng xuatxu
 CREATE TABLE xuatxu (
     maxuatxu INT PRIMARY KEY,

@@ -16,7 +16,7 @@ export default function TableA({ headers = [], data = [], height, width, rowClic
     document.querySelectorAll(`.${stl}`).forEach(i => i.classList.remove(stl));
 
     if (!e.target) return;
-
+    console.log(e.target)
     const elem = e.target.parentElement
     elem.classList.add(stl);
     if (typeof rowClick == 'function') rowClick({ id: elem.dataset.id, data: [...elem.querySelectorAll("*")].map(i => i.innerText) })
