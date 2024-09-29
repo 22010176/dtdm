@@ -7,9 +7,3 @@ export const apiRoute = {
   // mauSac: "/api/mau-sac/"
 }
 
-export const tableRoute = {
-  // { ma, ten, trangthai }
-  thuongHieu(item) { return { id: item.ma, data: [item.ma, item.ten] } }
-
-
-}

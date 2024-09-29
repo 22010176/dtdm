@@ -27,7 +27,8 @@ INSERT INTO thuonghieu VALUES
 ("14", "2", 1);
 
 SELECT * FROM thuonghieu;
-
+UPDATE thuonghieu SET ten = "ed", trangthai = 3 WHERE ma = "0cc96f04-7610-4776-663-d8f7e2baef2c";
+SELECT * FROM thuonghieu WHERE ma = "035039a3-af04-4c3c-9524-da8d9c24c0bd";
 
 -- Bảng xuatxu
 CREATE TABLE xuatxu (

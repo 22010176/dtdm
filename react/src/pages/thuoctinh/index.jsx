@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEmpire, faAndroid, } from '@fortawesome/free-brands-svg-icons'
-import { faMountainCity, faComputer, faMemory, faBrush, faL } from '@fortawesome/free-solid-svg-icons'
-import { apiRoute, tableRoute } from "../../api_param"
+import { faMountainCity, faComputer, faMemory, faArrowRotateRight } from '@fortawesome/free-solid-svg-icons'
+import { apiRoute } from "../../api_param"
 
 import styles from './style.module.css'
 import Overlay from '../../components/overlay/Overlay'
 import TableA from '../../components/table_a'
 import Sidebar from '../../components/sidebar'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
+
+const tableRoute = {
+  thuongHieu(item) { return { id: item.ma, data: [item.ma, item.ten] } }
+}
 
 function _temmp(callback, e) {
   e?.preventDefault();
@@ -36,51 +40,39 @@ function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
   const url = apiRoute[name];
   const [visibility, setVisibility] = useState(false);
   const [data, setData] = useState([]);
-  const [formData, setFormData] = useState({ ten: "", trangThai: 1 });
-
-  useState(async function () {
-    getData(name)
-  }, [])
+  const [formData, setFormData] = useState({ ma: null, ten: "", trangThai: 1 });
 
   async function getData() {
+    setData([])
     if (!url) return;
 
-    const a = await fetch(url, { method: "GET" })
-      .then(res => res.json())
+    const a = await fetch(url, { method: "GET" }).then(res => res.json())
     if (a.body) setData(JSON.parse(a.body).map(tableRoute[name]))
   }
 
-  async function addData(e) {
+  async function requestPost(method) {
     if (!url) return;
-
     const result = await fetch(url, {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "add", data: formData })
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: method, data: formData })
     }).then(a => a.json())
 
     if (result.body == 'success') {
-      setFormData({ ten: "", trangThai: 1 });
+      setFormData({ ma: null, ten: "", trangThai: 1 });
       getData(name);
-    } else alert("Fail")
-  }
-
-  async function editData(e) {
-    console.log("edit")
-  }
-
-  async function deleteData(e) {
-
+    } else alert("That bai")
   }
 
   function rowClick(item) {
-    setFormData(old => ({ ...old, ten: item.data[1] }))
+    setFormData(old => ({ ...old, ten: item.data[1], ma: item.id }))
   }
 
   return (
     <>
       <div className={styles.category} style={{ background: color }} onClick={async function (e) {
         setVisibility(true)
-        getData(name);
+        getData();
       }}>
         <FontAwesomeIcon icon={icon} />
         <h1>{title}</h1>
@@ -96,9 +88,15 @@ function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
               <label htmlFor={name}>{title}</label>
               <input value={formData.ten} type="text" id={name} name={name} onChange={e => setFormData(old => ({ ...old, ten: e.target.value }))} />
             </div>
+            <button className={styles.button} type='reset' onClick={function (e) {
+              setFormData({ ten: "", trangThai: 1, ma: undefined });
+              getData();
+            }}>
+              <FontAwesomeIcon icon={faArrowRotateRight} />
+            </button>
           </div>
           <TableA height="50%" width="100%" headers={headers} data={data} rowClick={rowClick} />
-          <SubmitSec addF={addData} editF={editData} deleteF={deleteData} />
+          <SubmitSec addF={requestPost.bind({}, "add")} editF={requestPost.bind({}, "edit")} deleteF={requestPost.bind({}, "delete")} />
         </form>
       </Overlay>
     </>
