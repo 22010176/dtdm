@@ -1,11 +1,20 @@
 {
   "statusCode": 200,
-  "body": "[{\"ma\":\"\",\"ten\":null,\"trangthai\":null},{\"ma\":\"0cdbabdc-8f6f-483d-8f76-50cab95f1664\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"1\",\"ten\":\"2\",\"trangthai\":1},{\"ma\":\"12\",\"ten\":\"2\",\"trangthai\":1},{\"ma\":\"14\",\"ten\":\"2\",\"trangthai\":1},{\"ma\":\"1a6a2e2b-a39f-4b90-8757-6903c03077f4\",\"ten\":\"asdfsadf\",\"trangthai\":1},{\"ma\":\"1bb2c466-3ae4-4ead-a475-66878ef6fe2a\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"3781b327-5b84-4867-9753-907c358a032d\",\"ten\":\"asfasfdasfasdfasfasfdasdfasdfasdfasddfgaddf\",\"trangthai\":1},{\"ma\":\"4e0b8ecc-26c2-4711-a546-65418f3f7be1\",\"ten\":\"jujuju\",\"trangthai\":1},{\"ma\":\"591f0bf5-0359-42ff-b6d6-3b0834fe9666\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"60c36ab8-9088-4971-a0ee-281739751d53\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"74eb8c88-e0e8-482b-958b-e3f4ce525273\",\"ten\":\"adsfadsf\",\"trangthai\":1},{\"ma\":\"7b69e1cb-cab1-4d2f-88df-f3ab889adfbc\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"8523cec0-c28c-4400-895f-fbba02099565\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"996efb3b-f904-464b-b57a-6cd5987ac3a4\",\"ten\":\"Android\",\"trangthai\":1},{\"ma\":\"a0b41c02-38aa-4402-b6ba-83fe9898d901\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"a1b31009-9e95-40e6-bb30-e5c551910dbb\",\"ten\":\"asdfsadfdf\",\"trangthai\":1},{\"ma\":\"a62a49af-3903-4d7c-9ed0-7b69458dcceb\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"af121c77-6e34-4565-841f-d26694a2fac5\",\"ten\":\"aaaaa\",\"trangthai\":1},{\"ma\":\"b2a623f2-c93d-487f-8423-13de163eaec0\",\"ten\":\"Window\",\"trangthai\":1},{\"ma\":\"cc169a3e-ae33-46e0-9147-3c95631544b9\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"ce3681ef-6206-44a7-8e9f-d1113431c330\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"def6d452-6e9f-40c4-b629-7b1083f22067\",\"ten\":\"Test331\",\"trangthai\":1},{\"ma\":\"thuong-hieu\",\"ten\":\"205102b1-c153-4d93-967e-9844e8661212\",\"trangthai\":0},{\"ma\":\"v4()\",\"ten\":\"Test331\",\"trangthai\":1}]",
+  "body": "\"Hello from Lambda!\"",
   "event": {
-    "body-json": {},
+    "body-json": {
+      "action": "update",
+      "data": {
+        "ma": "ed",
+        "ten": "",
+        "trangThai": 33
+      }
+    },
     "params": {
       "path": {},
-      "querystring": {},
+      "querystring": {
+        "table": "xuatxu"
+      },
       "header": {}
     },
     "stage-variables": {},
@@ -19,15 +28,15 @@
       "cognito-authentication-type": "",
       "cognito-identity-id": "",
       "cognito-identity-pool-id": "",
-      "http-method": "GET",
+      "http-method": "POST",
       "stage": "test-invoke-stage",
       "source-ip": "test-invoke-source-ip",
       "user": "688567306327",
       "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
       "user-arn": "arn:aws:iam::688567306327:root",
-      "request-id": "897448cc-7210-40ee-a7bb-5e6330158dc9",
-      "resource-id": "e8x4v1",
-      "resource-path": "/thuong-hieu"
+      "request-id": "0a5710a2-bbfc-432f-bde0-2f0400bea9db",
+      "resource-id": "rshict",
+      "resource-path": "/thuoc-tinh"
     }
   }
 }

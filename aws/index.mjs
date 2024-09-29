@@ -1,3 +1,3 @@
-import thuongHieuRoute from './thuonghieu/index.mjs';
+import thuocTinhAPI from "./thuoctinh/index.mjs"
 
-export const handler = thuongHieuRoute
+export const handler = thuocTinhAPI

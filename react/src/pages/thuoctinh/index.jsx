@@ -10,9 +10,15 @@ import TableA from '../../components/table_a'
 import Sidebar from '../../components/sidebar'
 import { useState } from 'react'
 
+function format1(item) { return { id: item.ma, data: [item.ma, item.ten] } }
 
 const tableRoute = {
-  thuongHieu(item) { return { id: item.ma, data: [item.ma, item.ten] } }
+  thuongHieu: format1,
+  xuatXu: format1,
+  hdh: format1,
+  mauSac: format1,
+  rom: format1,
+  ram: format1,
 }
 
 function _temmp(callback, e) {
@@ -38,6 +44,7 @@ function SubmitSec({ deleteF = e => { }, addF = e => { }, editF = e => { } }) {
 
 function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
   const url = apiRoute[name];
+
   const [visibility, setVisibility] = useState(false);
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({ ma: null, ten: "", trangThai: 1 });
@@ -45,7 +52,6 @@ function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
   async function getData() {
     setData([])
     if (!url) return;
-
     const a = await fetch(url, { method: "GET" }).then(res => res.json())
     if (a.body) setData(JSON.parse(a.body).map(tableRoute[name]))
   }

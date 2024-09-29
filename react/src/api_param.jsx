@@ -1,9 +1,10 @@
 export const apiRoute = {
-  thuongHieu: "/api/thuong-hieu/",
-  // xuatXu: "/api/xuat-xu/",
-  // hdh: "/api/he-dieu-hanh/",
-  // ram: "/api/ram/",
-  // rom: "/api/rom/",
-  // mauSac: "/api/mau-sac/"
+  thuongHieu: "/api/thuoc-tinh?table=thuonghieu",
+  xuatXu: "/api/thuoc-tinh?table=xuatxu",
+  hdh: "/api/thuoc-tinh?table=hedieuhanh",
+  mauSac: "/api/thuoc-tinh?table=mausac",
+  ram: "/api/thuoc-tinh?table=ram",
+  rom: "/api/thuoc-tinh?table=rom",
+  thuocTinh: "/api/thuoc-tinh"
 }
 

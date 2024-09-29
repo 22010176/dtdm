@@ -32,29 +32,36 @@ SELECT * FROM thuonghieu WHERE ma = "035039a3-af04-4c3c-9524-da8d9c24c0bd";
 
 -- Bảng xuatxu
 CREATE TABLE xuatxu (
-    maxuatxu INT PRIMARY KEY,
-    tenxuatxu VARCHAR(255),
+    ma VARCHAR(255) PRIMARY KEY,
+    ten VARCHAR(255),
     trangthai INT
 );
+INSERT INTO xuatxu VALUES 
+("1", "2", 1),
+("12", "2", 1),
+("14", "2", 1);
+SELECT * FROM xuatxu;
+UPDATE xuatxu SET ten = "ed", trangthai = 3 WHERE ma = "0cc96f04-7610-4776-663-d8f7e2baef2c";
+SELECT * FROM xuatxu WHERE ma = "035039a3-af04-4c3c-9524-da8d9c24c0bd";
 
 -- Bảng mausac
 CREATE TABLE mausac (
-    mamau INT PRIMARY KEY,
-    tenmau VARCHAR(255),
+    ma VARCHAR(255) PRIMARY KEY,
+    ten VARCHAR(255),
     trangthai INT
 );
 
 -- Bảng dungluongram
-CREATE TABLE dungluongram (
-    madlram INT PRIMARY KEY,
-    kichthuocram VARCHAR(255),
+CREATE TABLE ram (
+    ma VARCHAR(255) PRIMARY KEY,
+    ten VARCHAR(255),
     trangthai INT
 );
 
 -- Bảng dungluongrom
-CREATE TABLE dungluongrom (
-    madlrom INT PRIMARY KEY,
-    kichthuocrom VARCHAR(255),
+CREATE TABLE rom (
+    ma VARCHAR(255) PRIMARY KEY,
+    ten VARCHAR(255),
     trangthai INT
 );
 

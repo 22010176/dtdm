@@ -3,38 +3,41 @@ import { v4 } from 'uuid'
 import { db } from '../databasea.mjs'
 
 const query = {
-  insert: (connection, data) => connection.query(
-    "INSERT INTO xuatxu VALUES (?, ?, ?)",
+  insert: (connection, table, data) => connection.query(
+    `INSERT INTO ${table} VALUES (?, ?, ?)`,
     [data.ma ?? v4(), data.ten, data.trangThai]
   ),
-  update: (connection, data) => connection.query(
-    "UPDATE xuatxu SET ten = ?, trangThai = ? WHERE ma = ?",
+  update: (connection, table, data) => connection.query(
+    `UPDATE ${table} SET ten = ?, trangThai = ? WHERE ma = ?`,
     [data.ten, data.trangThai, data.ma]
   ),
-  delete: (connection, data) => connection
-    .query("DELETE FROM xuatxu WHERE ma = ?", [data.ma])
+  delete: (connection, table, data) => connection
+    .query(`DELETE FROM ${table} WHERE ma = ?`, [data.ma])
 }
 
 const requests = {
   async GET(connection, event) {
-    const [results, fields] = await connection.query("SELECT * FROM xuatxu;");
+    const table = event.params.querystring.table;
+    const [results,] = await connection.query(`SELECT * FROM ${table};`, [event.params.querystring.table]);
     const response = { statusCode: 200, body: JSON.stringify(results), event };
     return response;
   },
 
   async POST(connection, event) {
     const body = event["body-json"];
+    const table = event.params.querystring.table;
     try {
-      const [result, field] = await query[body.action](connection, body.data)
+      const [result,] = await query[body.action](connection, table, body.data)
       if (result.affectedRows == 0) return { body: "not found" }
       return { body: "success" }
     } catch (error) {
+      console.log(error)
       return { body: "query fail" }
     }
   }
 }
 
-export default async function xuatXuRoute(event) {
+export default async function thuocTinhAPI(event) {
   try {
     const connection = await mysql.createConnection(db);
     let result = { body: "Error", event }
@@ -44,8 +47,5 @@ export default async function xuatXuRoute(event) {
 
     connection.end();
     return result;
-  } catch {
-    return { body: "error" };
-  }
+  } catch { return { body: "error" }; }
 };
-

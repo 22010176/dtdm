@@ -96,7 +96,7 @@ export default function SanPhamForm() {
 
         {/* Thuong hieu */}
         <div className={styles["input-sec"]}>
-          <label htmlFor="thuongHieu" className={styles['input-label']}>Phien ban he dieu hanh</label>
+          <label htmlFor="thuongHieu" className={styles['input-label']}>thuong hieu</label>
           <select value={data.thuongHieu} onChange={e => setData(data => ({ ...data, thuongHieu: e.target.value }))} name='thuongHieu' id='thuongHieu'>
             <option value="samsung">samsung</option>
             <option value="apple">apple</option>
