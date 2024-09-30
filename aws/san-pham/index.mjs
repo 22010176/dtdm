@@ -65,47 +65,47 @@ export default async function sanPhamAPI(event) {
 
 
 
-sanPhamAPI({
-  "body-json": {
-    "action": "insert",
-    "data": {
-      "ten": "test",
-      "xuatXu": "a",
-      "cpu": "asdfasfd",
-      "pin": 44,
-      "man": "444",
-      "camTruoc": "asdfasdf",
-      "camSau": "sadfasfd",
-      "hdh": "a",
-      "pbHDH": "sadfsfa",
-      "tgBH": 22,
-      "thuongHieu": "a",
-    }
-  },
-  "params": {
-    "path": {},
-    "querystring": {},
-    "header": {}
-  },
-  "stage-variables": {},
-  "context": {
-    "account-id": "688567306327",
-    "api-id": "psm62oxb11",
-    "api-key": "test-invoke-api-key",
-    "authorizer-principal-id": "",
-    "caller": "688567306327",
-    "cognito-authentication-provider": "",
-    "cognito-authentication-type": "",
-    "cognito-identity-id": "",
-    "cognito-identity-pool-id": "",
-    "http-method": "POST",
-    "stage": "test-invoke-stage",
-    "source-ip": "test-invoke-source-ip",
-    "user": "688567306327",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
-    "user-arn": "arn:aws:iam::688567306327:root",
-    "request-id": "79814577-b12e-47be-8bc0-c029f1f94585",
-    "resource-id": "g7ymrh",
-    "resource-path": "/san-pham"
-  }
-}).then(console.log)
+// sanPhamAPI({
+//   "body-json": {
+//     "action": "insert",
+//     "data": {
+//       "ten": "test",
+//       "xuatXu": "a",
+//       "cpu": "asdfasfd",
+//       "pin": 44,
+//       "man": "444",
+//       "camTruoc": "asdfasdf",
+//       "camSau": "sadfasfd",
+//       "hdh": "a",
+//       "pbHDH": "sadfsfa",
+//       "tgBH": 22,
+//       "thuongHieu": "a",
+//     }
+//   },
+//   "params": {
+//     "path": {},
+//     "querystring": {},
+//     "header": {}
+//   },
+//   "stage-variables": {},
+//   "context": {
+//     "account-id": "688567306327",
+//     "api-id": "psm62oxb11",
+//     "api-key": "test-invoke-api-key",
+//     "authorizer-principal-id": "",
+//     "caller": "688567306327",
+//     "cognito-authentication-provider": "",
+//     "cognito-authentication-type": "",
+//     "cognito-identity-id": "",
+//     "cognito-identity-pool-id": "",
+//     "http-method": "POST",
+//     "stage": "test-invoke-stage",
+//     "source-ip": "test-invoke-source-ip",
+//     "user": "688567306327",
+//     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
+//     "user-arn": "arn:aws:iam::688567306327:root",
+//     "request-id": "79814577-b12e-47be-8bc0-c029f1f94585",
+//     "resource-id": "g7ymrh",
+//     "resource-path": "/san-pham"
+//   }
+// }).then(console.log)
