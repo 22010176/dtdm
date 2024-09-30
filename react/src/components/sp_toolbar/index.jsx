@@ -8,8 +8,7 @@ import { useEffect } from 'react'
 import RefreshBtn from '../RefreshBtn'
 import FindBtn from '../FindBtn'
 
-export default function Toolbar({ toolFunc = _ => { } }) {
-
+export default function Toolbar({ toolFunc = _ => { }, refreshClick }) {
   return (
     <div className={styles["tools"]}>
       <div className={styles["tool-items"]}>
@@ -32,23 +31,23 @@ export default function Toolbar({ toolFunc = _ => { } }) {
         </div>
 
         {/* IMEI */}
-        <div className={styles["tool"]} data-func="imei" onClick={toolFunc.bind(this, {}, "imei")}>
+        {/* <div className={styles["tool"]} data-func="imei" onClick={toolFunc.bind(this, {}, "imei")}>
           <FontAwesomeIcon icon={faTableList} style={{ color: "#2b78e4", }} />
           <p className={styles["tool-description"]}> DS IMEI </p>
-        </div>
+        </div> */}
 
         {/* Import */}
-        <div className={styles["tool"]} data-func="import" onClick={toolFunc.bind(this, {}, "import")}>
+        {/* <div className={styles["tool"]} data-func="import" onClick={toolFunc.bind(this, {}, "import")}>
           <FontAwesomeIcon icon={faFileExport} style={{ color: "#009e0f", }} />
           <p className={styles["tool-description"]}> Nhap Excel </p>
-        </div>
+        </div> */}
 
 
         {/* Export */}
-        <div className={styles["tool"]} data-func="export" onClick={toolFunc.bind(this, {}, "export")}>
+        {/* <div className={styles["tool"]} data-func="export" onClick={toolFunc.bind(this, {}, "export")}>
           <FontAwesomeIcon icon={faFileExcel} style={{ color: "#009e0f", }} />
           <p className={styles["tool-description"]}> Xuat Excel </p>
-        </div>
+        </div> */}
       </div>
 
       <form action="" method="get" className={styles["search-form"]}>
@@ -59,7 +58,7 @@ export default function Toolbar({ toolFunc = _ => { } }) {
         </select>
         <input className={styles["search-input"]} type="text" name="ten-sp" placeholder="Tim kiem" />
         <FindBtn width="100px" height="40px" />
-        <RefreshBtn width="100px" height="40px" />
+        <RefreshBtn width="100px" height="40px" onClick={refreshClick} />
       </form>
     </div>
   )

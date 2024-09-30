@@ -12,13 +12,13 @@ const query = {
     [data.ten, data.trangThai, data.ma]
   ),
   delete: (connection, table, data) => connection
-    .query(`DELETE FROM ${table} WHERE ma = ?`, [data.ma])
+    .query(`UPDATE ${table} SET trangThai = 0 WHERE ma = ?`, [data.ma])
 }
 
 const requests = {
   async GET(connection, event) {
     const table = event.params.querystring.table;
-    const [results,] = await connection.query(`SELECT * FROM ${table};`, [event.params.querystring.table]);
+    const [results,] = await connection.query(`SELECT * FROM ${table} WHERE trangThai != 0;`, [event.params.querystring.table]);
     const response = { statusCode: 200, body: JSON.stringify(results), event };
     return response;
   },

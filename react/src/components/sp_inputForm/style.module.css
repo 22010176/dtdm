@@ -1,6 +1,7 @@
 .container {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
+  display: flex;
+  justify-content: center;
+  /* grid-template-columns: 1fr 3fr; */
   gap: 30px;
   padding: 50px;
 }
@@ -21,9 +22,14 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  white-space: nowrap;
+  padding-inline: 5px;
+  /* white-space: nowrap; */
   border: 2px solid black;
-  height: 40px;
+  /* height: 40px; */
+}
+
+.addImg input[type="file"] {
+  color: transparent;
 }
 
 .input-sec .demo-img {
@@ -38,4 +44,5 @@
 .input-sec .form-text-input,
 .input-sec select {
   padding: 5px;
+  width: 200px;
 }

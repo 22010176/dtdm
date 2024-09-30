@@ -16,6 +16,10 @@
     gap: 10px;
 }
 
+.main-content>* {
+    background-color: white;
+}
+
 .title {
     background-color: #76a3db;
     padding: 20px;
