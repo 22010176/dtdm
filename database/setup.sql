@@ -150,12 +150,12 @@ CREATE TABLE phienbansanpham (
     maSanPham VARCHAR(255), -- Tham chiếu tới bảng sanpham
     rom VARCHAR(255),
     ram VARCHAR(255),
-    maMau VARCHAR(255), -- Tham chiếu tới bảng mausac
+    mausac VARCHAR(255), -- Tham chiếu tới bảng mausac
     gianhap INT,
     giaxuat INT,
     
     FOREIGN KEY (maSanPham) REFERENCES sanpham(ma),
-    FOREIGN KEY (maMau) REFERENCES mausac(ma),
+    FOREIGN KEY (mausac) REFERENCES mausac(ma),
     FOREIGN KEY (rom) REFERENCES rom(ma),
     FOREIGN KEY (ram) REFERENCES ram(ma)
 );

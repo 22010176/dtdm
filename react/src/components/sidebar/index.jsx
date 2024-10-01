@@ -9,8 +9,8 @@ function Sidebar() {
       <div className={styles["account"]}>
         <img src="./img/logo.jpg" alt="" className={styles["logo"]} />
         <div className={styles["user-information"]}>
-          <p className={[styles["user-name"], styles['bold']].join(" ")}>Duong chan</p>
-          <p className={[styles["role"], styles["normal"]].join(" ")}>Quan ly kho</p>
+          <p className={[styles["user-name"], styles['bold']].join(" ")}>Nguyễn Anh Ngọc Minh</p>
+          <p className={[styles["role"], styles["normal"]].join(" ")}>Quản lý kho</p>
         </div>
       </div>
 
@@ -24,7 +24,7 @@ function Sidebar() {
               <FontAwesomeIcon icon={faHouse} />
             </div>
             <p className={styles["category-title"]}>
-              <a href="/">Trang chu</a>
+              <a href="/">Trang chủ</a>
             </p>
           </div>
         </div>
@@ -35,7 +35,7 @@ function Sidebar() {
             <div className={styles["icon"]}>
               <FontAwesomeIcon icon={faTabletScreenButton} />
             </div>
-            <p className={styles["category-title"]}> Quan ly san pham </p>
+            <p className={styles["category-title"]}> Quản lý sản phẩm </p>
             <div className={[styles["arrow"]].join(" ")}>
               <FontAwesomeIcon icon={faAngleRight} />
             </div>
@@ -43,11 +43,11 @@ function Sidebar() {
           <ul id="sanPham" className={["accordion-collapse", "collapse", styles["dropdown-container"]].join(" ")} data-bs-parent="#links">
             <li className={styles["item"]}>
               <FontAwesomeIcon icon={faCircle} />
-              <a href="/sanpham">San pham</a>
+              <a href="/sanpham">Sản phẩm</a>
             </li>
             <li className={styles["item"]}>
               <FontAwesomeIcon icon={faCircle} />
-              <a href="/thuoctinh">Thuoc tinh</a>
+              <a href="/thuoctinh">Thuộc tính</a>
             </li>
           </ul>
         </div>

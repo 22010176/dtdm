@@ -1,27 +1,30 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TableA from '../table_a';
+import { apiRoute } from '../../api_param';
+import { formarters } from '../table_a/formatters.mjs';
 import styles from './style.module.css'
 
 export default function ThemCauHinh({ closeOverlay }) {
   const [data, setData] = useState({})
   const [formData, setFormData] = useState({
-    rom: []
+    rom: [], ram: [], mausac: []
   })
+  useEffect(() => {
+    Promise.all([
+      fetch(apiRoute.ram, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, ram: a.body }))),
+      fetch(apiRoute.rom, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, rom: a.body }))),
+      fetch(apiRoute.mauSac, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, mausac: a.body })))
+    ])
+  }, [])
   return (
     <div className={styles.container}>
       <form className={styles["input-form"]}>
         {/* ROM */}
         <div className={styles["form-section"]}>
           <label htmlFor="rom" className={styles["field-title"]}>ROM</label>
-          {/* <select value={data.hdh} onChange={updateForm.bind({}, "hdh")} name='rom' id='rom'>
-            {hdh?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
-          </select> */}
           <select name="rom" id="rom" className={styles["filed-input"]}>
-            <option value="32">32GB</option>
-            <option value="16">16GB</option>
-            <option value="8">8GB</option>
-            <option value="32">32GB</option>
+            {formData.rom?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
           </select>
         </div>
 
@@ -29,10 +32,7 @@ export default function ThemCauHinh({ closeOverlay }) {
         <div className={styles["form-section"]}>
           <label htmlFor="ram" className={styles["field-title"]}>RAM</label>
           <select name="RAM" id="ram" className={styles["filed-input"]}>
-            <option value="32">32GB</option>
-            <option value="16">16GB</option>
-            <option value="8">8GB</option>
-            <option value="32">32GB</option>
+            {formData.ram?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
           </select>
         </div>
 
@@ -40,10 +40,7 @@ export default function ThemCauHinh({ closeOverlay }) {
         <div className={styles["form-section"]}>
           <label htmlFor="color" className={styles["field-title"]}>Mau sac</label>
           <select name="color" id="color" className={styles["filed-input"]}>
-            <option value="32">32GB</option>
-            <option value="16">16GB</option>
-            <option value="8">8GB</option>
-            <option value="32">32GB</option>
+            {formData.mausac?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
           </select>
         </div>
 

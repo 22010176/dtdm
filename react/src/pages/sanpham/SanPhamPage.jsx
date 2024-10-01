@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react-hooks/exhaustive-deps */
 import Sidebar from '../../components/sidebar'
 import { formarters } from '../../components/table_a/formatters.mjs'
 import Toolbar from '../../components/sp_toolbar'
