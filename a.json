@@ -1,140 +1,31 @@
 {
-  "statusCode": 200,
-  "body": [
-    {
-      "ma": "bd77e964-1e0f-4295-bf14-e284b267b199",
-      "ten": "Oppo Note 9",
-      "phienbanHDH": "44",
-      "xuatxu": "My",
-      "hedieuhanh": "android",
-      "thuonghieu": "google"
+  "body-json": {},
+  "params": {
+    "path": {},
+    "querystring": {
+      "ma": "A1"
     },
-    {
-      "ma": "AA6",
-      "ten": "test",
-      "phienbanHDH": "sadfsfa",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "A7",
-      "ten": "",
-      "phienbanHDH": "",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "A5",
-      "ten": "2",
-      "phienbanHDH": "2",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "A3",
-      "ten": "2",
-      "phienbanHDH": "2",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "A2",
-      "ten": "2",
-      "phienbanHDH": "2",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "a1b98682-50a8-45a3-8092-8438681711aa",
-      "ten": "",
-      "phienbanHDH": "",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "A1",
-      "ten": "2",
-      "phienbanHDH": "2",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "7171a725-1a45-404f-81ac-772e298b0dc8",
-      "ten": "",
-      "phienbanHDH": "",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "5f157320-d8e7-4dd0-bf28-132bf400c691",
-      "ten": "Iphone 13",
-      "phienbanHDH": "14",
-      "xuatxu": "My",
-      "hedieuhanh": "ios",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "44da9317-5d34-45c3-bd75-40f111f8d56a",
-      "ten": "",
-      "phienbanHDH": "",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "159a0bf8-d800-49a4-afe9-10f63701508c",
-      "ten": "",
-      "phienbanHDH": "",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    },
-    {
-      "ma": "112ea501-39ad-4ba9-84c5-d1508b0c3e18",
-      "ten": "",
-      "phienbanHDH": "",
-      "xuatxu": "My",
-      "hedieuhanh": "window",
-      "thuonghieu": "apple"
-    }
-  ],
-  "event": {
-    "body-json": {},
-    "params": {
-      "path": {},
-      "querystring": {
-        "ma": "3"
-      },
-      "header": {}
-    },
-    "stage-variables": {},
-    "context": {
-      "account-id": "873096019707",
-      "api-id": "zd52ipcrb1",
-      "api-key": "test-invoke-api-key",
-      "authorizer-principal-id": "",
-      "caller": "873096019707",
-      "cognito-authentication-provider": "",
-      "cognito-authentication-type": "",
-      "cognito-identity-id": "",
-      "cognito-identity-pool-id": "",
-      "http-method": "GET",
-      "stage": "test-invoke-stage",
-      "source-ip": "test-invoke-source-ip",
-      "user": "873096019707",
-      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
-      "user-arn": "arn:aws:iam::873096019707:root",
-      "request-id": "198d00be-2995-458a-b4d9-f79cbbd7405f",
-      "resource-id": "aigm08",
-      "resource-path": "/san-pham"
-    }
+    "header": {}
+  },
+  "stage-variables": {},
+  "context": {
+    "account-id": "873096019707",
+    "api-id": "zd52ipcrb1",
+    "api-key": "test-invoke-api-key",
+    "authorizer-principal-id": "",
+    "caller": "873096019707",
+    "cognito-authentication-provider": "",
+    "cognito-authentication-type": "",
+    "cognito-identity-id": "",
+    "cognito-identity-pool-id": "",
+    "http-method": "GET",
+    "stage": "test-invoke-stage",
+    "source-ip": "test-invoke-source-ip",
+    "user": "873096019707",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
+    "user-arn": "arn:aws:iam::873096019707:root",
+    "request-id": "2d10fe8a-41dd-47f9-8b72-f47f22c124fd",
+    "resource-id": "t6ls3t",
+    "resource-path": "/cau-hinh"
   }
 }

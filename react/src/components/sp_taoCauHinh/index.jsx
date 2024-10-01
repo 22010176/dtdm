@@ -1,29 +1,42 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import TableA from '../table_a';
 import { apiRoute } from '../../api_param';
 import { formarters } from '../table_a/formatters.mjs';
+import { FormContext } from '../../pages/sanpham/SanPhamPage';
 import styles from './style.module.css'
 
-export default function ThemCauHinh({ closeOverlay }) {
-  const [data, setData] = useState({})
-  const [formData, setFormData] = useState({
-    rom: [], ram: [], mausac: []
+export default function ThemCauHinh({ closeOverlay, ma }) {
+  const { sanpham: [data, setData] } = useContext(FormContext)
+  const [cauHinh, setCauHinh] = useState({
+    rom: "a", ram: "a", mausac: "a", giaNhap: null, giaBan: null
   })
+  const [formData, setFormData] = useState({
+    rom: [], ram: [], mausac: [], table: []
+  })
+
   useEffect(() => {
+    console.log(data)
+  }, [data])
+  useEffect(() => {
+    fetch(`${apiRoute.cauHinh}?ma=${data.ma}`, { method: "GET" }).then(a => a.json()).then(src => {
+      console.log(src)
+      setFormData(old => ({ ...old, table: src.body ?? [] }))
+    })
     Promise.all([
       fetch(apiRoute.ram, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, ram: a.body }))),
       fetch(apiRoute.rom, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, rom: a.body }))),
-      fetch(apiRoute.mauSac, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, mausac: a.body })))
+      fetch(apiRoute.mauSac, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, mausac: a.body }))),
     ])
   }, [])
+
   return (
     <div className={styles.container}>
       <form className={styles["input-form"]}>
         {/* ROM */}
         <div className={styles["form-section"]}>
           <label htmlFor="rom" className={styles["field-title"]}>ROM</label>
-          <select name="rom" id="rom" className={styles["filed-input"]}>
+          <select name="rom" id="rom" value={cauHinh.rom} className={styles["filed-input"]}>
             {formData.rom?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
           </select>
         </div>
@@ -31,7 +44,7 @@ export default function ThemCauHinh({ closeOverlay }) {
         {/* ROM */}
         <div className={styles["form-section"]}>
           <label htmlFor="ram" className={styles["field-title"]}>RAM</label>
-          <select name="RAM" id="ram" className={styles["filed-input"]}>
+          <select name="RAM" id="ram" value={cauHinh.ram} className={styles["filed-input"]}>
             {formData.ram?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
           </select>
         </div>
@@ -39,7 +52,7 @@ export default function ThemCauHinh({ closeOverlay }) {
         {/* Color */}
         <div className={styles["form-section"]}>
           <label htmlFor="color" className={styles["field-title"]}>Mau sac</label>
-          <select name="color" id="color" className={styles["filed-input"]}>
+          <select name="color" id="color" value={cauHinh.mausac} className={styles["filed-input"]}>
             {formData.mausac?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
           </select>
         </div>
@@ -47,45 +60,20 @@ export default function ThemCauHinh({ closeOverlay }) {
         {/* ROM */}
         <div className={styles["form-section"]}>
           <label htmlFor="giaNhap" className={styles["field-title"]}>Gia nhap</label>
-          <input type="text" name="giaNhap" id="giaNhap" className={styles["filed-input"]} />
+          <input type="number" name="giaNhap" id="giaNhap" value={cauHinh.giaNhap} className={styles["filed-input"]} />
         </div>
 
         {/* ROM */}
         <div className={styles["form-section"]}>
           <label htmlFor="giaXuat" className={styles["field-title"]}>Gia xuat</label>
-          <input type="text" name="giaXuat" id="giaXuat" className={styles["filed-input"]} />
+          <input type="number" name="giaXuat" id="giaXuat" value={cauHinh.giaBan} className={styles["filed-input"]} />
         </div>
       </form>
 
       <div className={styles["table-data"]}>
         <TableA width={"100%"} height="100%" headers={[
           "Stt", "Ram", "Rom", "Mau sac", "Gia nhap", "Gia xuat"
-        ]} data={[]} />
-        {/* <div className={styles['wrapper']}>
-          <table className={styles['data-table']}>
-            <tbody>
-              <tr>
-                <th>Stt</th>
-                <th>RAM</th>
-                <th>ROM</th>
-                <th>Mau sac</th>
-                <th>Gia nhap</th>
-                <th>Gia xuat</th>
-              </tr>
-
-              {new Array(20).fill().map((i, j) => (
-                <tr key={j}>
-                  <td className={styles['stt-col']}>1</td>
-                  <td className={styles['rom-col']}>32GB</td>
-                  <td className={styles['ram-col']}>32GB</td>
-                  <td className={styles['color-col']}>Vang</td>
-                  <td className={styles['import-col']}>8000000</td>
-                  <td className={styles['export-col']}>{Math.floor(Math.random() * 10000)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
+        ]} data={formData.table.map(formarters.cauHinh)} />
 
         <div className={styles["tools-btn"]}>
           <button className="add">Them cau hinh</button>

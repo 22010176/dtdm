@@ -7,6 +7,7 @@ export const apiRoute = {
   ram: "/api/thuoc-tinh?table=ram",
   rom: "/api/thuoc-tinh?table=rom",
   thuocTinh: "/api/thuoc-tinh",
-  sp: "/api/san-pham"
+  sp: "/api/san-pham",
+  cauHinh: "/api/cau-hinh",
 }
 

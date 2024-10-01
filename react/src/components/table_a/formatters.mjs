@@ -1,4 +1,6 @@
-function format1(item) { return { id: item.ma, data: [item.ma, item.ten] } }
+function format1(item) {
+  return { id: item.ma, data: [item.ma, item.ten] }
+}
 
 export const formarters = {
   spFormat: (item) => ({
@@ -11,4 +13,8 @@ export const formarters = {
   mauSac: format1,
   rom: format1,
   ram: format1,
+  cauHinh: (item, i) => ({
+    id: item.ma,
+    data: [i + 1, item.ma, item.ram, item.rom, item.mausac, item.gianhap, item.giaxuat]
+  })
 }

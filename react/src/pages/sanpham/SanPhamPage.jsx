@@ -15,9 +15,9 @@ import { apiRoute } from '../../api_param'
 
 export const FormContext = createContext()
 const defaulSanPhamData = {
-  "ten": "", "xuatXu": "", "cpu": "", "pin": "",
-  "man": "", "camTruoc": "", "camSau": "", "hdh": "",
-  "pbHDH": "", "tgBH": "", "thuongHieu": "", "img": ""
+  "ten": "", "xuatXu": "a", "cpu": "", "pin": "",
+  "man": "", "camTruoc": "", "camSau": "", "hdh": "a",
+  "pbHDH": "", "tgBH": "", "thuongHieu": "a", "img": ""
 }
 function App() {
   const [overlay, setOverlay] = useState({
@@ -28,10 +28,10 @@ function App() {
     setOverlay(data => ({ ...data, [key]: true }))
   }
 
-  function closeOverlay(key, e = {}) {
+  function closeOverlay(key, reset = false, e = {}) {
     e?.preventDefault?.();
     setOverlay(data => ({ ...data, [key]: false }))
-    resetPage()
+    if (reset) resetPage()
   }
 
   const [data, setData] = useState(defaulSanPhamData)
@@ -55,11 +55,15 @@ function App() {
   function InsertSanPham(e) {
     e.preventDefault()
     openOverlay("taoCH")
+    console.log(data)
     fetch(apiRoute.sp, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "insert", data })
-    }).then(a => a.json()).then(console.log)
+    }).then(a => a.json()).then(a => {
+      setData(src => ({ ...src, ma: a.id }))
+      console.log(a)
+    })
   }
 
   async function DeleteSanPham(e) {
