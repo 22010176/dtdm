@@ -3,11 +3,11 @@ import styles from './style.module.css'
 
 /*
 data: [
-  {id:"dd", data: ['d', ''d]},
-  {id:"dd", data: ['d', ''d]},
-  {id:"dd", data: ['d', ''d]},
-  {id:"dd", data: ['d', ''d]},
-  {id:"dd", data: ['d', ''d]},
+  {id:"dd", data: ['d', 'd']},
+  {id:"dd", data: ['d', 'd']},
+  {id:"dd", data: ['d', 'd']},
+  {id:"dd", data: ['d', 'd']},
+  {id:"dd", data: ['d', 'd']},
 ]
  */
 export default function TableA({ headers = [], data = [], height, width, rowClick }) {

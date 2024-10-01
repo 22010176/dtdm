@@ -3,8 +3,8 @@ import mysql from 'mysql2/promise'
 import { v4 } from 'uuid'
 
 const query = {
-  insert: (connection, data) => connection.query(
-    `INSERT INTO sanpham 
+  insert: (connection, data) => connection.query(`
+INSERT INTO sanpham 
 (ma, ten, xuatxu, cpu, dungLuongPin, kichThuocManHinh, cam_truoc, cam_sau, heDieuHanh, phienBanHDH, thoiGianBaoHanh, thuongHieu, trangThai) 
 VALUES
 (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);`,

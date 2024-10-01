@@ -4,7 +4,8 @@ import styles from './style.module.css'
 
 export default function Overlay({ nameOverlay = "overlay", width, height, children, visible, opacity = 0.5, closeEvent }) {
   function closeOverlay(e) {
-    if (typeof closeEvent == "function") closeEvent(e, nameOverlay)
+    if (typeof closeEvent == "function")
+      closeEvent(nameOverlay, e)
   }
   return (
     <div className={[styles.container, visible ? "" : styles.hide].join(" ")}>
@@ -12,7 +13,6 @@ export default function Overlay({ nameOverlay = "overlay", width, height, childr
       </div>
       <div className={styles.content} style={{ width, height }}>
         {children}
-
       </div>
     </div>
   )

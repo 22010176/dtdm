@@ -8,26 +8,31 @@ import { useEffect } from 'react'
 import RefreshBtn from '../RefreshBtn'
 import FindBtn from '../FindBtn'
 
-export default function Toolbar({ toolFunc = _ => { }, refreshClick }) {
+
+export default function Toolbar({ addFunc, editfunc, deleteFunc, refreshClick }) {
+  function btnEvent(func, e) {
+    console.log({ func, e })
+    if (typeof func == "function") func(e)
+  }
   return (
     <div className={styles["tools"]}>
       <div className={styles["tool-items"]}>
         {/* Add */}
-        <div className={[styles["tool"]].join(" ")} data-func="add" onClick={toolFunc.bind(this, {}, "add")}>
+        <div className={[styles["tool"]].join(" ")} data-func="add" onClick={btnEvent.bind({}, addFunc)}>
           <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#63e6be", }} />
           <p className={styles["tool-description"]}> Them </p>
         </div>
 
-        {/* Delete */}
-        <div className={styles["tool"]} data-func="delete" onClick={toolFunc.bind(this, {}, "delete")}>
-          <FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffd43b", }} />
-          <p className={styles["tool-description"]}> Xoa </p>
-        </div>
-
         {/* Edit */}
-        <div className={styles["tool"]} data-func="edit" onClick={toolFunc.bind(this, {}, "edit")}>
+        <div className={styles["tool"]} data-func="edit" onClick={btnEvent.bind({}, editfunc)}>
           <FontAwesomeIcon icon={faPencil} style={{ color: "#e69138", }} />
           <p className={styles["tool-description"]}> Sua </p>
+        </div>
+
+        {/* Delete */}
+        <div className={styles["tool"]} data-func="delete" onClick={btnEvent.bind({}, deleteFunc)}>
+          <FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffd43b", }} />
+          <p className={styles["tool-description"]}> Xoa </p>
         </div>
 
         {/* IMEI */}
@@ -41,7 +46,6 @@ export default function Toolbar({ toolFunc = _ => { }, refreshClick }) {
           <FontAwesomeIcon icon={faFileExport} style={{ color: "#009e0f", }} />
           <p className={styles["tool-description"]}> Nhap Excel </p>
         </div> */}
-
 
         {/* Export */}
         {/* <div className={styles["tool"]} data-func="export" onClick={toolFunc.bind(this, {}, "export")}>

@@ -8,15 +8,25 @@ import { useState } from 'react'
 import { apiRoute } from '../../api_param'
 
 export default function SanPhamForm({ onChange }) {
-  const [data, setData] = useContext(FormContext)
+  const { sanpham: [data, setData] } = useContext(FormContext)
   const [xuatXu, setXuatXu] = useState([]);
   const [hdh, setHDH] = useState([]);
   const [thuongHieu, setThuongHieu] = useState([]);
 
   useEffect(() => {
-    fetch(apiRoute.xuatXu).then(a => a.json()).then(a => setXuatXu(JSON.parse(a.body)))
-    fetch(apiRoute.hdh).then(a => a.json()).then(a => setHDH(JSON.parse(a.body)))
-    fetch(apiRoute.thuongHieu).then(a => a.json()).then(a => setThuongHieu(JSON.parse(a.body)))
+    fetch(apiRoute.xuatXu)
+      .then(a => a.json())
+      .then(a => setXuatXu(JSON.parse(a.body)))
+      .catch(() => [])
+
+    fetch(apiRoute.hdh)
+      .then(a => a.json())
+      .then(a => setHDH(JSON.parse(a.body)))
+      .catch(() => [])
+    fetch(apiRoute.thuongHieu)
+      .then(a => a.json())
+      .then(a => setThuongHieu(JSON.parse(a.body)))
+      .catch(() => [])
     // console.log({ xuatXu, hdh, thuongHieu })
   }, [])
 

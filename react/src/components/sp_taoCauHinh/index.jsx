@@ -1,13 +1,22 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
+import TableA from '../table_a';
 import styles from './style.module.css'
 
 export default function ThemCauHinh({ closeOverlay }) {
+  const [data, setData] = useState({})
+  const [formData, setFormData] = useState({
+    rom: []
+  })
   return (
     <div className={styles.container}>
       <form className={styles["input-form"]}>
         {/* ROM */}
         <div className={styles["form-section"]}>
           <label htmlFor="rom" className={styles["field-title"]}>ROM</label>
+          {/* <select value={data.hdh} onChange={updateForm.bind({}, "hdh")} name='rom' id='rom'>
+            {hdh?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
+          </select> */}
           <select name="rom" id="rom" className={styles["filed-input"]}>
             <option value="32">32GB</option>
             <option value="16">16GB</option>
@@ -52,7 +61,10 @@ export default function ThemCauHinh({ closeOverlay }) {
       </form>
 
       <div className={styles["table-data"]}>
-        <div className={styles['wrapper']}>
+        <TableA width={"100%"} height="100%" headers={[
+          "Stt", "Ram", "Rom", "Mau sac", "Gia nhap", "Gia xuat"
+        ]} data={[]} />
+        {/* <div className={styles['wrapper']}>
           <table className={styles['data-table']}>
             <tbody>
               <tr>
@@ -76,7 +88,7 @@ export default function ThemCauHinh({ closeOverlay }) {
               ))}
             </tbody>
           </table>
-        </div>
+        </div> */}
 
         <div className={styles["tools-btn"]}>
           <button className="add">Them cau hinh</button>
@@ -87,7 +99,7 @@ export default function ThemCauHinh({ closeOverlay }) {
       </div>
 
       <div className={styles["submit-btn"]}>
-        {/* <button className='add'>Them san pham moi</button> */}
+        <button className='add'>Them san pham moi</button>
         <button className='edit' onClick={function (e) {
           if (typeof closeOverlay == 'function') closeOverlay();
         }}>Quay lai trang truoc</button>

@@ -49,3 +49,7 @@ export default async function thuocTinhAPI(event) {
     return result;
   } catch { return { body: "error" }; }
 };
+
+thuocTinhAPI({
+
+})

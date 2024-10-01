@@ -1,5 +1,5 @@
 export const apiRoute = {
-  url: "https://psm62oxb11.execute-api.ap-southeast-1.amazonaws.com/data",
+  url: "https://zd52ipcrb1.execute-api.ap-southeast-1.amazonaws.com/data",
   thuongHieu: "/api/thuoc-tinh?table=thuonghieu",
   xuatXu: "/api/thuoc-tinh?table=xuatxu",
   hdh: "/api/thuoc-tinh?table=hedieuhanh",
