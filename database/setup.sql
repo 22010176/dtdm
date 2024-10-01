@@ -141,7 +141,7 @@ ten = '', xuatxu = 'a', cpu ='ddd', dungLuongPin = 34,
 kichThuocManHinh = 34, cam_truoc = "", cam_sau = "", heDieuHanh = "a",
 phienBanHDH="", thoiGianBaoHanh = 34, thuongHieu = "a"
 WHERE ma = 'a7';
-SELECT * FROM sanpham WHERE ma = 'a7';
+SELECT * FROM sanpham WHERE ma = 'a';
 
 -- Bảng phienbansanpham
 DROP TABLE IF EXISTS phienbansanpham;
