@@ -19,7 +19,7 @@ const requests = {
   async GET(connection, event) {
     const table = event.params.querystring.table;
     const [results,] = await connection.query(`SELECT * FROM ${table} WHERE trangThai != 0;`, [event.params.querystring.table]);
-    const response = { statusCode: 200, body: JSON.stringify(results), event };
+    const response = { statusCode: 200, body: results, event };
     return response;
   },
 
@@ -31,7 +31,6 @@ const requests = {
       if (result.affectedRows == 0) return { body: "not found" }
       return { body: "success" }
     } catch (error) {
-      console.log(error)
       return { body: "query fail" }
     }
   }

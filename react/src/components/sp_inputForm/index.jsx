@@ -16,17 +16,17 @@ export default function SanPhamForm({ onChange }) {
   useEffect(() => {
     fetch(apiRoute.xuatXu)
       .then(a => a.json())
-      .then(a => setXuatXu(JSON.parse(a.body)))
-      .catch(() => [])
+      .then(a => setXuatXu(a.body))
+      .catch(() => { return [] })
 
     fetch(apiRoute.hdh)
       .then(a => a.json())
-      .then(a => setHDH(JSON.parse(a.body)))
-      .catch(() => [])
+      .then(a => { setHDH(a.body) })
+      .catch(e => { return [] })
     fetch(apiRoute.thuongHieu)
       .then(a => a.json())
-      .then(a => setThuongHieu(JSON.parse(a.body)))
-      .catch(() => [])
+      .then(a => setThuongHieu(a.body))
+      .catch(() => { return [] })
     // console.log({ xuatXu, hdh, thuongHieu })
   }, [])
 

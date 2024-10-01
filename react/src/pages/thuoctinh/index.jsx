@@ -8,20 +8,10 @@ import styles from './style.module.css'
 import Overlay from '../../components/overlay/Overlay'
 import TableA from '../../components/table_a'
 import Sidebar from '../../components/sidebar'
+import { formarters } from '../../components/table_a/formatters.mjs'
 import { useState } from 'react'
 
-function format1(item) { return { id: item.ma, data: [item.ma, item.ten] } }
-
-const tableRoute = {
-  thuongHieu: format1,
-  xuatXu: format1,
-  hdh: format1,
-  mauSac: format1,
-  rom: format1,
-  ram: format1,
-}
-
-function _temmp(callback, e) {
+function _temp(callback, e) {
   e?.preventDefault();
   if (typeof callback == 'function') callback(e);
 }
@@ -29,13 +19,13 @@ function _temmp(callback, e) {
 function SubmitSec({ deleteF = e => { }, addF = e => { }, editF = e => { } }) {
   return (
     <div className={styles["submit"]}>
-      <button className="add" type='submit' onClick={_temmp.bind({}, addF)}>
+      <button className="add" type='submit' onClick={_temp.bind({}, addF)}>
         Them
       </button>
-      <button className="refresh" type='submit' onClick={_temmp.bind({}, editF)}>
+      <button className="refresh" type='submit' onClick={_temp.bind({}, editF)}>
         Sua
       </button>
-      <button className="delete" type='button' onClick={_temmp.bind({}, deleteF)}>
+      <button className="delete" type='button' onClick={_temp.bind({}, deleteF)}>
         Xoa
       </button>
     </div >
@@ -53,14 +43,13 @@ function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
     setData([])
     if (!url) return;
     const a = await fetch(url, { method: "GET" }).then(res => res.json())
-    if (a.body) setData(JSON.parse(a.body).map(tableRoute[name]))
+    if (a.body) setData(a.body.map(formarters[name]))
   }
 
   async function requestPost(method) {
     if (!url) return;
     const result = await fetch(url, {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST", headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: method, data: formData })
     }).then(a => a.json())
 

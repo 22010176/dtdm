@@ -11,7 +11,6 @@ import FindBtn from '../FindBtn'
 
 export default function Toolbar({ addFunc, editfunc, deleteFunc, refreshClick }) {
   function btnEvent(func, e) {
-    console.log({ func, e })
     if (typeof func == "function") func(e)
   }
   return (
