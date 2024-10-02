@@ -19,19 +19,19 @@ export default function Toolbar({ addFunc, editfunc, deleteFunc, refreshClick })
         {/* Add */}
         <div className={[styles["tool"]].join(" ")} data-func="add" onClick={btnEvent.bind({}, addFunc)}>
           <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#63e6be", }} />
-          <p className={styles["tool-description"]}> Them </p>
+          <p className={styles["tool-description"]}> Thêm </p>
         </div>
 
         {/* Edit */}
         <div className={styles["tool"]} data-func="edit" onClick={btnEvent.bind({}, editfunc)}>
           <FontAwesomeIcon icon={faPencil} style={{ color: "#e69138", }} />
-          <p className={styles["tool-description"]}> Sua </p>
+          <p className={styles["tool-description"]}> Sửa </p>
         </div>
 
         {/* Delete */}
         <div className={styles["tool"]} data-func="delete" onClick={btnEvent.bind({}, deleteFunc)}>
           <FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffd43b", }} />
-          <p className={styles["tool-description"]}> Xoa </p>
+          <p className={styles["tool-description"]}> Xóa </p>
         </div>
 
         {/* IMEI */}
@@ -55,11 +55,11 @@ export default function Toolbar({ addFunc, editfunc, deleteFunc, refreshClick })
 
       <form action="" method="get" className={styles["search-form"]}>
         <select title="category" name="category" className={styles["drop-down"]}>
-          <option value="all">Tat ca 1</option>
-          <option value="all">Tat ca 2</option>
-          <option value="all">Tat ca 3</option>
+          <option value="all">Tên</option>
+          <option value="all">Thương hiệu</option>
+          <option value="all">Ngày</option>
         </select>
-        <input className={styles["search-input"]} type="text" name="ten-sp" placeholder="Tim kiem" />
+        <input className={styles["search-input"]} type="text" name="ten-sp" placeholder="Tìm kiếm" />
         <FindBtn width="100px" height="40px" />
         <RefreshBtn width="100px" height="40px" onClick={refreshClick} />
       </form>

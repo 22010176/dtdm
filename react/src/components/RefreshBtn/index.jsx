@@ -9,7 +9,7 @@ export default function RefreshBtn({ width, height, onClick }) {
       if (typeof onClick === 'function') onClick(e);
     }}>
       <FontAwesomeIcon icon={faArrowRotateRight} style={{ color: "#ff00ff", }} />
-      <span>Lam moi</span>
+      <span>Làm mới</span>
     </button>
   )
 }

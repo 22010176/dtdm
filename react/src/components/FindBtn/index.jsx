@@ -7,7 +7,7 @@ export default function FindBtn({ width, height }) {
   return (
     <button type="submit" className={styles['find-btn']} style={{ width, height }}>
       <FontAwesomeIcon icon={faMagnifyingGlass} />
-      <p>Tim kiem</p>
+      <p>Tìm kiếm</p>
     </button>
   )
 

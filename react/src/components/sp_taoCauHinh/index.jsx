@@ -11,7 +11,7 @@ const defaultCauHinh = { rom: "a", ram: "a", mausac: "a", giaNhap: "", giaBan: "
 export default function ThemCauHinh({ closeOverlay, ma }) {
   const [cauHinh, setCauHinh] = useState({ ...defaultCauHinh })
   const [formData, setFormData] = useState({ rom: [], ram: [], mausac: [], table: [] })
-  // console.log(formData)
+
   useEffect(() => {
     Promise.all([
       fetch(apiRoute.ram, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, ram: a.body }))),
@@ -41,7 +41,6 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
     setCauHinh({ ...defaultCauHinh })
     refreshCH()
   }
-
 
   async function editCH(e) {
     e?.preventDefault();
@@ -89,7 +88,7 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
 
         {/* Color */}
         <div className={styles["form-section"]}>
-          <label htmlFor="color" className={styles["field-title"]}>Mau sac</label>
+          <label htmlFor="color" className={styles["field-title"]}>Màu sắc</label>
           <select name="color" id="color" className={styles["filed-input"]}
             value={cauHinh.mausac} onChange={e => setCauHinh(old => ({ ...old, mausac: e.target.value }))}>
             {formData.mausac?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
@@ -98,14 +97,14 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
 
         {/* ROM */}
         <div className={styles["form-section"]}>
-          <label htmlFor="giaNhap" className={styles["field-title"]}>Gia nhap</label>
+          <label htmlFor="giaNhap" className={styles["field-title"]}>Giá nhập</label>
           <input type="number" name="giaNhap" id="giaNhap" className={styles["filed-input"]}
             value={cauHinh.giaNhap} onChange={e => setCauHinh(old => ({ ...old, giaNhap: e.target.value }))} />
         </div>
 
         {/* ROM */}
         <div className={styles["form-section"]}>
-          <label htmlFor="giaXuat" className={styles["field-title"]}>Gia xuat</label>
+          <label htmlFor="giaXuat" className={styles["field-title"]}>Giá xuất</label>
           <input type="number" name="giaXuat" id="giaXuat" className={styles["filed-input"]}
             value={cauHinh.giaBan} onChange={e => setCauHinh(old => ({ ...old, giaBan: e.target.value }))} />
         </div>
@@ -123,18 +122,20 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
           }} />
 
         <div className={styles["tools-btn"]}>
-          <button className="add" onClick={addCH}>Them cau hinh</button>
-          <button className="edit" onClick={editCH}>Sua cau hinh</button>
-          <button className="delete" onClick={deleteCH}>Xoa cau hinh</button>
-          <button className="refresh" onClick={refreshCH}>Lam moi cau hinh</button>
+          <button className="add" onClick={addCH}>Thêm cấu hình</button>
+          <button className="edit" onClick={editCH}>Sửa cấu hình</button>
+          <button className="delete" onClick={deleteCH}>Xóa cấu hình</button>
+          <button className="refresh" onClick={refreshCH}>Làm mới cấu hình</button>
         </div>
       </div>
 
       <div className={styles["submit-btn"]}>
-        <button className='add'>Them san pham moi</button>
+        <button className='add' onClick={function (e) {
+          if (typeof closeOverlay == 'function') closeOverlay();
+        }}>Lưu thông tin</button>
         <button className='edit' onClick={function (e) {
           if (typeof closeOverlay == 'function') closeOverlay();
-        }}>Quay lai trang truoc</button>
+        }}>Quay lại trang trước</button>
       </div>
     </div>
   )

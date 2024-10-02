@@ -231,7 +231,7 @@ function Sidebar() {
         <div className={styles["icon"]}>
           <FontAwesomeIcon icon={faRightFromBracket} />
         </div>
-        <p className={styles["category-title"]}>Dang xuat </p>
+        <p className={styles["category-title"]}>Đăng xuất </p>
       </div>
     </aside>
   )

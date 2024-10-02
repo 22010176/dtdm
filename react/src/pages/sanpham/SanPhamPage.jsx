@@ -52,18 +52,16 @@ function App() {
     resetPage()
   }, [])
 
-  function InsertSanPham(e) {
+  async function InsertSanPham(e) {
     e.preventDefault()
-    openOverlay("taoCH")
-
-    fetch(apiRoute.sp, {
+    await fetch(apiRoute.sp, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "insert", data })
     }).then(a => a.json()).then(a => {
       setData(src => ({ ...src, ma: a.id }))
-      console.log(a)
     })
+    openOverlay("taoCH")
   }
 
   async function DeleteSanPham(e) {
@@ -101,12 +99,42 @@ function App() {
     openOverlay("edit", e)
   }
 
+  function openAddForm(e) {
+    setData({ ...defaulSanPhamData }) // no id on data
+    openOverlay("add")
+  }
+
+  async function closeInsertCHForm(e) {
+    e?.preventDefault()
+    // Neu so luong san pham != 0
+    if (await fetch(`${apiRoute.cauHinh}?sp=${data.ma}`, { method: "GET" })
+      .then(a => a.json()).then(a => a.body.length) != 0) {
+      closeOverlay("taoCH", false)
+      let id = data.ma;
+      closeOverlay("add", true)
+      setData(data => ({ ...data, ma: id }))
+      openEditForm()
+      return;
+    }
+
+    const result = confirm("Phai co it nhat 1 cau hinh. Hay dien 1 cau hinh!!!")
+    if (!result) { // press cancel
+      await fetch(apiRoute.sp, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "delete", data: { ma: data.ma } })
+      }).then(a => a.json()).then(console.log)
+
+      closeOverlay("taoCH", false)
+      closeOverlay("add", true)
+    }
+  }
+
   return (
     <div className={styles.App}>
       <Sidebar />
       <div className={styles["main-content"]}>
         <Toolbar
-          addFunc={openOverlay.bind(this, "add")}
+          addFunc={openAddForm}
           editfunc={openEditForm}
           deleteFunc={DeleteSanPham}
           refreshClick={resetPage}
@@ -123,40 +151,40 @@ function App() {
       <FormContext.Provider value={{ sanpham: [data, setData] }}>
         <Overlay width="80%" height="70%" visible={overlay.add} opacity={0.9} closeEvent={closeOverlay.bind({}, "add", true)} >
           <div className={styles.title}>
-            <h1>Them San Pham</h1>
+            <h1>Thêm sản phẩm</h1>
           </div>
           <SanPhamForm />
           <div className={styles["submit-section"]}>
-            <button className="add" type='submit' onClick={InsertSanPham}>Tao cau hinh</button>
-            <button className="delete" onClick={closeOverlay.bind({}, "add", true)}>Huy bo</button>
+            <button className="add" type='submit' onClick={InsertSanPham}>Tạo cấu hình</button>
+            <button className="delete" onClick={closeOverlay.bind({}, "add", true)}>Hủy bỏ</button>
           </div>
         </Overlay >
 
         {/* Sua san pham */}
         <Overlay width="80%" height="70%" visible={overlay.edit} opacity={0.9} closeEvent={closeOverlay.bind({}, "edit", true)} >
           <div className={styles.title}>
-            <h1>Sua San Pham</h1>
+            <h1>Sửa sản phẩm</h1>
           </div>
           <SanPhamForm />
           <div className={styles["submit-section"]}>
-            <button className="add" type='submit' onClick={UpdateSanPham}>Luu thong tin</button>
-            <button className="edit" type='submit' onClick={openOverlay.bind(this, "taoCH")}>Sua cau hinh</button>
-            <button className="delete" onClick={closeOverlay.bind({}, "edit", true)}>Huy bo</button>
+            <button className="add" type='submit' onClick={UpdateSanPham}>Lưu thông tin</button>
+            <button className="edit" type='submit' onClick={openOverlay.bind(this, "taoCH")}>Sửa cấu hình</button>
+            <button className="delete" onClick={closeOverlay.bind({}, "edit", true)}>Hủy bỏ</button>
           </div>
         </Overlay >
 
         {/* Tao cau hinh */}
-        <Overlay width="70%" height="70%" visible={overlay.taoCH} opacity={0.9} closeEvent={closeOverlay.bind({}, "taoCH", false)} >
+        <Overlay width="70%" height="70%" visible={overlay.taoCH} opacity={0.9} closeEvent={closeInsertCHForm} >
           <div className={styles.title}>
-            <h1>Chỉnh sửa Cau Hinh</h1>
+            <h1>Chỉnh sửa cấu hình</h1>
           </div>
-          <ThemCauHinh closeOverlay={closeOverlay.bind(this, "taoCH", false)} ma={data.ma} />
+          <ThemCauHinh closeOverlay={closeInsertCHForm} ma={data.ma} />
         </Overlay >
 
         {/* imei */}
         <Overlay width="60%" height="80%" visible={overlay.imei} opacity={0.9} closeEvent={closeOverlay.bind({}, "add", true)} >
           <div className={styles.title}>
-            <h1>Danh sach ma IMEI</h1>
+            <h1>Danh sách mã IMEI</h1>
           </div>
           <IMEM_Data />
         </Overlay >
