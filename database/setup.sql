@@ -173,6 +173,12 @@ INSERT INTO phienbansanpham (ma, maSanPham, rom, ram, mausac, gianhap, giaxuat, 
 ("d3d", "A1", "a", "a", "a", 33, 44, 1),
 ("b3", "A1", "a", "a", "a", 33, 444, 1);
 
+UPDATE phienbansanpham 
+SET rom = "a", ram = "b", mausac = "a", gianhap = 10, giaxuat = 33
+WHERE ma = "12563c26-a525-4a7c-b62f-3130e8137b92" AND masanpham = "A1";
+
+SELECT * FROM phienbansanpham WHERE ma = '08340a29-9ed0-435a-a973-f06b7fb18e1a';
+
 UPDATE phienbansanpham SET trangThai = 0
 WHERE ma = "g3" AND maSanPham = "A1";
 

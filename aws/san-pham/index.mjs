@@ -38,7 +38,6 @@ const requests = {
   async GET(connection, event) {
     const spID = event.params.querystring.ma
     try {
-
       const [results,] = await connection.query(spID ? tableQuery : dataQuery, [spID]);
       return { statusCode: 200, body: results };
     } catch (error) {

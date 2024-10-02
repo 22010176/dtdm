@@ -26,14 +26,13 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
 
   function refreshCH(e) {
     setFormData(old => ({ ...old, table: [] }));
-    fetch(`${apiRoute.cauHinh}?ma=${ma}`, { method: "GET" })
+    fetch(`${apiRoute.cauHinh}?sp=${ma}`, { method: "GET" })
       .then(a => a.json())
       .then(src => setFormData(old => ({ ...old, table: src.body ?? [] })))
   }
 
   async function addCH(e) {
     e?.preventDefault();
-    console.log({ ...cauHinh, maSP: ma })
     await fetch(apiRoute.cauHinh, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,8 +43,16 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
   }
 
 
-  function editCH(e) {
+  async function editCH(e) {
     e?.preventDefault();
+    await fetch(apiRoute.cauHinh, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: { ...cauHinh, maSP: ma }, action: "update" })
+    }).then(a => a.json())
+      .then(console.log)
+    setCauHinh({ ...defaultCauHinh })
+    refreshCH()
   }
 
   async function deleteCH(e) {
@@ -108,8 +115,11 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
         <TableA width={"100%"} height="100%"
           headers={["Stt", "Ram", "Rom", "Mau sac", "Gia nhap", "Gia xuat"]}
           data={formData.table.map?.(formarters.cauHinh)}
-          rowClick={function (a) {
-            setCauHinh(old => ({ ...old, ma: a.id }))
+          rowClick={async function (a) {
+            const data = (await fetch(`${apiRoute.cauHinh}?sp=${ma}&ch=${a.id}`, {
+              method: "GET", headers: { "Content-Type": "application/json" }
+            }).then(a => a.json())).body[0]
+            setCauHinh({ ma: data.ma, rom: data.rom, ram: data.ram, mausac: data.mausac, giaNhap: data.gianhap, giaBan: data.giaxuat })
           }} />
 
         <div className={styles["tools-btn"]}>

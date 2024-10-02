@@ -33,6 +33,7 @@ export async function handler(event) {
 //     "path": {
 //     }
 //     , "querystring": {
+//       ma: "A1"
 //     }
 //     , "header": {
 //     }
@@ -40,7 +41,7 @@ export async function handler(event) {
 //   "stage-variables": {
 //   },
 //   "context": {
-//     "http-method": "POST",
+//     "http-method": "GET",
 //     "resource-path": "/cau-hinh"
 //   }
 // }).then(console.log)
