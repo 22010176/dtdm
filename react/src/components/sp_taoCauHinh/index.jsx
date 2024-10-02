@@ -6,12 +6,12 @@ import { apiRoute } from '../../api_param';
 import { formarters } from '../table_a/formatters.mjs';
 import styles from './style.module.css'
 
+
+const defaultCauHinh = { rom: "a", ram: "a", mausac: "a", giaNhap: "", giaBan: "", ma: "" }
 export default function ThemCauHinh({ closeOverlay, ma }) {
-  const [cauHinh, setCauHinh] = useState({
-    rom: "a", ram: "a", mausac: "a", giaNhap: "", giaBan: "", ma: ""
-  })
+  const [cauHinh, setCauHinh] = useState({ ...defaultCauHinh })
   const [formData, setFormData] = useState({ rom: [], ram: [], mausac: [], table: [] })
-  console.log(formData)
+  // console.log(formData)
   useEffect(() => {
     Promise.all([
       fetch(apiRoute.ram, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, ram: a.body }))),
@@ -28,30 +28,37 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
     setFormData(old => ({ ...old, table: [] }));
     fetch(`${apiRoute.cauHinh}?ma=${ma}`, { method: "GET" })
       .then(a => a.json())
-      .then(src => {
-        console.log(src)
-        setFormData(old => ({ ...old, table: src.body ?? [] }))
-      })
+      .then(src => setFormData(old => ({ ...old, table: src.body ?? [] })))
   }
 
-  function addCH(e) {
+  async function addCH(e) {
     e?.preventDefault();
-    console.log(cauHinh)
+    console.log({ ...cauHinh, maSP: ma })
+    await fetch(apiRoute.cauHinh, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: { ...cauHinh, ma: undefined, maSP: ma }, action: "insert" })
+    }).then(a => a.json()).then(console.log)
+    setCauHinh({ ...defaultCauHinh })
+    refreshCH()
   }
+
 
   function editCH(e) {
     e?.preventDefault();
   }
+
   async function deleteCH(e) {
     e?.preventDefault();
-
-    // await fetch(apiRoute.cauHinh, {
-    //   method: "POST", headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ data: { ...cauHinh, maSP: ma }, method: "delete" })
-    // }).then(console.log)
-
-    // refreshCH()
+    await fetch(apiRoute.cauHinh, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: { ma: cauHinh.ma, maSP: ma }, action: "delete" })
+    }).then(a => a.json()).then(console.log)
+    setCauHinh({ ...defaultCauHinh })
+    refreshCH()
   }
+
   return (
     <div className={styles.container}>
       <form className={styles["input-form"]}>

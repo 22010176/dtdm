@@ -21,38 +21,26 @@ export async function handler(event) {
 }
 
 
-
-
-handler({
-  "body-json": {},
-  "params": {
-    "path": {
-    }
-    , "querystring": {
-    }
-    , "header": {
-    }
-  },
-  "stage-variables": {
-  },
-  "context": {
-    "account-id": "873096019707",
-    "api-id": "zd52ipcrb1",
-    "api-key": "test-invoke-api-key",
-    "authorizer-principal-id": "",
-    "caller": "873096019707",
-    "cognito-authentication-provider": "",
-    "cognito-authentication-type": "",
-    "cognito-identity-id": "",
-    "cognito-identity-pool-id": "",
-    "http-method": "GET",
-    "stage": "test-invoke-stage",
-    "source-ip": "test-invoke-source-ip",
-    "user": "873096019707",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
-    "user-arn": "arn:aws:iam::873096019707:root",
-    "request-id": "79d92d1f-511c-4eae-b8f2-008d689bf880",
-    "resource-id": "lc1pvnlly4",
-    "resource-path": "/"
-  }
-}).then(console.log)
+// handler({
+//   "body-json": {
+//     "action": "delete",
+//     "data": {
+//       "ma": "b3",
+//       "maSP": "A1"
+//     }
+//   },
+//   "params": {
+//     "path": {
+//     }
+//     , "querystring": {
+//     }
+//     , "header": {
+//     }
+//   },
+//   "stage-variables": {
+//   },
+//   "context": {
+//     "http-method": "POST",
+//     "resource-path": "/cau-hinh"
+//   }
+// }).then(console.log)

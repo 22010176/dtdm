@@ -11,3 +11,14 @@ export const apiRoute = {
   cauHinh: "/api/cau-hinh",
 }
 
+export const apiMethod = {
+  get: "GET",
+  put: "PUT",
+  post: "POST",
+  delete: "DELETE",
+}
+
+export const apiFuncs = {
+  getThuocTinh: () => fetch(apiRoute.thuocTinh).then(a => a.json()),
+  getSanPham: () => fetch(apiRoute.sp).then(a => a.json())
+}

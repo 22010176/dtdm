@@ -5,8 +5,7 @@ import { db } from '../databasea.mjs'
 const query = {
   insert: (connection, data) => connection.query(`
 INSERT INTO phienbansanpham (ma, maSanPham, rom, ram, mausac, gianhap, giaxuat, trangthai) 
-VALUES 
-(?, ?, ?, ?, ?, ?, ?, 1);`,
+VALUES (?, ?, ?, ?, ?, ?, ?, 1);`,
     [data.ma ?? v4(), data.maSP, data.rom, data.ram, data.mausac, data.giaNhap, data.giaBan]),
   update: (connection, data) => connection.query(`
 
@@ -36,14 +35,13 @@ WHERE pbsp.maSanPham = ? AND pbsp.trangThai = 1;`,
   async POST(connection, event) {
     // const connection = await mysql.createConnection(db);
     const body = event["body-json"];
-
     try {
       const [result,] = await query[body.action](connection, body.data)
       // connection.end();
       if (result.affectedRows == 0) return { body: [], message: "not found" }
       return { body: [] }
     } catch (error) {
-      return { body: [], message: "query fail" }
+      return { body: [], message: "query fail", error }
     }
   }
 }
@@ -62,16 +60,20 @@ export default async function cauHinhAPI(event) {
 
 // cauHinhAPI({
 //   "body-json": {
-//     "action": "delete",
+//     "action": "insert",
 //     "data": {
-//       "ma": "d3d",
-//       "maSP": "A1"
+//       "ma": v4(),
+//       "maSP": "A1",
+//       "rom": "a",
+//       "ram": "a",
+//       "mausac": "a",
+//       "giaNhap": 1,
+//       "giaBan": 1
 //     }
 //   },
 //   "params": {
 //     "path": {},
 //     "querystring": {
-//       "ma": "A1"
 //     },
 //     "header": {}
 //   },
