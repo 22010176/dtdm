@@ -166,7 +166,7 @@ INNER JOIN rom ON rom.ma = pbsp.rom
 INNER JOIN mausac ON mausac.ma = pbsp.mausac;
 
 INSERT INTO phienbansanpham VALUES 
-("g", "A1", "a", "a", "a", 33, 44),
-("d", "A1", "a", "a", "a", 33, 44),
-("dd", "A1", "a", "a", "a", 33, 44),
-("b", "A1", "a", "a", "a", 33, 444);
+("g3", "A1", "a", "a", "a", 33, 44),
+("d3", "A1", "a", "a", "a", 33, 44),
+("d3d", "A1", "a", "a", "a", 33, 44),
+("b3", "A1", "a", "a", "a", 33, 444);

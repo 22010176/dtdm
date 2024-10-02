@@ -1,13 +1,6 @@
 export const db = {
-  host: 'database-2.crgoksss2xav.ap-southeast-1.rds.amazonaws.com',
+  host: 'database-1.crgoksss2xav.ap-southeast-1.rds.amazonaws.com',
   user: 'admin',
   password: 'admin123',
   database: 'btl',
-}
-
-export const ssh = {
-  host: "",
-  port: 3306,
-  username: "",
-  password: ""
 }

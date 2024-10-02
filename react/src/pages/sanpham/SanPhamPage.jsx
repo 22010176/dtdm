@@ -55,7 +55,7 @@ function App() {
   function InsertSanPham(e) {
     e.preventDefault()
     openOverlay("taoCH")
-    console.log(data)
+
     fetch(apiRoute.sp, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -84,7 +84,7 @@ function App() {
       body: JSON.stringify({ action: "update", data })
     }).then(a => a.json()).then(console.log)
     getTableData()
-    closeOverlay("edit")
+    closeOverlay("edit", true)
   }
 
   async function openEditForm(e) {
@@ -121,19 +121,19 @@ function App() {
 
       {/* Them san pham */}
       <FormContext.Provider value={{ sanpham: [data, setData] }}>
-        <Overlay nameOverlay='add' width="80%" height="70%" visible={overlay.add} opacity={0.9} closeEvent={closeOverlay} >
+        <Overlay width="80%" height="70%" visible={overlay.add} opacity={0.9} closeEvent={closeOverlay.bind({}, "add", true)} >
           <div className={styles.title}>
             <h1>Them San Pham</h1>
           </div>
           <SanPhamForm />
           <div className={styles["submit-section"]}>
             <button className="add" type='submit' onClick={InsertSanPham}>Tao cau hinh</button>
-            <button className="delete" onClick={closeOverlay.bind({}, "add")}>Huy bo</button>
+            <button className="delete" onClick={closeOverlay.bind({}, "add", true)}>Huy bo</button>
           </div>
         </Overlay >
 
         {/* Sua san pham */}
-        <Overlay nameOverlay='edit' width="80%" height="70%" visible={overlay.edit} opacity={0.9} closeEvent={closeOverlay} >
+        <Overlay width="80%" height="70%" visible={overlay.edit} opacity={0.9} closeEvent={closeOverlay.bind({}, "edit", true)} >
           <div className={styles.title}>
             <h1>Sua San Pham</h1>
           </div>
@@ -141,20 +141,20 @@ function App() {
           <div className={styles["submit-section"]}>
             <button className="add" type='submit' onClick={UpdateSanPham}>Luu thong tin</button>
             <button className="edit" type='submit' onClick={openOverlay.bind(this, "taoCH")}>Sua cau hinh</button>
-            <button className="delete" onClick={closeOverlay.bind({}, "edit")}>Huy bo</button>
+            <button className="delete" onClick={closeOverlay.bind({}, "edit", true)}>Huy bo</button>
           </div>
         </Overlay >
 
         {/* Tao cau hinh */}
-        <Overlay nameOverlay='taoCH' width="70%" height="70%" visible={overlay.taoCH} opacity={0.9} closeEvent={closeOverlay} >
+        <Overlay width="70%" height="70%" visible={overlay.taoCH} opacity={0.9} closeEvent={closeOverlay.bind({}, "taoCH", false)} >
           <div className={styles.title}>
             <h1>Chỉnh sửa Cau Hinh</h1>
           </div>
-          <ThemCauHinh closeOverlay={closeOverlay.bind(this, "taoCH")} />
+          <ThemCauHinh closeOverlay={closeOverlay.bind(this, "taoCH", false)} ma={data.ma} />
         </Overlay >
 
         {/* imei */}
-        <Overlay nameOverlay='imei' width="60%" height="80%" visible={overlay.imei} opacity={0.9} closeEvent={closeOverlay} >
+        <Overlay width="60%" height="80%" visible={overlay.imei} opacity={0.9} closeEvent={closeOverlay.bind({}, "add", true)} >
           <div className={styles.title}>
             <h1>Danh sach ma IMEI</h1>
           </div>

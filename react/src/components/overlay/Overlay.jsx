@@ -2,10 +2,10 @@
 import { useState } from 'react'
 import styles from './style.module.css'
 
-export default function Overlay({ nameOverlay = "overlay", width, height, children, visible, opacity = 0.5, closeEvent }) {
+export default function Overlay({ width, height, children, visible, opacity = 0.5, closeEvent }) {
   function closeOverlay(e) {
     if (typeof closeEvent == "function")
-      closeEvent(nameOverlay, e)
+      closeEvent(e)
   }
   return (
     <div className={[styles.container, visible ? "" : styles.hide].join(" ")}>

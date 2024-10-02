@@ -49,6 +49,6 @@ export default async function thuocTinhAPI(event) {
   } catch { return { body: "error" }; }
 };
 
-thuocTinhAPI({
+// thuocTinhAPI({
 
-})
+// })
