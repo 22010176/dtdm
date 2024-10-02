@@ -7,18 +7,8 @@ import { formarters } from '../table_a/formatters.mjs';
 import styles from './style.module.css'
 
 export default function ThemCauHinh({ closeOverlay, ma }) {
-  const [cauHinh, setCauHinh] = useState({ rom: "a", ram: "a", mausac: "a", giaNhap: null, giaBan: null })
+  const [cauHinh, setCauHinh] = useState({ rom: "a", ram: "a", mausac: "a", giaNhap: "", giaBan: "" })
   const [formData, setFormData] = useState({ rom: [], ram: [], mausac: [], table: [] })
-  useEffect(function () {
-    refresh()
-  }, [ma])
-
-  function refresh() {
-    setFormData(old => ({ ...old, table: [] }));
-    fetch(`${apiRoute.cauHinh}?ma=${ma}`, { method: "GET" })
-      .then(a => a.json())
-      .then(src => setFormData(old => ({ ...old, table: src.body ?? [] })))
-  }
 
   useEffect(() => {
     Promise.all([
@@ -28,6 +18,27 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
     ])
   }, [])
 
+  useEffect(function () { refreshCH() }, [ma])
+
+  function refreshCH(e) {
+    setFormData(old => ({ ...old, table: [] }));
+    fetch(`${apiRoute.cauHinh}?ma=${ma}`, { method: "GET" })
+      .then(a => a.json())
+      .then(src => setFormData(old => ({ ...old, table: src.body ?? [] })))
+  }
+
+  function addCH(e) {
+    e?.preventDefault();
+    console.log(cauHinh)
+  }
+
+  function editCH(e) {
+    e?.preventDefault();
+  }
+  function deleteCH(e) {
+    e?.preventDefault();
+
+  }
   return (
     <div className={styles.container}>
       <form className={styles["input-form"]}>
@@ -62,27 +73,31 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
         <div className={styles["form-section"]}>
           <label htmlFor="giaNhap" className={styles["field-title"]}>Gia nhap</label>
           <input type="number" name="giaNhap" id="giaNhap" className={styles["filed-input"]}
-            value={cauHinh.giaNhap ?? ""} onChange={e => e.setCauHinh(old => ({ ...old, giaNhap: e.target.value }))} />
+            value={cauHinh.giaNhap} onChange={e => setCauHinh(old => ({ ...old, giaNhap: e.target.value }))} />
         </div>
 
         {/* ROM */}
         <div className={styles["form-section"]}>
           <label htmlFor="giaXuat" className={styles["field-title"]}>Gia xuat</label>
           <input type="number" name="giaXuat" id="giaXuat" className={styles["filed-input"]}
-            value={cauHinh.giaBan ?? ""} onChange={e => e.setCauHinh(old => ({ ...old, giaBan: e.target.value }))} />
+            value={cauHinh.giaBan} onChange={e => setCauHinh(old => ({ ...old, giaBan: e.target.value }))} />
         </div>
       </form>
 
       <div className={styles["table-data"]}>
         <TableA width={"100%"} height="100%"
           headers={["Stt", "Ram", "Rom", "Mau sac", "Gia nhap", "Gia xuat"]}
-          data={formData.table.map(formarters.cauHinh)} />
+          data={formData.table.map(formarters.cauHinh)}
+          rowClick={function (a) {
+            setCauHinh(old => ({ ...old, ma: a.id }))
+            console.log(cauHinh)
+          }} />
 
         <div className={styles["tools-btn"]}>
-          <button className="add">Them cau hinh</button>
-          <button className="edit">Sua cau hinh</button>
-          <button className="delete">Xoa cau hinh</button>
-          <button className="refresh" onClick={refresh}>Lam moi cau hinh</button>
+          <button className="add" onClick={addCH}>Them cau hinh</button>
+          <button className="edit" onClick={editCH}>Sua cau hinh</button>
+          <button className="delete" onClick={deleteCH}>Xoa cau hinh</button>
+          <button className="refresh" onClick={refreshCH}>Lam moi cau hinh</button>
         </div>
       </div>
 
