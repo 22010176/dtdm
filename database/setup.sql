@@ -153,6 +153,7 @@ CREATE TABLE phienbansanpham (
     mausac VARCHAR(255), -- Tham chiếu tới bảng mausac
     gianhap INT,
     giaxuat INT,
+    trangThai INT DEFAULT 1,
     
     FOREIGN KEY (maSanPham) REFERENCES sanpham(ma),
     FOREIGN KEY (mausac) REFERENCES mausac(ma),
@@ -163,10 +164,16 @@ CREATE TABLE phienbansanpham (
 SELECT pbsp.ma, ram.ten AS ram, rom.ten AS rom, mausac.ten AS mausac, gianhap, giaxuat FROM phienbansanpham AS pbsp
 INNER JOIN ram ON ram.ma = pbsp.ram
 INNER JOIN rom ON rom.ma = pbsp.rom
-INNER JOIN mausac ON mausac.ma = pbsp.mausac;
+INNER JOIN mausac ON mausac.ma = pbsp.mausac
+WHERE pbsp.trangThai = 1;
 
-INSERT INTO phienbansanpham VALUES 
-("g3", "A1", "a", "a", "a", 33, 44),
-("d3", "A1", "a", "a", "a", 33, 44),
-("d3d", "A1", "a", "a", "a", 33, 44),
-("b3", "A1", "a", "a", "a", 33, 444);
+INSERT INTO phienbansanpham (ma, maSanPham, rom, ram, mausac, gianhap, giaxuat, trangthai) VALUES 
+("g3", "A1", "a", "a", "a", 33, 44, 1),
+("d3", "A1", "a", "a", "a", 33, 44, 1),
+("d3d", "A1", "a", "a", "a", 33, 44, 1),
+("b3", "A1", "a", "a", "a", 33, 444, 1);
+
+UPDATE phienbansanpham SET trangThai = 0
+WHERE ma = "g3" AND maSanPham = "A1";
+
+SELECT * FROM phienbansanpham WHERE trangThai = 1;	

@@ -29,9 +29,9 @@ const requests = {
     try {
       const [result,] = await query[body.action](connection, table, body.data)
       if (result.affectedRows == 0) return { body: "not found" }
-      return { body: "success" }
+      return { body: [], message: "success" }
     } catch (error) {
-      return { body: "query fail" }
+      return { body: [], message: "query fail" }
     }
   }
 }
@@ -39,14 +39,14 @@ const requests = {
 export default async function thuocTinhAPI(event) {
   try {
     const connection = await mysql.createConnection(db);
-    let result = { body: "Error", event }
+    let result = { body: [], message: "Error", event }
 
     const temp = requests[event.context["http-method"]];
     if (temp != null) result = await temp(connection, event);
 
     connection.end();
     return result;
-  } catch { return { body: "error" }; }
+  } catch (e) { return { body: [], message: "error", error: e }; }
 };
 
 // thuocTinhAPI({

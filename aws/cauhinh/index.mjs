@@ -3,40 +3,47 @@ import { v4 } from 'uuid'
 import { db } from '../databasea.mjs'
 
 const query = {
-  insert: (connection, table, data) => connection.query(
-    `INSERT INTO ${table} VALUES (?, ?, ?)`,
-    [data.ma ?? v4(), data.ten, data.trangThai]
-  ),
-  update: (connection, table, data) => connection.query(
-    `UPDATE ${table} SET ten = ?, trangThai = ? WHERE ma = ?`,
-    [data.ten, data.trangThai, data.ma]
-  ),
-  delete: (connection, table, data) => connection
-    .query(`UPDATE ${table} SET trangThai = 0 WHERE ma = ?`, [data.ma])
+  insert: (connection, data) => connection.query(`
+INSERT INTO phienbansanpham (ma, maSanPham, rom, ram, mausac, gianhap, giaxuat, trangthai) 
+VALUES 
+(?, ?, ?, ?, ?, ?, ?, 1);`,
+    [data.ma ?? v4(), data.maSP, data.rom, data.ram, data.mausac, data.giaNhap, data.giaBan]),
+  update: (connection, data) => connection.query(`
+
+`,
+    []),
+  delete: (connection, data) => connection.query(`
+UPDATE phienbansanpham SET trangThai = 0
+WHERE ma = ? AND maSanPham = ?`,
+    [data.ma, data.maSP])
 }
 
 const requests = {
   async GET(connection, event) {
+    // const connection = await mysql.createConnection(db);
     const [results,] = await connection.query(`
 SELECT pbsp.ma, ram.ten AS ram, rom.ten AS rom, mausac.ten AS mausac, gianhap, giaxuat FROM phienbansanpham AS pbsp
 INNER JOIN ram ON ram.ma = pbsp.ram
 INNER JOIN rom ON rom.ma = pbsp.rom
 INNER JOIN mausac ON mausac.ma = pbsp.mausac
-WHERE pbsp.maSanPham = ?;`,
+WHERE pbsp.maSanPham = ? AND pbsp.trangThai = 1;`,
       [event.params.querystring.ma]);
+    // connection.end();
     const response = { statusCode: 200, body: results, event };
     return response;
   },
 
   async POST(connection, event) {
+    // const connection = await mysql.createConnection(db);
     const body = event["body-json"];
-    const table = event.params.querystring.table;
+
     try {
-      const [result,] = await query[body.action](connection, table, body.data)
-      if (result.affectedRows == 0) return { body: "not found" }
-      return { body: "success" }
+      const [result,] = await query[body.action](connection, body.data)
+      // connection.end();
+      if (result.affectedRows == 0) return { body: [], message: "not found" }
+      return { body: [] }
     } catch (error) {
-      return { body: "query fail" }
+      return { body: [], message: "query fail" }
     }
   }
 }
@@ -44,21 +51,23 @@ WHERE pbsp.maSanPham = ?;`,
 export default async function cauHinhAPI(event) {
   const connection = await mysql.createConnection(db);
   try {
-    let result = { body: "Error", event }
-
-    const temp = requests[event.context["http-method"]];
-    if (temp != null) result = await temp(connection, event);
-
+    const result = await requests[event.context["http-method"]](connection, event);
     connection.end();
-    return result;
+    return { message: "success", ...result }
   } catch (e) {
     connection.end();
-    return { body: "error", e };
+    return { message: "error", body: [], e, event };
   }
 };
 
 // cauHinhAPI({
-//   "body-json": {},
+//   "body-json": {
+//     "action": "delete",
+//     "data": {
+//       "ma": "d3d",
+//       "maSP": "A1"
+//     }
+//   },
 //   "params": {
 //     "path": {},
 //     "querystring": {
@@ -77,7 +86,7 @@ export default async function cauHinhAPI(event) {
 //     "cognito-authentication-type": "",
 //     "cognito-identity-id": "",
 //     "cognito-identity-pool-id": "",
-//     "http-method": "GET",
+//     "http-method": "POST",
 //     "stage": "test-invoke-stage",
 //     "source-ip": "test-invoke-source-ip",
 //     "user": "873096019707",

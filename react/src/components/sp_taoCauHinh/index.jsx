@@ -7,9 +7,11 @@ import { formarters } from '../table_a/formatters.mjs';
 import styles from './style.module.css'
 
 export default function ThemCauHinh({ closeOverlay, ma }) {
-  const [cauHinh, setCauHinh] = useState({ rom: "a", ram: "a", mausac: "a", giaNhap: "", giaBan: "" })
+  const [cauHinh, setCauHinh] = useState({
+    rom: "a", ram: "a", mausac: "a", giaNhap: "", giaBan: "", ma: ""
+  })
   const [formData, setFormData] = useState({ rom: [], ram: [], mausac: [], table: [] })
-
+  console.log(formData)
   useEffect(() => {
     Promise.all([
       fetch(apiRoute.ram, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, ram: a.body }))),
@@ -18,13 +20,18 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
     ])
   }, [])
 
-  useEffect(function () { refreshCH() }, [ma])
+  useEffect(function () {
+    refreshCH()
+  }, [ma])
 
   function refreshCH(e) {
     setFormData(old => ({ ...old, table: [] }));
     fetch(`${apiRoute.cauHinh}?ma=${ma}`, { method: "GET" })
       .then(a => a.json())
-      .then(src => setFormData(old => ({ ...old, table: src.body ?? [] })))
+      .then(src => {
+        console.log(src)
+        setFormData(old => ({ ...old, table: src.body ?? [] }))
+      })
   }
 
   function addCH(e) {
@@ -35,9 +42,15 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
   function editCH(e) {
     e?.preventDefault();
   }
-  function deleteCH(e) {
+  async function deleteCH(e) {
     e?.preventDefault();
 
+    // await fetch(apiRoute.cauHinh, {
+    //   method: "POST", headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ data: { ...cauHinh, maSP: ma }, method: "delete" })
+    // }).then(console.log)
+
+    // refreshCH()
   }
   return (
     <div className={styles.container}>
@@ -87,10 +100,9 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
       <div className={styles["table-data"]}>
         <TableA width={"100%"} height="100%"
           headers={["Stt", "Ram", "Rom", "Mau sac", "Gia nhap", "Gia xuat"]}
-          data={formData.table.map(formarters.cauHinh)}
+          data={formData.table.map?.(formarters.cauHinh)}
           rowClick={function (a) {
             setCauHinh(old => ({ ...old, ma: a.id }))
-            console.log(cauHinh)
           }} />
 
         <div className={styles["tools-btn"]}>

@@ -37,8 +37,13 @@ WHERE sp.trangThai != 0;`
 const requests = {
   async GET(connection, event) {
     const spID = event.params.querystring.ma
-    const [results,] = await connection.query(spID ? tableQuery : dataQuery, [spID]);
-    return { statusCode: 200, body: results };
+    try {
+
+      const [results,] = await connection.query(spID ? tableQuery : dataQuery, [spID]);
+      return { statusCode: 200, body: results };
+    } catch (error) {
+      return { body: [] }
+    }
   },
 
   async POST(connection, event) {
@@ -46,10 +51,10 @@ const requests = {
     try {
       const [result, _, id] = await query[body.action](connection, body.data)
       if (result.affectedRows == 0) return { body: "not found" }
-      return { body: "success request", id }
+      return { body: [], message: "success request", id }
     } catch (error) {
       console.log(error)
-      return { body: "query fail", error }
+      return { body: [], message: "query fail", error }
     }
   }
 }
@@ -57,7 +62,7 @@ const requests = {
 export default async function sanPhamAPI(event) {
   const connection = await mysql.createConnection(db);
   try {
-    let result = { body: "Error", event }
+    let result = { body: [], message: "Error", event }
 
     const temp = requests[event.context["http-method"]];
     if (temp != null) result = await temp(connection, event);
@@ -66,7 +71,7 @@ export default async function sanPhamAPI(event) {
     return result;
   } catch (e) {
     connection.end();
-    return { body: "error" };
+    return { body: [], message: "error" };
   }
 };
 
