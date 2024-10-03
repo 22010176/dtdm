@@ -49,11 +49,12 @@ function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
   async function requestPost(method) {
     if (!url) return;
     const result = await fetch(url, {
-      method: "POST", headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: method, data: formData })
     }).then(a => a.json())
 
-    if (result.body == 'success') {
+    if (result.message == 'success') {
       setFormData({ ma: null, ten: "", trangThai: 1 });
       getData(name);
     } else alert("That bai")

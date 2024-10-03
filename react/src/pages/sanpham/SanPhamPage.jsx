@@ -88,7 +88,8 @@ function App() {
   async function openEditForm(e) {
     if (!data.ma) return;
     const temp = await fetch(`${apiRoute.sp}?ma=${data.ma}`, {
-      method: "GET", headers: { "Content-Type": "application/json" },
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     }).then(a => a.json()).then(a => a.body[0])
 
     setData(() => ({
@@ -120,7 +121,8 @@ function App() {
     const result = confirm("Phai co it nhat 1 cau hinh. Hay dien 1 cau hinh!!!")
     if (!result) { // press cancel
       await fetch(apiRoute.sp, {
-        method: "POST", headers: { "Content-Type": "application/json" },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "delete", data: { ma: data.ma } })
       }).then(a => a.json()).then(console.log)
 

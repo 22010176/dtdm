@@ -116,7 +116,8 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
           data={formData.table.map?.(formarters.cauHinh)}
           rowClick={async function (a) {
             const data = (await fetch(`${apiRoute.cauHinh}?sp=${ma}&ch=${a.id}`, {
-              method: "GET", headers: { "Content-Type": "application/json" }
+              method: "GET",
+              headers: { "Content-Type": "application/json" }
             }).then(a => a.json())).body[0]
             setCauHinh({ ma: data.ma, rom: data.rom, ram: data.ram, mausac: data.mausac, giaNhap: data.gianhap, giaBan: data.giaxuat })
           }} />
