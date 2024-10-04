@@ -1,77 +1,76 @@
-import { db } from "../database.mjs";
-import mysql from 'mysql2/promise'
 import { v4 } from 'uuid'
 
-const query = {
-  insert: async (connection, data) => {
-    const id = data.ma ?? v4()
-    const res = await connection.query(`
-INSERT INTO sanpham 
-(ma, ten, xuatxu, cpu, dungLuongPin, kichThuocManHinh, cam_truoc, cam_sau, heDieuHanh, phienBanHDH, thoiGianBaoHanh, thuongHieu, trangThai) 
-VALUES
-(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);`,
-      [id, data.ten, data.xuatXu, data.cpu, data.pin, data.man, data.camTruoc, data.camSau, data.hdh, data.pbHDH, data.tgBH, data.thuongHieu, 1])
-    return [...res, id]
-  },
-  update: (connection, data) => connection.query(`
-UPDATE sanpham SET 
-ten = ?, xuatxu = ?, cpu = ?, dungLuongPin = ?, 
-kichThuocManHinh = ?, cam_truoc = ?, cam_sau = ?, heDieuHanh = ?,
-phienBanHDH = ?, thoiGianBaoHanh = ?, thuongHieu = ?
-WHERE ma = ?;`,
-    [data.ten, data.xuatXu, data.cpu, data.pin, data.man, data.camTruoc, data.camSau, data.hdh, data.pbHDH, data.tgBH, data.thuongHieu, data.ma]
-  ),
-  delete: (connection, data) => connection
-    .query("UPDATE sanpham SET trangThai = 0 WHERE ma = ?;", [data.ma])
-}
+// const query = {
+//   insert: async (connection, data) => {
+//     const id = data.ma ?? v4()
+//     const res = await connection.query(`
+// INSERT INTO sanpham 
+// (ma, ten, xuatxu, cpu, dungLuongPin, kichThuocManHinh, cam_truoc, cam_sau, heDieuHanh, phienBanHDH, thoiGianBaoHanh, thuongHieu, trangThai) 
+// VALUES
+// (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1);`,
+//       [id, data.ten, data.xuatXu, data.cpu, data.pin, data.man, data.camTruoc, data.camSau, data.hdh, data.pbHDH, data.tgBH, data.thuongHieu, 1])
+//     return [...res, id]
+//   },
+//   update: (connection, data) => connection.query(`
+// UPDATE sanpham SET 
+// ten = ?, xuatxu = ?, cpu = ?, dungLuongPin = ?, 
+// kichThuocManHinh = ?, cam_truoc = ?, cam_sau = ?, heDieuHanh = ?,
+// phienBanHDH = ?, thoiGianBaoHanh = ?, thuongHieu = ?
+// WHERE ma = ?;`,
+//     [data.ten, data.xuatXu, data.cpu, data.pin, data.man, data.camTruoc, data.camSau, data.hdh, data.pbHDH, data.tgBH, data.thuongHieu, data.ma]
+//   ),
+//   delete: (connection, data) => connection
+//     .query("UPDATE sanpham SET trangThai = 0 WHERE ma = ?;", [data.ma])
+// }
 
-const tableQuery = `
-SELECT * FROM sanpham WHERE ma = ? AND trangThai != 0;`
-const dataQuery = `
-SELECT sp.ma, sp.ten, sp.phienbanHDH, xx.ten AS xuatxu, hdh.ten AS hedieuhanh, th.ten AS thuonghieu 
-FROM sanpham AS sp
-INNER JOIN xuatxu AS xx ON xx.ma =  sp.xuatxu
-INNER JOIN thuonghieu AS th ON sp.thuonghieu = th.ma
-INNER JOIN hedieuhanh AS hdh ON hdh.ma = sp.hedieuhanh
-WHERE sp.trangThai != 0;`
-const requests = {
-  async GET(connection, event) {
-    const spID = event.params.querystring.ma
-    try {
-      const [results,] = await connection.query(spID ? tableQuery : dataQuery, [spID]);
-      return { statusCode: 200, body: results };
-    } catch (error) {
-      return { body: [] }
-    }
-  },
+// const tableQuery = `
+// SELECT * FROM sanpham WHERE ma = ? AND trangThai != 0;`
+// const dataQuery = `
+// SELECT sp.ma, sp.ten, sp.phienbanHDH, xx.ten AS xuatxu, hdh.ten AS hedieuhanh, th.ten AS thuonghieu 
+// FROM sanpham AS sp
+// INNER JOIN xuatxu AS xx ON xx.ma =  sp.xuatxu
+// INNER JOIN thuonghieu AS th ON sp.thuonghieu = th.ma
+// INNER JOIN hedieuhanh AS hdh ON hdh.ma = sp.hedieuhanh
+// WHERE sp.trangThai != 0;`
+// const requests = {
+//   async GET(connection, event) {
+//     const spID = event.params.querystring.ma
+//     try {
+//       const [results,] = await connection.query(spID ? tableQuery : dataQuery, [spID]);
+//       return { statusCode: 200, body: results };
+//     } catch (error) {
+//       return { body: [] }
+//     }
+//   },
 
-  async POST(connection, event) {
-    const body = event["body-json"];
-    try {
-      const [result, _, id] = await query[body.action](connection, body.data)
-      if (result.affectedRows == 0) return { body: "not found" }
-      return { body: [], message: "success request", id }
-    } catch (error) {
-      console.log(error)
-      return { body: [], message: "query fail", error }
-    }
-  }
-}
+//   async POST(connection, event) {
+//     const body = event["body-json"];
+//     try {
+//       const [result, _, id] = await query[body.action](connection, body.data)
+//       if (result.affectedRows == 0) return { body: "not found" }
+//       return { body: [], message: "success request", id }
+//     } catch (error) {
+//       console.log(error)
+//       return { body: [], message: "query fail", error }
+//     }
+//   }
+// }
 
-export default async function sanPhamAPI(event) {
-  const connection = await mysql.createConnection(db);
-  try {
-    let result = { body: [], message: "Error", event }
+export default async function sanPhamAPI(connection, event) {
+  // const connection = await mysql.createConnection(db);
+  // try {
+  //   let result = { body: [], message: "Error", event }
 
-    const temp = requests[event.context["http-method"]];
-    if (temp != null) result = await temp(connection, event);
+  //   const temp = requests[event.context["http-method"]];
+  //   if (temp != null) result = await temp(connection, event);
 
-    connection.end();
-    return result;
-  } catch (e) {
-    connection.end();
-    return { body: [], message: "error" };
-  }
+  //   connection.end();
+  //   return result;
+  // } catch (e) {
+  //   connection.end();
+  //   return { body: [], message: "error" };
+  // }
+  return {}
 };
 
 

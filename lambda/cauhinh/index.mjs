@@ -1,6 +1,4 @@
-import mysql from 'mysql2/promise'
 import { v4 } from 'uuid'
-import { db } from '../database.mjs'
 
 const query = {
   insert: (connection, data) => connection.query(`
@@ -46,15 +44,16 @@ const requests = {
 }
 
 export default async function cauHinhAPI(event) {
-  const connection = await mysql.createConnection(db);
-  try {
-    const result = await requests[event.context["http-method"]](connection, event);
-    connection.end();
-    return { message: "success", ...result }
-  } catch (e) {
-    connection.end();
-    return { message: "error", body: [], e, event };
-  }
+  // const connection = await mysql.createConnection(db);
+  // try {
+  //   const result = await requests[event.context["http-method"]](connection, event);
+  //   connection.end();
+  //   return { message: "success", ...result }
+  // } catch (e) {
+  //   connection.end();
+  //   return { message: "error", body: [], e, event };
+  // }
+  return {}
 };
 
 // cauHinhAPI({

@@ -1,54 +1,69 @@
-import mysql from 'mysql2/promise'
 import { v4 } from 'uuid'
-import { db } from '../database.mjs'
 
 const query = {
-  insert: (connection, table, data) => connection.query(
-    `INSERT INTO ${table} VALUES (?, ?, ?)`,
-    [data.ma ?? v4(), data.ten, data.trangThai]
-  ),
-  update: (connection, table, data) => connection.query(
-    `UPDATE ${table} SET ten = ?, trangThai = ? WHERE ma = ?`,
-    [data.ten, data.trangThai, data.ma]
-  ),
-  delete: (connection, table, data) => connection
-    .query(`UPDATE ${table} SET trangThai = 0 WHERE ma = ?`, [data.ma])
-}
-
-const requests = {
-  async GET(connection, event) {
-    const table = event.params.querystring.table;
-    const [results,] = await connection.query(`SELECT * FROM ${table} WHERE trangThai != 0;`, [event.params.querystring.table]);
-    const response = { statusCode: 200, body: results, event };
-    return response;
+  async select(connection, event) {
+    const { table } = event.params.querystring
+    return await connection.query(`SELECT * FROM ${table} WHERE trangThai = 1;`)
   },
+  async insert(connection, event) {
+    let { table } = event.params.querystring,
+      { ten, ma } = event['body-json'];
+    if (!ma) ma = v4()
 
-  async POST(connection, event) {
-    const body = event["body-json"];
-    const table = event.params.querystring.table;
-    try {
-      const [result,] = await query[body.action](connection, table, body.data)
-      if (result.affectedRows == 0) return { body: "not found" }
-      return { body: [], message: "success" }
-    } catch (error) {
-      return { body: [], message: "query fail" }
-    }
+    const [result, context] = await connection.query(
+      `INSERT INTO ${table} (ma, ten, trangthai) VALUES (?, ?, ?)`,
+      [ma ?? v4(), ten, 1])
+    return [result, context, ma]
+  },
+  async update(connection, event) {
+    let { table } = event.params.querystring,
+      { ten, ma } = event['body-json'];
+    const [result, context] = await connection.query(
+      `UPDATE ${table} SET ten = ? WHERE ma = ?`,
+      [ten, ma]
+    )
+    return [result, context]
+  },
+  async delete(connection, event) {
+    const { table } = event.params.querystring,
+      { ma } = event['body-json'];
+    return await connection.query(
+      `UPDATE ${table} SET trangThai = 2 WHERE ma = ?`,
+      [ma]
+    )
   }
 }
 
-export default async function thuocTinhAPI(event) {
+const methods = {
+  // find data
+  async GET(connection, event) {
+    const [result,] = (await query.select(connection, event))
+    return result || [];
+  },
+  // insert data
+  async PUT(connection, event) {
+    const [, , id] = await query.insert(connection, event)
+    return [{ ma: id, ten: event["body-json"].ten }]
+  },
+  // update data
+  async POST(connection, event) {
+    const [result, context] = await query.update(connection, event)
+    if (result.changedRows == 0) throw Error("Cant update table")
+    return []
+  },
+  // delete data
+  async DELETE(connection, event) {
+    await query.delete(connection, event)
+    return []
+  }
+}
+
+export default async function thuocTinhAPI(connection, event) {
   try {
-    const connection = await mysql.createConnection(db);
-    let result = { body: [], message: "Error", event }
-
-    const temp = requests[event.context["http-method"]];
-    if (temp != null) result = await temp(connection, event);
-
-    connection.end();
-    return result;
-  } catch (e) { return { body: [], message: "error", error: e }; }
+    let body = await methods[event.context["http-method"]](connection, event)
+    return { body, message: "Success" };
+  } catch (e) {
+    return { body: [], message: new Error(e).message };
+  }
 };
 
-// thuocTinhAPI({
-
-// })

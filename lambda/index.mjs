@@ -1,53 +1,68 @@
 import sanPhamAPI from "./san-pham/index.mjs"
 import cauHinhAPI from "./cauhinh/index.mjs"
 import thuocTinhAPI from "./thuoctinh/index.mjs"
+import mysql2 from 'mysql2/promise'
 
-export const db = {
+
+const db = {
   host: process.env.db_host || "localhost",
   user: process.env.db_user || "root",
   password: process.env.db_password || "admin",
   database: process.env.db_database || "btl"
 }
 
+const pool = mysql2.createPool({
+  ...db,
+  waitForConnections: true,
+  connectionLimit: 20
+})
+
 export async function handler(event) {
+  const connection = await pool.getConnection();
+  const response = { body: [], message: "", event }
   try {
     switch (event.context["resource-path"]) {
-      case "/cau-hinh":
-        return await cauHinhAPI(event)
       case "/thuoc-tinh":
-        return await thuocTinhAPI(event)
+        Object.assign(response, await thuocTinhAPI(connection, event))
+        break;
       case "/san-pham":
-        return await sanPhamAPI(event);
+        Object.assign(response, await sanPhamAPI(connection, event))
+        break;
+      case "/cau-hinh":
+        Object.assign(response, await cauHinhAPI(connection, event))
+        break;
       default:
-        return { body: [], messageg: "not found path", event }
+        break;
     }
+    connection.release();
+    return response;
   } catch (error) {
-    return { body: "error", event, error }
+    connection.release()
+    return { body: [], message: error, event }
   }
 }
 
+
+
 // console.log(process.env)
-// handler({
-//   "body-json": {
-//     "action": "get",
-//     "data": {
-//       "ma": "b3",
-//       "maSP": "A1"
-//     }
-//   },
-//   "params": {
-//     "path": {
-//     }
-//     , "querystring": {
-//       ma: "A1"
-//     }
-//     , "header": {
-//     }
-//   },
-//   "stage-variables": {
-//   },
-//   "context": {
-//     "http-method": "GET",
-//     "resource-path": "/san-pham"
-//   }
-// }).then(console.log)
+handler({
+  "body-json": {
+    ma: "155a6f4b3596-45b0-bcaa-f773a7dba699",
+    ten: "adfddasdf"
+  },
+  "params": {
+    "path": {},
+    "querystring": {
+      "table": "mausac"
+    },
+    "header": {}
+  },
+  "stage-variables": {},
+  "context": {
+    "http-method": "GET",
+    "resource-path": "/thuoc-tinh"
+  }
+}).then(console.log)
+  .then(
+    a => pool.end()
+  )
