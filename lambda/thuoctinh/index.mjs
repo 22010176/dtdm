@@ -18,11 +18,10 @@ const query = {
   async update(connection, event) {
     let { table } = event.params.querystring,
       { ten, ma } = event['body-json'];
-    const [result, context] = await connection.query(
+    return await connection.query(
       `UPDATE ${table} SET ten = ? WHERE ma = ?`,
       [ten, ma]
     )
-    return [result, context]
   },
   async delete(connection, event) {
     const { table } = event.params.querystring,
@@ -48,12 +47,13 @@ const methods = {
   // update data
   async POST(connection, event) {
     const [result, context] = await query.update(connection, event)
-    if (result.changedRows == 0) throw Error("Cant update table")
+    if (result.changedRows == 0) throw Error("Cant update row")
     return []
   },
   // delete data
   async DELETE(connection, event) {
     await query.delete(connection, event)
+    if (result.changedRows == 0) throw Error("Cant delete row")
     return []
   }
 }

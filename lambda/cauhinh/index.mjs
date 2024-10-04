@@ -1,85 +1,73 @@
 import { v4 } from 'uuid'
 
 const query = {
-  insert: (connection, data) => connection.query(`
-INSERT INTO phienbansanpham (ma, maSanPham, rom, ram, mausac, gianhap, giaxuat, trangthai) 
-VALUES (?, ?, ?, ?, ?, ?, ?, 1);`,
-    [data.ma ?? v4(), data.maSP, data.rom, data.ram, data.mausac, data.giaNhap, data.giaBan]),
-  update: (connection, data) => connection.query(`
-UPDATE phienbansanpham 
-SET rom = ?, ram = ?, mausac = ?, gianhap = ?, giaxuat = ?
-WHERE ma = ? AND masanpham = ?;`,
-    [data.rom, data.ram, data.mausac, data.giaNhap, data.giaBan, data.ma, data.maSP]),
-  delete: (connection, data) => connection.query(`
-UPDATE phienbansanpham SET trangThai = 0
-WHERE ma = ? AN D maSanPham = ?`,
-    [data.ma, data.maSP])
-}
-
-const tableQuery = `
-SELECT pbsp.ma, ram.ten AS ram, rom.ten AS rom, mausac.ten AS mausac, gianhap, giaxuat FROM phienbansanpham AS pbsp
-INNER JOIN ram ON ram.ma = pbsp.ram
-INNER JOIN rom ON rom.ma = pbsp.rom
-INNER JOIN mausac ON mausac.ma = pbsp.mausac
-WHERE pbsp.maSanPham = ? AND pbsp.trangThai = 1;`
-const infoQuery = `SELECT * FROM phienbansanpham WHERE maSanPham = ? AND ma = ? AND trangthai = 1;`
-const requests = {
-  async GET(connection, event) {
-    const { sp, ch } = event.params.querystring
-    const [results,] = await connection.query(ch ? infoQuery : tableQuery, [sp, ch]);
-    const response = { statusCode: 200, body: results, event };
-    return response;
+  async selectOne(connection, event) {
+    const { ma, maSP } = event.params.querystring
+    return await connection.query(`
+SELECT * FROM cauHinh WHERE sanPham = ? AND ma = ? AND trangthai = 1;`,
+      [maSP, ma]
+    )
   },
-
-  async POST(connection, event) {
-    const body = event["body-json"];
-    try {
-      const [result,] = await query[body.action](connection, body.data)
-      if (result.affectedRows == 0) return { body: [], message: "not found" }
-      return { body: [] }
-    } catch (error) {
-      return { body: [], message: "query fail", error }
-    }
+  async selectAll(connection, event) {
+    return connection.query(`
+SELECT ch.ma, ram.ten AS ram, rom.ten AS rom, mausac.ten AS mausac, gianhap, giaxuat 
+FROM cauHinh AS ch
+INNER JOIN ram ON ram.ma = ch.ram
+INNER JOIN rom ON rom.ma = ch.rom
+INNER JOIN mausac ON mausac.ma = ch.mausac
+WHERE ch.sanPham = ? AND ch.trangThai = 1;`,
+      [event.params.querystring.maSP])
+  },
+  async insert(connection, event) {
+    let { ma, maSP, rom, ram, mauSac, giaNhap, giaXuat } = event["body-json"]
+    ma ??= v4()
+    const [result, context] = await connection.query(`
+INSERT INTO cauHinh (ma, sanPham, rom, ram, mauSac, giaNhap, giaXuat, trangThai) 
+VALUES (?, ?, ?, ?, ?, ?, ?, 1);`,
+      [ma, maSP, rom, ram, mauSac, giaNhap, giaXuat])
+    return [result, context, ma]
+  },
+  async update(connection, event) {
+    const { ma, maSP, rom, ram, mauSac, giaNhap, giaXuat } = event["body-json"]
+    return connection.query(`
+UPDATE cauHinh 
+SET rom = ?, ram = ?, mausac = ?, gianhap = ?, giaxuat = ?
+WHERE ma = ? AND sanPham = ?;`,
+      [rom, ram, mauSac, giaNhap, giaXuat, ma, maSP])
+  },
+  async delete(connection, event) {
+    return connection.query(
+      `UPDATE cauHinh SET trangThai = 2 WHERE ma = ?`,
+      [event["body-json"].ma])
   }
 }
 
-export default async function cauHinhAPI(event) {
-  // const connection = await mysql.createConnection(db);
-  // try {
-  //   const result = await requests[event.context["http-method"]](connection, event);
-  //   connection.end();
-  //   return { message: "success", ...result }
-  // } catch (e) {
-  //   connection.end();
-  //   return { message: "error", body: [], e, event };
-  // }
-  return {}
-};
+const methods = {
+  async GET(connection, event) {
+    const func = event.params.querystring.ma ? query.selectOne : query.selectAll;
+    return (await func(connection, event))[0]
+  },
+  async PUT(connection, event) {
+    const [, , id] = await query.insert(connection, event)
+    return [{ ma: id, ...event["body-json"] }]
+  },
+  async POST(connection, event) {
+    const [result,] = await query.update(connection, event)
+    if (result.changedRows == 0) throw Error("Cant update row")
+    return []
+  },
+  async DELETE(connection, event) {
+    const [result,] = await query.delete(connection, event);
+    if (result.changedRows == 0) throw Error("Cant delete row")
+    return []
+  }
+}
 
-// cauHinhAPI({
-//   "body-json": {
-//     "action": "update",
-//     "data": {
-//       "ma": "79061147-ec91-42a3-928c-33519fabf524",
-//       "maSP": "A5",
-//       "rom": "a",
-//       "ram": "b",
-//       "mausac": "a",
-//       "giaNhap": 133,
-//       "giaBan": 133
-//     }
-//   },
-//   "params": {
-//     "path": {},
-//     "querystring": {
-//       "ch": "7637a122-97a8-49ea-b95d-a1e84adee4a4",
-//       "sp": "A4"
-//     },
-//     "header": {}
-//   },
-//   "stage-variables": {},
-//   "context": {
-//     "http-method": "POST",
-//     "resource-path": "/cau-hinh"
-//   }
-// }).then(console.log)
+export default async function cauHinhAPI(connection, event) {
+  try {
+    let body = await methods[event.context["http-method"]](connection, event)
+    return { body, message: "Success" };
+  } catch (e) {
+    return { body: [], message: new Error(e).message };
+  }
+};

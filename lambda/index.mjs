@@ -47,20 +47,25 @@ export async function handler(event) {
 // console.log(process.env)
 handler({
   "body-json": {
-    ma: "155a6f4b3596-45b0-bcaa-f773a7dba699",
-    ten: "adfddasdf"
+    maSP: "A4",
+    rom: "a",
+    ram: "b",
+    mauSac: "b",
+    giaNhap: 44,
+    giaXuat: 44,
+    ma: "6649692e-a49a-4d47-9b9a-255f7332c465"
   },
   "params": {
     "path": {},
     "querystring": {
-      "table": "mausac"
+      "ma": "g3",
     },
     "header": {}
   },
   "stage-variables": {},
   "context": {
-    "http-method": "GET",
-    "resource-path": "/thuoc-tinh"
+    "http-method": "DELETE",
+    "resource-path": "/cau-hinh"
   }
 }).then(console.log)
   .then(
