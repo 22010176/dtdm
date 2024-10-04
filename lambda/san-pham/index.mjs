@@ -1,4 +1,4 @@
-import { db } from "../databasea.mjs";
+import { db } from "../database.mjs";
 import mysql from 'mysql2/promise'
 import { v4 } from 'uuid'
 

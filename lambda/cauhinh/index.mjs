@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise'
 import { v4 } from 'uuid'
-import { db } from '../databasea.mjs'
+import { db } from '../database.mjs'
 
 const query = {
   insert: (connection, data) => connection.query(`

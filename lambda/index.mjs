@@ -1,7 +1,13 @@
-
 import sanPhamAPI from "./san-pham/index.mjs"
 import cauHinhAPI from "./cauhinh/index.mjs"
 import thuocTinhAPI from "./thuoctinh/index.mjs"
+
+export const db = {
+  host: process.env.db_host || "localhost",
+  user: process.env.db_user || "root",
+  password: process.env.db_password || "admin",
+  database: process.env.db_database || "btl"
+}
 
 export async function handler(event) {
   try {
@@ -13,17 +19,17 @@ export async function handler(event) {
       case "/san-pham":
         return await sanPhamAPI(event);
       default:
-        return { body: "not found path", event }
+        return { body: [], messageg: "not found path", event }
     }
   } catch (error) {
     return { body: "error", event, error }
   }
 }
 
-
+// console.log(process.env)
 // handler({
 //   "body-json": {
-//     "action": "delete",
+//     "action": "get",
 //     "data": {
 //       "ma": "b3",
 //       "maSP": "A1"
@@ -42,6 +48,6 @@ export async function handler(event) {
 //   },
 //   "context": {
 //     "http-method": "GET",
-//     "resource-path": "/cau-hinh"
+//     "resource-path": "/san-pham"
 //   }
 // }).then(console.log)

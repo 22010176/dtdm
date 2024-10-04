@@ -15,7 +15,6 @@ CREATE TABLE hedieuhanh (
     ten VARCHAR(255),
     trangthai INT
 );
-
 INSERT INTO hedieuhanh VALUES 
 ("a", "window", 1),
 ("b", "ios", 1),
@@ -127,13 +126,8 @@ SELECT * FROM sanpham;
 
 INSERT INTO sanpham 
 (ma, ten, xuatxu, cpu, dungLuongPin, kichThuocManHinh, cam_truoc, cam_sau, heDieuHanh, phienBanHDH, thoiGianBaoHanh, thuongHieu, trangThai) VALUES 
-("A7", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1),
-("AA6", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1),
-("A5", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1),
-("A4", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1),
 ("A3", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1),
-("A1", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1),
-("A2", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1);
+("A1", "2", "a", "2", 33, 33, "2", "2", "a", "2", 33, "a", 1);
 UPDATE sanpham SET trangThai = 0 WHERE ma = "a";
 
 UPDATE sanpham SET 
@@ -170,8 +164,8 @@ WHERE pbsp.trangThai = 1;
 INSERT INTO phienbansanpham (ma, maSanPham, rom, ram, mausac, gianhap, giaxuat, trangthai) VALUES 
 ("g3", "A1", "a", "a", "a", 33, 44, 1),
 ("d3", "A1", "a", "a", "a", 33, 44, 1),
-("d3d", "A1", "a", "a", "a", 33, 44, 1),
-("b3", "A1", "a", "a", "a", 33, 444, 1);
+("d3d", "A3", "a", "a", "a", 33, 44, 1),
+("b3", "A3", "a", "a", "a", 33, 444, 1);
 
 UPDATE phienbansanpham 
 SET rom = "a", ram = "b", mausac = "a", gianhap = 10, giaxuat = 33
