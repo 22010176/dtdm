@@ -2,65 +2,49 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import TableA from '../table_a';
-import { apiRoute } from '../../api_param';
+import { apiRoute, cauHinhAPI, thuocTinhAPI } from '../../api_param';
 import { formarters } from '../table_a/formatters.mjs';
 import styles from './style.module.css'
 
 
-const defaultCauHinh = { rom: "a", ram: "a", mausac: "a", giaNhap: "", giaBan: "", ma: "" }
-export default function ThemCauHinh({ closeOverlay, ma }) {
+const defaultCauHinh = { rom: "a", ram: "a", mauSac: "a", giaNhap: "", giaXuat: "", ma: undefined }
+export default function ThemCauHinh({ closeOverlay, maSP }) {
   const [cauHinh, setCauHinh] = useState({ ...defaultCauHinh })
-  const [formData, setFormData] = useState({ rom: [], ram: [], mausac: [], table: [] })
+  const [formData, setFormData] = useState({ rom: [], ram: [], mauSac: [], table: [] })
 
   useEffect(() => {
     Promise.all([
-      fetch(apiRoute.ram, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, ram: a.body }))),
-      fetch(apiRoute.rom, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, rom: a.body }))),
-      fetch(apiRoute.mauSac, { method: "GET" }).then(a => a.json()).then(a => setFormData(src => ({ ...src, mausac: a.body }))),
+      thuocTinhAPI.selectAll("ram").then(a => setFormData(src => ({ ...src, ram: a.body }))),
+      thuocTinhAPI.selectAll("rom").then(a => setFormData(src => ({ ...src, rom: a.body }))),
+      thuocTinhAPI.selectAll("mauSac").then(a => setFormData(src => ({ ...src, mauSac: a.body }))),
     ])
   }, [])
-
   useEffect(function () {
     refreshCH()
-  }, [ma])
+  }, [maSP])
 
-  function refreshCH(e) {
+  async function refreshCH(e) {
     setFormData(old => ({ ...old, table: [] }));
-    fetch(`${apiRoute.cauHinh}?sp=${ma}`, { method: "GET" })
-      .then(a => a.json())
-      .then(src => setFormData(old => ({ ...old, table: src.body ?? [] })))
+    await cauHinhAPI.selectAll({ maSP }).then(src => setFormData(old => ({ ...old, table: src.body ?? [] })))
   }
 
   async function addCH(e) {
     e?.preventDefault();
-    await fetch(apiRoute.cauHinh, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data: { ...cauHinh, ma: undefined, maSP: ma }, action: "insert" })
-    }).then(a => a.json()).then(console.log)
+    await cauHinhAPI.insert({ ...cauHinh, maSP }).then(console.log)
     setCauHinh({ ...defaultCauHinh })
     refreshCH()
   }
 
   async function editCH(e) {
     e?.preventDefault();
-    await fetch(apiRoute.cauHinh, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data: { ...cauHinh, maSP: ma }, action: "update" })
-    }).then(a => a.json())
-      .then(console.log)
+    await cauHinhAPI.update({ ...cauHinh, maSP }).then(console.log)
     setCauHinh({ ...defaultCauHinh })
     refreshCH()
   }
 
   async function deleteCH(e) {
     e?.preventDefault();
-    await fetch(apiRoute.cauHinh, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data: { ma: cauHinh.ma, maSP: ma }, action: "delete" })
-    }).then(a => a.json()).then(console.log)
+    await cauHinhAPI.delete(cauHinh).then(console.log)
     setCauHinh({ ...defaultCauHinh })
     refreshCH()
   }
@@ -90,8 +74,8 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
         <div className={styles["form-section"]}>
           <label htmlFor="color" className={styles["field-title"]}>Màu sắc</label>
           <select name="color" id="color" className={styles["filed-input"]}
-            value={cauHinh.mausac} onChange={e => setCauHinh(old => ({ ...old, mausac: e.target.value }))}>
-            {formData.mausac?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
+            value={cauHinh.mauSac} onChange={e => setCauHinh(old => ({ ...old, mauSac: e.target.value }))}>
+            {formData.mauSac?.map((i, j) => <option defaultValue={!j} key={j} value={i.ma}>{i.ten}</option>)}
           </select>
         </div>
 
@@ -106,7 +90,7 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
         <div className={styles["form-section"]}>
           <label htmlFor="giaXuat" className={styles["field-title"]}>Giá xuất</label>
           <input type="number" name="giaXuat" id="giaXuat" className={styles["filed-input"]}
-            value={cauHinh.giaBan} onChange={e => setCauHinh(old => ({ ...old, giaBan: e.target.value }))} />
+            value={cauHinh.giaXuat} onChange={e => setCauHinh(old => ({ ...old, giaXuat: e.target.value }))} />
         </div>
       </form>
 
@@ -115,11 +99,8 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
           headers={["Stt", "Ram", "Rom", "Mau sac", "Gia nhap", "Gia xuat"]}
           data={formData.table.map?.(formarters.cauHinh)}
           rowClick={async function (a) {
-            const data = (await fetch(`${apiRoute.cauHinh}?sp=${ma}&ch=${a.id}`, {
-              method: "GET",
-              headers: { "Content-Type": "application/json" }
-            }).then(a => a.json())).body[0]
-            setCauHinh({ ma: data.ma, rom: data.rom, ram: data.ram, mausac: data.mausac, giaNhap: data.gianhap, giaBan: data.giaxuat })
+            await cauHinhAPI.selectOne({ maSP, ma: a.id }).then(a => setCauHinh(a.body[0]))
+
           }} />
 
         <div className={styles["tools-btn"]}>
@@ -131,11 +112,11 @@ export default function ThemCauHinh({ closeOverlay, ma }) {
       </div>
 
       <div className={styles["submit-btn"]}>
-        <button className='add' onClick={function (e) {
-          if (typeof closeOverlay == 'function') closeOverlay();
+        <button className='add' disabled={!formData.table.length} onClick={function (e) {
+          if (typeof closeOverlay == 'function') closeOverlay("add", e);
         }}>Lưu thông tin</button>
         <button className='edit' onClick={function (e) {
-          if (typeof closeOverlay == 'function') closeOverlay();
+          if (typeof closeOverlay == 'function') closeOverlay("back", e);
         }}>Quay lại trang trước</button>
       </div>
     </div>

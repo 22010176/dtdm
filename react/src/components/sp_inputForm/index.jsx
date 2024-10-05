@@ -5,7 +5,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { FormContext } from '../../pages/sanpham/SanPhamPage'
 import styles from './style.module.css'
 import { useState } from 'react'
-import { apiRoute } from '../../api_param'
+import { apiRoute, thuocTinhAPI } from '../../api_param'
 
 export default function SanPhamForm({ onChange }) {
   const { sanpham: [data, setData] } = useContext(FormContext)
@@ -14,20 +14,9 @@ export default function SanPhamForm({ onChange }) {
   const [thuongHieu, setThuongHieu] = useState([]);
 
   useEffect(() => {
-    fetch(apiRoute.xuatXu)
-      .then(a => a.json())
-      .then(a => setXuatXu(a.body))
-      .catch(() => { return [] })
-
-    fetch(apiRoute.hdh)
-      .then(a => a.json())
-      .then(a => { setHDH(a.body) })
-      .catch(e => { return [] })
-    fetch(apiRoute.thuongHieu)
-      .then(a => a.json())
-      .then(a => setThuongHieu(a.body))
-      .catch(() => { return [] })
-    // console.log({ xuatXu, hdh, thuongHieu })
+    thuocTinhAPI.selectAll("xuatXu").then(a => setXuatXu(a.body))
+    thuocTinhAPI.selectAll("hdh").then(a => { setHDH(a.body) })
+    thuocTinhAPI.selectAll("thuongHieu").then(a => setThuongHieu(a.body))
   }, [])
 
   function updateForm(key, e) {
@@ -77,7 +66,7 @@ export default function SanPhamForm({ onChange }) {
         {/* Man hinh */}
         <div className={styles["input-sec"]}>
           <label htmlFor="kichThuocMan" className={styles['input-label']}>Kich thuoc man</label>
-          <input value={data.man} onChange={updateForm.bind({}, "man")} className={styles['form-text-input']} type="number" name='kichThuocMan' id="kichThuocMan" />
+          <input value={data.manHinh} onChange={updateForm.bind({}, "manHinh")} className={styles['form-text-input']} type="number" name='kichThuocMan' id="kichThuocMan" />
         </div>
 
         {/* Camera truoc */}

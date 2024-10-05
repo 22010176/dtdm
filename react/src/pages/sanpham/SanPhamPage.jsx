@@ -11,13 +11,13 @@ import styles from './style.module.css'
 import IMEM_Data from '../../components/sp_imei'
 import { useEffect, useState, createContext } from 'react'
 import TableA from '../../components/table_a'
-import { apiRoute } from '../../api_param'
+import { apiRoute, sanphamAPI, cauHinhAPI, thuocTinhAPI } from '../../api_param'
 
 export const FormContext = createContext()
 const defaulSanPhamData = {
-  "ten": "", "xuatXu": "a", "cpu": "", "pin": "",
-  "man": "", "camTruoc": "", "camSau": "", "hdh": "a",
-  "pbHDH": "", "tgBH": "", "thuongHieu": "a", "img": ""
+  ma: undefined, ten: "", xuatXu: "a", cpu: "",
+  pin: "", manHinh: "", camTruoc: "", camSau: "",
+  hdh: "a", pbHDH: "", tgBH: "", thuongHieu: "a", hinhAnh: ""
 }
 function App() {
   const [overlay, setOverlay] = useState({
@@ -43,91 +43,88 @@ function App() {
   const [tableData, setTableData] = useState([])
   function getTableData() {
     setTableData([])
-    fetch(apiRoute.sp)
-      .then(a => a.json())
-      .then(a => setTableData(a.body))
+    sanphamAPI.selectAll().then(a => {
+      console.log(a)
+      setTableData(a.body)
+    })
   }
 
   useEffect(function () {
     resetPage()
   }, [])
 
-  async function InsertSanPham(e) {
+  async function openCauHinhOverlay(e) {
     e.preventDefault()
-    await fetch(apiRoute.sp, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "insert", data })
-    }).then(a => a.json()).then(a => {
-      setData(src => ({ ...src, ma: a.id }))
-    })
+    // Nếu sản phẩm được tạo đã được tạo ra trước đó thì ko thêm nữa
+    if ((await cauHinhAPI.selectAll({ maSP: data.ma })).body.length == 0 && (await sanphamAPI.selectOne({ ma: data.ma })).body.length == 0)
+      sanphamAPI.insert(data).then(a => setData(a.body[0]))
+    else sanphamAPI.update(data).then(console.log)
     openOverlay("taoCH")
   }
 
+  async function closeCauHinhOverlay(params) {
+    let result = confirm("Ban chắc chắn muốn xóa?")
+    if (!result) return
+    sanphamAPI.delete({ ma: data.ma })
+    closeOverlay("add")
+  }
   async function DeleteSanPham(e) {
     e.preventDefault()
-    await fetch(apiRoute.sp, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "delete", data })
-    }).then(a => a.json()).then(console.log)
+    await sanphamAPI.delete(data).then(console.log)
     getTableData()
   }
 
   async function UpdateSanPham(e) {
     e.preventDefault();
-    fetch(apiRoute.sp, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "update", data })
-    }).then(a => a.json()).then(console.log)
+    await sanphamAPI.update(data).then(console.log)
     getTableData()
     closeOverlay("edit", true)
   }
 
   async function openEditForm(e) {
     if (!data.ma) return;
-    const temp = await fetch(`${apiRoute.sp}?ma=${data.ma}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    }).then(a => a.json()).then(a => a.body[0])
-
+    const temp = await sanphamAPI.selectOne(data).then(a => a.body[0])
     setData(() => ({
-      "ma": temp.ma, "ten": temp.ten, "xuatXu": temp.xuatxu, "cpu": temp.cpu, "pin": temp.dungluongpin,
-      "man": temp.kichthuocmanhinh, "camTruoc": temp.cam_truoc, "camSau": temp.cam_sau, "hdh": temp.hedieuhanh,
-      "pbHDH": temp.phienbanhdh, "tgBH": temp.thoigianbaohanh, "thuongHieu": temp.thuonghieu, "img": temp.hinhanh
+      "ma": temp.ma, "ten": temp.ten, "xuatXu": temp.xuatXu, "cpu": temp.cpu, "pin": temp.pin,
+      "manHinh": temp.kichThuocManHinh, "camTruoc": temp.camTruoc, "camSau": temp.camSau, "hdh": temp.hedieuhanh,
+      "pbHDH": temp.phienBanHDH, "tgBH": temp.thoiGianBaoHanh, "thuongHieu": temp.thuonghieu, "hinhAnh": temp.hinhanh
     }))
     openOverlay("edit", e)
   }
 
-  function openAddForm(e) {
-    setData({ ...defaulSanPhamData }) // no id on data
+  function openAddForm(e, reset = true) {
+    if (reset) setData({ ...defaulSanPhamData }) // no id on data
     openOverlay("add")
   }
 
-  async function closeInsertCHForm(e) {
+  async function closeInsertCHForm(key, e) {
     e?.preventDefault()
     // Neu so luong san pham != 0
-    if (await fetch(`${apiRoute.cauHinh}?sp=${data.ma}`, { method: "GET" })
-      .then(a => a.json()).then(a => a.body.length) != 0) {
-      closeOverlay("taoCH", false)
-      let id = data.ma;
-      closeOverlay("add", true)
-      setData(data => ({ ...data, ma: id }))
-      openEditForm()
-      return;
+    if (await cauHinhAPI.selectAll({ maSP: data.ma }).then(a => a.body.length) != 0) {
+      // an luu + la trang them san pham
+      if (key == "add") {
+        closeOverlay("add")
+        closeOverlay("edit", false)
+        closeOverlay("taoCH")
+        resetPage()
+      }
+
+      // an quay lai + la trang them san pham
+      if (key == "back") closeOverlay("taoCH", false);
+      return
     }
 
-    const result = confirm("Phai co it nhat 1 cau hinh. Hay dien 1 cau hinh!!!")
-    if (!result) { // press cancel
-      await fetch(apiRoute.sp, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", data: { ma: data.ma } })
-      }).then(a => a.json()).then(console.log)
-
+    // Người dùng muốn hủy
+    // Neu chua co cau hinh, an quay lai hoac luu va la trang them san pham
+    if (key == "back" && Object.keys(overlay).find(i => overlay[i] && i == "add")) {
       closeOverlay("taoCH", false)
-      closeOverlay("add", true)
+      setData(src => ({ ...src }))
+    }
+
+    // Neu chua co cau hinh, an luu va la trang them san pham
+    if (key == "add" && Object.keys(overlay).some(i => overlay[i] && i == "add")) {
+      closeOverlay("taoCH")
+      closeOverlay("add")
     }
   }
 
@@ -135,12 +132,7 @@ function App() {
     <div className={styles.App}>
       <Sidebar />
       <div className={styles["main-content"]}>
-        <Toolbar
-          addFunc={openAddForm}
-          editfunc={openEditForm}
-          deleteFunc={DeleteSanPham}
-          refreshClick={resetPage}
-        />
+        <Toolbar addFunc={openAddForm} editfunc={openEditForm} deleteFunc={DeleteSanPham} refreshClick={resetPage} />
         {/* <SanPhamTable /> */}
         <TableA height="80%" wid th="100%"
           headers={["Mã", "Tên", "Thương hiệu", "Hệ điều hành", "Phiên bản hdh", "Xuất xứ"]}
@@ -157,8 +149,8 @@ function App() {
           </div>
           <SanPhamForm />
           <div className={styles["submit-section"]}>
-            <button className="add" type='submit' onClick={InsertSanPham}>Tạo cấu hình</button>
-            <button className="delete" onClick={closeOverlay.bind({}, "add", true)}>Hủy bỏ</button>
+            <button className="add" type='submit' onClick={openCauHinhOverlay}>Tạo cấu hình</button>
+            <button className="delete" onClick={closeCauHinhOverlay}>Hủy bỏ</button>
           </div>
         </Overlay >
 
@@ -170,17 +162,17 @@ function App() {
           <SanPhamForm />
           <div className={styles["submit-section"]}>
             <button className="add" type='submit' onClick={UpdateSanPham}>Lưu thông tin</button>
-            <button className="edit" type='submit' onClick={openOverlay.bind(this, "taoCH")}>Sửa cấu hình</button>
+            <button className="edit" type='submit' onClick={openCauHinhOverlay}>Sửa cấu hình</button>
             <button className="delete" onClick={closeOverlay.bind({}, "edit", true)}>Hủy bỏ</button>
           </div>
         </Overlay >
 
         {/* Tao cau hinh */}
-        <Overlay width="70%" height="70%" visible={overlay.taoCH} opacity={0.9} closeEvent={closeInsertCHForm} >
+        <Overlay width="70%" height="70%" visible={overlay.taoCH} opacity={0.9} closeEvent={closeInsertCHForm.bind("overlay")} >
           <div className={styles.title}>
             <h1>Chỉnh sửa cấu hình</h1>
           </div>
-          <ThemCauHinh closeOverlay={closeInsertCHForm} ma={data.ma} />
+          <ThemCauHinh closeOverlay={closeInsertCHForm} maSP={data.ma} />
         </Overlay >
 
         {/* imei */}

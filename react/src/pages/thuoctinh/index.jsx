@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEmpire, faAndroid, } from '@fortawesome/free-brands-svg-icons'
 import { faMountainCity, faComputer, faMemory, faArrowRotateRight } from '@fortawesome/free-solid-svg-icons'
-import { apiRoute } from "../../api_param"
+import { apiRoute, thuocTinhAPI } from "../../api_param"
 
 import styles from './style.module.css'
 import Overlay from '../../components/overlay/Overlay'
@@ -33,7 +33,7 @@ function SubmitSec({ deleteF = e => { }, addF = e => { }, editF = e => { } }) {
 }
 
 function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
-  const url = apiRoute[name];
+  // const url = apiRoute[name];
 
   const [visibility, setVisibility] = useState(false);
   const [data, setData] = useState([]);
@@ -41,20 +41,13 @@ function ThuocTinhSec({ name, title, icon, color, headers = [] }) {
 
   async function getData() {
     setData([])
-    if (!url) return;
-    const a = await fetch(url, { method: "GET" }).then(res => res.json())
+    const a = await thuocTinhAPI.selectAll(name)
     if (a.body) setData(a.body.map(formarters[name]))
   }
 
   async function requestPost(method) {
-    if (!url) return;
-    const result = await fetch(url, {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: method, data: formData })
-    }).then(a => a.json())
-
-    if (result.message == 'success') {
+    const result = await thuocTinhAPI[method](name, formData)
+    if (result.message == 'Success') {
       setFormData({ ma: null, ten: "", trangThai: 1 });
       getData(name);
     } else alert("That bai")
