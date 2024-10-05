@@ -3,3 +3,4 @@ my-app/*
 *.zip
 listfile.txt
 temp/*
+nodejs/*

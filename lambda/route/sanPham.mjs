@@ -49,15 +49,6 @@ WHERE ma = ?`,
   }
 }
 
-// const tableQuery = `
-// SELECT * FROM sanpham WHERE ma = ? AND trangThai != 0;`
-// const dataQuery = `
-// SELECT sp.ma, sp.ten, sp.phienbanHDH, xx.ten AS xuatxu, hdh.ten AS hedieuhanh, th.ten AS thuonghieu 
-// FROM sanpham AS sp
-// INNER JOIN xuatxu AS xx ON xx.ma =  sp.xuatxu
-// INNER JOIN thuonghieu AS th ON sp.thuonghieu = th.ma
-// INNER JOIN hedieuhanh AS hdh ON hdh.ma = sp.hedieuhanh
-// WHERE sp.trangThai != 0;`
 const methods = {
   // san-pham
   // san-pham?ma=...

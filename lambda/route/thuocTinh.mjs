@@ -52,7 +52,7 @@ const methods = {
   },
   // delete data
   async DELETE(connection, event) {
-    await query.delete(connection, event)
+    const [result,] = await query.delete(connection, event)
     if (result.changedRows == 0) throw Error("Cant delete row")
     return []
   }

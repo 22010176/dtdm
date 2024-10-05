@@ -3,11 +3,11 @@ CREATE DATABASE  btl;
 USE btl;
 
 DROP TABLE IF EXISTS trangThai;
-CREATE TABLE trangthai (
+CREATE TABLE trangThai (
 	ma INT PRIMARY KEY AUTO_INCREMENT,
     ten VARCHAR(255) UNIQUE
 );
-INSERT INTO trangThai (ten) VALUES ('hienThi'), ('an');
+INSERT INTO trangThai (ma, ten) VALUES (1, 'hienThi'), (2, 'an');
 SELECT * FROM trangThai;
 
 -- Bảng hedieuhanh
@@ -41,7 +41,7 @@ INSERT INTO thuonghieu VALUES
 ("d", "samsung", 1);
 SELECT * FROM thuonghieu;
 UPDATE thuonghieu SET ten = "ed", trangthai = 3 WHERE ma = "0cc96f04-7610-4776-663-d8f7e2baef2c";
-SELECT * FROM thuonghieu WHERE ma = "035039a3-af04-4c3c-9524-da8d9c24c0bd";
+SELECT * FROM thuonghieu ;
 
 -- Bảng xuatxu
 DROP TABLE IF EXISTS xuatxu;
@@ -98,6 +98,8 @@ INSERT INTO rom VALUES
 ('b', '8GB', 1),
 ('c', '12GB', 1);
 
+SELECT * FROM rom;
+
 -- Bảng sanpham
 DROP TABLE IF EXISTS sanpham;
 CREATE TABLE sanpham (
@@ -129,7 +131,7 @@ INNER JOIN thuonghieu AS th ON sp.thuonghieu = th.ma
 INNER JOIN hedieuhanh AS hdh ON hdh.ma = sp.hedieuhanh
 WHERE sp.trangThai != 0 OR 1 = 1;
 
-SELECT * FROM sanpham WHERE ma = 'A4';
+SELECT * FROM sanpham;
 
 INSERT INTO sanpham 
 (ma, ten, xuatxu, cpu, pin, kichThuocManHinh, camTruoc, camSau, hedieuhanh, phienBanHDH, thoiGianBaoHanh, thuonghieu, hinhAnh, trangThai) VALUES 
@@ -164,10 +166,11 @@ CREATE TABLE cauHinh (
 );
 
 INSERT INTO cauHinh (ma, sanPham, rom, ram, mauSac, giaNhap, giaXuat, trangThai) 
-VALUES ("g3", "A4", "a", "a", "a", 33, 44, 1);
--- ("d3", "A1", "a", "a", "a", 33, 44, 1),
--- ("d3d", "A3", "a", "a", "a", 33, 44, 1),
--- ("b3", "A3", "a", "a", "a", 33, 444, 1);
+VALUES 
+("g43", "A4", "a", "a", "a", 33, 44, 1),
+("d3", "A4", "a", "a", "a", 33, 44, 1),
+("d3d", "A5", "a", "a", "a", 33, 44, 1),
+("b3", "A5", "a", "a", "a", 33, 444, 1);
 
 SELECT ch.ma, ram.ten AS ram, rom.ten AS rom, mausac.ten AS mausac, gianhap, giaxuat 
 FROM cauHinh AS ch
@@ -180,10 +183,10 @@ UPDATE cauHinh
 SET rom = "a", ram = "b", mausac = "a", gianhap = 10, giaxuat = 33
 WHERE ma = "12563c26-a525-4a7c-b62f-3130e8137b92" AND sanPham = "A1";
 
-SELECT * FROM cauHinh WHERE ma = '08340a29-9ed0-435a-a973-f06b7fb18e1a';
+SELECT * FROM cauHinh WHERE sanPham = 'ac4b8783-3263-4055-952e-484c4aa0fd6a';
 
 UPDATE cauHinh SET trangThai = 2
-WHERE ma = "g3" AND maSanPham = "A1";
+WHERE ma = "g3" AND sanPham = "A1";
 
 SELECT * FROM cauHinh WHERE trangThai = 1;	
 
