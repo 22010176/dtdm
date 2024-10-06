@@ -72,14 +72,19 @@
 
 .categories-item>* {
     margin-right: 15px;
+    align-self: center;
 }
 
-.categories-item .category-title a,
+.categories-item .category-title a {
+    text-decoration: none;
+    color: black;
+}
+
 .categories-item .category-title {
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: bold;
-
+    align-self: center;
     color: black;
 }
 

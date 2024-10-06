@@ -1,11 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-// import { HashRouter, Route, Routes } from 'react-router-dom'
 import SanPhamPage from './pages/sanpham/SanPhamPage.jsx'
 import HomePage from './pages/home/index.jsx'
 
-import 'reset-css'
-import './index.css'
 import { BrowserRouter, HashRouter, Route, Router, Routes } from 'react-router-dom'
 import ErrorPage from './pages/notFound/index.jsx'
 import ThuocTinhPage from './pages/thuoctinh/index.jsx'

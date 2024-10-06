@@ -8,7 +8,7 @@ import styles from './style.module.css'
 
 
 const defaultCauHinh = { rom: "a", ram: "a", mauSac: "a", giaNhap: "", giaXuat: "", ma: undefined }
-export default function ThemCauHinh({ closeOverlay, maSP }) {
+export default function ThemCauHinh({ closeOverlay, maSP = "" }) {
   const [cauHinh, setCauHinh] = useState({ ...defaultCauHinh })
   const [formData, setFormData] = useState({ rom: [], ram: [], mauSac: [], table: [] })
 

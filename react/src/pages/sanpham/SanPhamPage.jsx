@@ -100,7 +100,7 @@ function App() {
   async function closeInsertCHForm(key, e) {
     e?.preventDefault()
     // Neu so luong san pham != 0
-    if (await cauHinhAPI.selectAll({ maSP: data.ma }).then(a => a.body.length) != 0) {
+    if (await cauHinhAPI.selectAll({ maSP: data?.ma }).then(a => a.body.length) != 0) {
       // an luu + la trang them san pham
       if (key == "add") {
         closeOverlay("add")
@@ -172,7 +172,7 @@ function App() {
           <div className={styles.title}>
             <h1>Chỉnh sửa cấu hình</h1>
           </div>
-          <ThemCauHinh closeOverlay={closeInsertCHForm} maSP={data.ma} />
+          <ThemCauHinh closeOverlay={closeInsertCHForm} maSP={data?.ma} />
         </Overlay >
 
         {/* imei */}
