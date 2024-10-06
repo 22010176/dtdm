@@ -1,4 +1,4 @@
-const url = "https://pi7g97bfph.execute-api.ap-southeast-1.amazonaws.com/api"
+const url = "https://lb4dviezfc.execute-api.ap-southeast-1.amazonaws.com/api"
 
 export const apiRoute = {
   thuongHieu: url + "/thuoc-tinh?table=thuonghieu",

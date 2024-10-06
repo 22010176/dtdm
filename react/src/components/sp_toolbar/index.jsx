@@ -54,11 +54,11 @@ export default function Toolbar({ addFunc, editfunc, deleteFunc, refreshClick })
       </div>
 
       <form action="" method="get" className={styles["search-form"]}>
-        <select title="category" name="category" className={styles["drop-down"]}>
+        {/* <select title="category" name="category" className={styles["drop-down"]}>
           <option value="all">Tên</option>
           <option value="all">Thương hiệu</option>
           <option value="all">Ngày</option>
-        </select>
+        </select> */}
         <input className={styles["search-input"]} type="text" name="ten-sp" placeholder="Tìm kiếm" />
         <FindBtn width="100px" height="40px" />
         <RefreshBtn width="100px" height="40px" onClick={refreshClick} />

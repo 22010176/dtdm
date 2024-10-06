@@ -18,7 +18,7 @@ function Sidebar() {
 
       <div className={["accordion", "accordion-flush", styles["categories"]].join(" ")} id='links'>
         {/* Trang chu */}
-        <div className="accordion-item">
+        {/* <div className="accordion-item">
           <div className={["accordion-header", styles["categories-item"]].join(" ")}>
             <div className={styles["icon"]}>
               <FontAwesomeIcon icon={faHouse} />
@@ -27,7 +27,7 @@ function Sidebar() {
               <a href="/">Trang chủ</a>
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Quan ly san pham */}
         <div className="accordion-item">
@@ -43,7 +43,8 @@ function Sidebar() {
           <ul id="sanPham" className={["accordion-collapse", "collapse", styles["dropdown-container"]].join(" ")} data-bs-parent="#links">
             <li className={styles["item"]}>
               <FontAwesomeIcon icon={faCircle} />
-              <a href="/sanpham">Sản phẩm</a>
+              {/* <a href="/sanpham">Sản phẩm</a> */}
+              <a href="/">Sản phẩm</a>
             </li>
             <li className={styles["item"]}>
               <FontAwesomeIcon icon={faCircle} />
@@ -227,12 +228,12 @@ function Sidebar() {
       {/* </div> */}
 
       {/* Dang xuat */}
-      <div className={[styles["categories-item"], styles["log-out"]].join(" ")}>
+      {/* <div className={[styles["categories-item"], styles["log-out"]].join(" ")}>
         <div className={styles["icon"]}>
           <FontAwesomeIcon icon={faRightFromBracket} />
         </div>
         <p className={styles["category-title"]}>Đăng xuất </p>
-      </div>
+      </div> */}
     </aside>
   )
 }
