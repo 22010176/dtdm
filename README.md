@@ -1,7 +1,7 @@
 ## Bước 1: Tạo VPC
 ### Tạo VPC.
 Truy cập vào [trang VPC](https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#Home) để tạo VPC.
-![alt text](a.png)
+![alt text](./nodegetstarted/a.png)
 
 Khi vào trang giao diện, chọn **Create VPC**.
 ![alt text](b.png)
