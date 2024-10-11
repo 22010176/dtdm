@@ -1,5 +1,5 @@
-const url = "https://lb4dviezfc.execute-api.ap-southeast-1.amazonaws.com/api"
-
+const url = "https://61vqwy9lx6.execute-api.ap-southeast-1.amazonaws.com/api"
+// 
 export const apiRoute = {
   thuongHieu: url + "/thuoc-tinh?table=thuonghieu",
   xuatXu: url + "/thuoc-tinh?table=xuatxu",

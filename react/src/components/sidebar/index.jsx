@@ -16,7 +16,7 @@ function Sidebar() {
 
       {/* <div className={}> */}
 
-      <div className={["accordion", "accordion-flush", styles["categories"]].join(" ")} id='links'>
+      <div className={["accordion", "accordion  flush", styles["categories"]].join(" ")} id='links'>
         {/* Trang chu */}
         {/* <div className="accordion-item">
           <div className={["accordion-header", styles["categories-item"]].join(" ")}>
